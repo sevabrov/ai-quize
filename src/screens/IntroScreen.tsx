@@ -6,15 +6,20 @@ import {
   Lock,
   MessageCircleHeart,
   UserRoundCheck,
-} from 'lucide-react'
-import { Logo } from '../components/Logo'
-import { Robot } from '../components/Robot'
-import { RobotBubble } from '../components/RobotBubble'
-import { OlenaPortrait } from '../components/OlenaPortrait'
-import { Button } from '../components/ui/Button'
-import { heroContent, introDialogue } from '../data/content'
+} from "lucide-react";
+import { Logo } from "../components/Logo";
+import { Robot } from "../components/Robot";
+import { RobotBubble } from "../components/RobotBubble";
+import { OlenaPortrait } from "../components/OlenaPortrait";
+import { Button } from "../components/ui/Button";
+import { heroContent, introDialogue } from "../data/content";
 
-const bulletIcons = [MessageCircleHeart, BrainCircuit, Lightbulb, UserRoundCheck]
+const bulletIcons = [
+  MessageCircleHeart,
+  BrainCircuit,
+  Lightbulb,
+  UserRoundCheck,
+];
 
 export function IntroScreen({ onStart }: { onStart: () => void }) {
   return (
@@ -33,8 +38,8 @@ export function IntroScreen({ onStart }: { onStart: () => void }) {
         <section className="relative mt-6 grid items-center gap-10 md:mt-2 md:grid-cols-[1.05fr_0.95fr] md:gap-4">
           <div className="animate-rise relative z-10 max-w-xl">
             <h1 className="text-[2.1rem] leading-[1.08] sm:text-5xl sm:leading-[1.06]">
-              {heroContent.titleStart}{' '}
-              <span className="text-leaf-500">{heroContent.titleAccent}</span>{' '}
+              {heroContent.titleStart}{" "}
+              <span className="text-leaf-500">{heroContent.titleAccent}</span>{" "}
               {heroContent.titleEnd}
             </h1>
 
@@ -44,7 +49,7 @@ export function IntroScreen({ onStart }: { onStart: () => void }) {
 
             <ul className="mt-7 space-y-3.5">
               {heroContent.bullets.map((text, i) => {
-                const Icon = bulletIcons[i]!
+                const Icon = bulletIcons[i]!;
                 return (
                   <li key={text} className="flex items-center gap-3">
                     <span className="grid size-8 shrink-0 place-items-center rounded-full border border-leaf-200 bg-white/70 text-leaf-600">
@@ -52,7 +57,7 @@ export function IntroScreen({ onStart }: { onStart: () => void }) {
                     </span>
                     <span className="text-[0.9375rem] text-ink">{text}</span>
                   </li>
-                )
+                );
               })}
             </ul>
 
@@ -131,12 +136,6 @@ export function IntroScreen({ onStart }: { onStart: () => void }) {
                 className="max-w-lg"
               />
 
-              <div className="mt-6 max-w-2xl space-y-3.5 text-[0.9375rem] leading-relaxed text-ink-soft">
-                {introDialogue.paragraphs.map((text) => (
-                  <p key={text}>{text}</p>
-                ))}
-              </div>
-
               <p className="mt-6 max-w-2xl text-[0.9375rem] leading-relaxed text-ink">
                 {introDialogue.invitation}
               </p>
@@ -181,12 +180,14 @@ export function IntroScreen({ onStart }: { onStart: () => void }) {
                     strokeWidth={2.75}
                   />
                 </Button>
-                <span className="text-sm text-ink-muted">{introDialogue.cta}</span>
+                <span className="text-sm text-ink-muted">
+                  {introDialogue.cta}
+                </span>
               </div>
             </div>
           </div>
         </section>
       </div>
     </div>
-  )
+  );
 }

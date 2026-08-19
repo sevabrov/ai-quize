@@ -1,45 +1,45 @@
-import { Component, type ErrorInfo, type ReactNode } from 'react'
-import { RefreshCw, TriangleAlert } from 'lucide-react'
-import { Button } from './ui/Button'
+import { Component, type ErrorInfo, type ReactNode } from "react";
+import { RefreshCw, TriangleAlert } from "lucide-react";
+import { Button } from "./ui/Button";
 
 interface Props {
-  children: ReactNode
+  children: ReactNode;
 }
 
 interface State {
-  error: Error | null
+  error: Error | null;
 }
 
 /**
- * Замість зникнення екрану — конкретна помилка з можливістю перезапуску.
+ * Замість зникнення екрану - конкретна помилка з можливістю перезапуску.
  */
 export class ErrorBoundary extends Component<Props, State> {
-  state: State = { error: null }
+  state: State = { error: null };
 
   static getDerivedStateFromError(error: Error): State {
-    return { error }
+    return { error };
   }
 
   componentDidCatch(error: Error, info: ErrorInfo): void {
-    console.error('[quiz] React error:', error, info.componentStack)
+    console.error("[quiz] React error:", error, info.componentStack);
   }
 
   private reset = () => {
-    this.setState({ error: null })
-  }
+    this.setState({ error: null });
+  };
 
   private hardReset = () => {
     try {
-      localStorage.clear()
+      localStorage.clear();
     } catch {
       /* ignore */
     }
-    window.location.reload()
-  }
+    window.location.reload();
+  };
 
   render() {
-    const { error } = this.state
-    if (!error) return this.props.children
+    const { error } = this.state;
+    if (!error) return this.props.children;
 
     return (
       <div className="grid min-h-dvh place-items-center p-6">
@@ -49,8 +49,8 @@ export class ErrorBoundary extends Component<Props, State> {
           </span>
           <h1 className="mt-5 text-2xl">Щось зламалося</h1>
           <p className="mt-3 text-sm leading-relaxed text-ink-soft">
-            Екран не вдалося показати. Ось технічна деталь — її достатньо, щоб виправити
-            причину:
+            Екран не вдалося показати. Ось технічна деталь - її достатньо, щоб
+            виправити причину:
           </p>
           <pre className="mt-4 max-h-48 overflow-auto rounded-card bg-cream-100 p-4 text-xs leading-relaxed text-ink-soft">
             {error.message}
@@ -66,6 +66,6 @@ export class ErrorBoundary extends Component<Props, State> {
           </div>
         </div>
       </div>
-    )
+    );
   }
 }

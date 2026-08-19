@@ -1,7 +1,7 @@
 {
   "name": "ai-quiz-olena-filatova",
   "version": "1.0.0",
-  "description": "AI-діагностика потенціалу — інтерактивний квіз для MLM-підприємців (Олена Філатова)",
+  "description": "AI-діагностика потенціалу - інтерактивний квіз для MLM-підприємців (Олена Філатова)",
   "scripts": {
     "dev": "vite",
     "api": "json-server db.json -p 3001",

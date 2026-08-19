@@ -1,25 +1,29 @@
-import { useId } from 'react'
-import type { EmblemVariant } from '../data/profiles'
-import { cn } from '../lib/cn'
+import { useId } from "react";
+import type { EmblemVariant } from "../data/profiles";
+import { cn } from "../lib/cn";
 
 /**
- * Векторна емблема бізнес-профілю — «кристал» із макета,
+ * Векторна емблема бізнес-профілю - «кристал» із макета,
  * плюс п'ять варіацій у тій самій пластиці для решти профілів.
  */
 export function ProfileEmblem({
   variant,
   className,
 }: {
-  variant: EmblemVariant
-  className?: string
+  variant: EmblemVariant;
+  className?: string;
 }) {
-  const uid = useId().replace(/[:]/g, '')
-  const grad = `emblem-grad-${uid}`
-  const glow = `emblem-glow-${uid}`
-  const light = `emblem-light-${uid}`
+  const uid = useId().replace(/[:]/g, "");
+  const grad = `emblem-grad-${uid}`;
+  const glow = `emblem-glow-${uid}`;
+  const light = `emblem-light-${uid}`;
 
   return (
-    <svg viewBox="0 0 120 120" className={cn('overflow-visible', className)} aria-hidden="true">
+    <svg
+      viewBox="0 0 120 120"
+      className={cn("overflow-visible", className)}
+      aria-hidden="true"
+    >
       <defs>
         <linearGradient id={grad} x1="0.1" y1="0" x2="0.9" y2="1">
           <stop offset="0%" stopColor="#cfdfb8" />
@@ -38,10 +42,14 @@ export function ProfileEmblem({
 
       <circle cx="60" cy="62" r="54" fill={`url(#${glow})`} />
 
-      {variant === 'crystal' && (
+      {variant === "crystal" && (
         <g>
           <path d="M60 10 L96 44 L60 112 L24 44 Z" fill={`url(#${grad})`} />
-          <path d="M60 10 L96 44 L60 56 Z" fill={`url(#${light})`} opacity="0.85" />
+          <path
+            d="M60 10 L96 44 L60 56 Z"
+            fill={`url(#${light})`}
+            opacity="0.85"
+          />
           <path d="M60 10 L24 44 L60 56 Z" fill="#ffffff" opacity="0.35" />
           <path
             d="M24 44 L60 56 L96 44"
@@ -50,11 +58,16 @@ export function ProfileEmblem({
             fill="none"
             opacity="0.7"
           />
-          <path d="M60 56 L60 112" stroke="#f2f6ec" strokeWidth="1.4" opacity="0.5" />
+          <path
+            d="M60 56 L60 112"
+            stroke="#f2f6ec"
+            strokeWidth="1.4"
+            opacity="0.5"
+          />
         </g>
       )}
 
-      {variant === 'signal' && (
+      {variant === "signal" && (
         <g fill="none" strokeLinecap="round">
           <circle cx="60" cy="62" r="13" fill={`url(#${grad})`} />
           <circle cx="60" cy="62" r="7" fill={`url(#${light})`} opacity="0.9" />
@@ -79,7 +92,7 @@ export function ProfileEmblem({
         </g>
       )}
 
-      {variant === 'compass' && (
+      {variant === "compass" && (
         <g>
           <circle
             cx="60"
@@ -92,24 +105,35 @@ export function ProfileEmblem({
           <circle cx="60" cy="62" r="30" fill="#f2f6ec" opacity="0.6" />
           <path d="M60 30 L74 66 L60 60 Z" fill="#4b6532" />
           <path d="M60 94 L46 58 L60 64 Z" fill={`url(#${light})`} />
-          <circle cx="60" cy="62" r="6" fill="#ffffff" stroke="#5f7e3f" strokeWidth="3" />
+          <circle
+            cx="60"
+            cy="62"
+            r="6"
+            fill="#ffffff"
+            stroke="#5f7e3f"
+            strokeWidth="3"
+          />
         </g>
       )}
 
-      {variant === 'crown' && (
+      {variant === "crown" && (
         <g>
           <path
             d="M18 88 L26 36 L44 60 L60 26 L76 60 L94 36 L102 88 Z"
             fill={`url(#${grad})`}
           />
-          <path d="M60 26 L76 60 L60 66 Z" fill={`url(#${light})`} opacity="0.9" />
+          <path
+            d="M60 26 L76 60 L60 66 Z"
+            fill={`url(#${light})`}
+            opacity="0.9"
+          />
           <path d="M60 26 L44 60 L60 66 Z" fill="#ffffff" opacity="0.32" />
           <rect x="18" y="90" width="84" height="14" rx="7" fill="#4b6532" />
           <circle cx="60" cy="46" r="4.5" fill="#f2f6ec" opacity="0.85" />
         </g>
       )}
 
-      {variant === 'circuit' && (
+      {variant === "circuit" && (
         <g>
           <path
             d="M60 24 L60 50 M60 74 L60 100 M36 62 L60 62 M60 62 L84 62 M40 40 L54 54 M80 40 L66 54 M40 84 L54 70 M80 84 L66 70"
@@ -130,18 +154,28 @@ export function ProfileEmblem({
             [36, 88],
             [84, 88],
           ].map(([cx, cy]) => (
-            <circle key={`${cx}-${cy}`} cx={cx} cy={cy} r="5.5" fill="#5f7e3f" />
+            <circle
+              key={`${cx}-${cy}`}
+              cx={cx}
+              cy={cy}
+              r="5.5"
+              fill="#5f7e3f"
+            />
           ))}
         </g>
       )}
 
-      {variant === 'rocket' && (
+      {variant === "rocket" && (
         <g>
           <path
             d="M60 12 C76 30 82 52 78 76 L42 76 C38 52 44 30 60 12 Z"
             fill={`url(#${grad})`}
           />
-          <path d="M60 12 C76 30 82 52 78 76 L60 76 Z" fill={`url(#${light})`} opacity="0.55" />
+          <path
+            d="M60 12 C76 30 82 52 78 76 L60 76 Z"
+            fill={`url(#${light})`}
+            opacity="0.55"
+          />
           <circle cx="60" cy="46" r="9" fill="#f2f6ec" />
           <circle cx="60" cy="46" r="5" fill="#5f7e3f" />
           <path d="M42 76 L26 96 L44 90 Z" fill="#4b6532" />
@@ -154,5 +188,5 @@ export function ProfileEmblem({
         </g>
       )}
     </svg>
-  )
+  );
 }

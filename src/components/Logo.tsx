@@ -1,11 +1,11 @@
-import { cn } from '../lib/cn'
+import { cn } from "../lib/cn";
 
-/** Знак-листок із макета — використовується і в логотипі, і як декоративний елемент. */
+/** Знак-листок із макета - використовується і в логотипі, і як декоративний елемент. */
 export function LeafMark({ className }: { className?: string }) {
   return (
     <span
       className={cn(
-        'grid place-items-center rounded-[0.65rem] bg-linear-to-br from-leaf-100 to-leaf-200/70 ring-1 ring-leaf-200/80',
+        "grid place-items-center rounded-[0.65rem] bg-linear-to-br from-leaf-100 to-leaf-200/70 ring-1 ring-leaf-200/80",
         className,
       )}
     >
@@ -30,26 +30,28 @@ export function LeafMark({ className }: { className?: string }) {
         </defs>
       </svg>
     </span>
-  )
+  );
 }
 
 interface LogoProps {
-  className?: string
-  /** compact — для шапки квізу, full — для герою */
-  size?: 'compact' | 'full'
+  className?: string;
+  /** compact - для шапки квізу, full - для герою */
+  size?: "compact" | "full";
 }
 
-export function Logo({ className, size = 'compact' }: LogoProps) {
-  const compact = size === 'compact'
+export function Logo({ className, size = "compact" }: LogoProps) {
+  const compact = size === "compact";
 
   return (
-    <div className={cn('flex items-center gap-2.5', className)}>
-      <LeafMark className={compact ? 'size-8' : 'size-11'} />
+    <div className={cn("flex items-center gap-2.5", className)}>
+      <LeafMark className={compact ? "size-8" : "size-11"} />
       <div className="leading-none">
         <div
           className={cn(
-            'font-display font-extrabold uppercase text-ink',
-            compact ? 'text-[0.6875rem] tracking-[0.1em]' : 'text-sm tracking-[0.08em]',
+            "font-display font-extrabold uppercase text-ink",
+            compact
+              ? "text-[0.6875rem] tracking-[0.1em]"
+              : "text-sm tracking-[0.08em]",
           )}
         >
           AI-діагностика
@@ -61,5 +63,5 @@ export function Logo({ className, size = 'compact' }: LogoProps) {
         )}
       </div>
     </div>
-  )
+  );
 }

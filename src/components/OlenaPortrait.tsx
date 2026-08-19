@@ -1,37 +1,37 @@
-import { useState } from 'react'
-import { cn } from '../lib/cn'
+import { useState } from "react";
+import { cn } from "../lib/cn";
 
 /**
  * Портрет Олени.
  *
  * Реальне фото підкладається у public/olena.jpg (див. README).
- * Поки файлу немає — рендериться векторний плейсхолдер у стилі системи,
+ * Поки файлу немає - рендериться векторний плейсхолдер у стилі системи,
  * тому верстка ніде не «падає» і не показує битих картинок.
  */
 
-const PHOTO_SRC = '/olena.jpg'
+const PHOTO_SRC = "/olena.jpg";
 
 export function OlenaPortrait({
   className,
-  rounded = 'full',
+  rounded = "full",
 }: {
-  className?: string
-  rounded?: 'full' | 'card'
+  className?: string;
+  rounded?: "full" | "card";
 }) {
-  const [failed, setFailed] = useState(false)
+  const [failed, setFailed] = useState(false);
 
   if (failed) {
     return (
       <div
         className={cn(
-          'overflow-hidden bg-linear-to-b from-leaf-100 to-cream-200',
-          rounded === 'full' ? 'rounded-full' : 'rounded-panel',
+          "overflow-hidden bg-linear-to-b from-leaf-100 to-cream-200",
+          rounded === "full" ? "rounded-full" : "rounded-panel",
           className,
         )}
       >
         <PortraitFallback />
       </div>
-    )
+    );
   }
 
   return (
@@ -41,12 +41,12 @@ export function OlenaPortrait({
       loading="lazy"
       onError={() => setFailed(true)}
       className={cn(
-        'size-full object-cover',
-        rounded === 'full' ? 'rounded-full' : 'rounded-panel',
+        "size-full object-cover",
+        rounded === "full" ? "rounded-full" : "rounded-panel",
         className,
       )}
     />
-  )
+  );
 }
 
 /**
@@ -55,7 +55,12 @@ export function OlenaPortrait({
  */
 function PortraitFallback() {
   return (
-    <svg viewBox="0 0 200 240" className="size-full" role="img" aria-label="Олена Філатова">
+    <svg
+      viewBox="0 0 200 240"
+      className="size-full"
+      role="img"
+      aria-label="Олена Філатова"
+    >
       <defs>
         <linearGradient id="olena-bg" x1="0" y1="0" x2="1" y2="1">
           <stop offset="0%" stopColor="#f4f7ee" />
@@ -85,12 +90,8 @@ function PortraitFallback() {
         <path d="M40 240 C44 188 68 162 100 162 C132 162 156 188 160 240 Z" />
       </g>
 
-      {/* світлий вирізаний «комір» — читається як піджак */}
-      <path
-        d="M100 162 L84 240 L116 240 Z"
-        fill="#f4f7ee"
-        opacity="0.9"
-      />
+      {/* світлий вирізаний «комір» - читається як піджак */}
+      <path d="M100 162 L84 240 L116 240 Z" fill="#f4f7ee" opacity="0.9" />
 
       {/* листочок-акцент */}
       <path
@@ -112,5 +113,5 @@ function PortraitFallback() {
         фото Олени
       </text>
     </svg>
-  )
+  );
 }

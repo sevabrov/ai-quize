@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react'
-import Cal, { getCalApi } from '@calcom/embed-react'
+import { useEffect, useState } from "react";
+import Cal, { getCalApi } from "@calcom/embed-react";
 import {
   ArrowLeft,
   CalendarCheck,
@@ -7,22 +7,22 @@ import {
   Clock3,
   ShieldCheck,
   Video,
-} from 'lucide-react'
-import { MihiTeaser } from '../components/MihiTeaser'
-import { OlenaPortrait } from '../components/OlenaPortrait'
-import { Robot } from '../components/Robot'
-import { RobotBubble } from '../components/RobotBubble'
-import { Button } from '../components/ui/Button'
-import { Card } from '../components/ui/Card'
-import { bookingContent } from '../data/content'
-import { env } from '../lib/env'
+} from "lucide-react";
+import { MihiTeaser } from "../components/MihiTeaser";
+import { OlenaPortrait } from "../components/OlenaPortrait";
+import { Robot } from "../components/Robot";
+import { RobotBubble } from "../components/RobotBubble";
+import { Button } from "../components/ui/Button";
+import { Card } from "../components/ui/Card";
+import { bookingContent } from "../data/content";
+import { env } from "../lib/env";
 
 interface BookingScreenProps {
-  onBack: () => void
-  onBooked: (detail: unknown) => void
-  onMihiClick: () => void
-  /** Чи готовий уже AI-аналіз — щоб показати шлях назад до нього */
-  analysisReady: boolean
+  onBack: () => void;
+  onBooked: (detail: unknown) => void;
+  onMihiClick: () => void;
+  /** Чи готовий уже AI-аналіз - щоб показати шлях назад до нього */
+  analysisReady: boolean;
 }
 
 export function BookingScreen({
@@ -31,57 +31,57 @@ export function BookingScreen({
   onMihiClick,
   analysisReady,
 }: BookingScreenProps) {
-  const [booked, setBooked] = useState(false)
+  const [booked, setBooked] = useState(false);
 
   /* Ініціалізація embed: брендові кольори системи + підписка на успішне бронювання */
   useEffect(() => {
-    let cancelled = false
+    let cancelled = false;
 
     void (async () => {
       try {
-        const cal = await getCalApi({ namespace: env.calNamespace })
-        if (cancelled) return
+        const cal = await getCalApi({ namespace: env.calNamespace });
+        if (cancelled) return;
 
-        cal('ui', {
-          theme: 'light',
+        cal("ui", {
+          theme: "light",
           hideEventTypeDetails: false,
-          layout: 'month_view',
+          layout: "month_view",
           cssVarsPerTheme: {
             light: {
-              'cal-brand': '#74954f',
-              'cal-bg': '#ffffff',
-              'cal-bg-emphasis': '#f2f6ec',
-              'cal-border': '#e6e1d2',
-              'cal-text': '#232b1e',
-              'cal-text-emphasis': '#232b1e',
+              "cal-brand": "#74954f",
+              "cal-bg": "#ffffff",
+              "cal-bg-emphasis": "#f2f6ec",
+              "cal-border": "#e6e1d2",
+              "cal-text": "#232b1e",
+              "cal-text-emphasis": "#232b1e",
             },
             dark: {
-              'cal-brand': '#91b06c',
+              "cal-brand": "#91b06c",
             },
           },
-        })
+        });
 
-        cal('on', {
-          action: 'bookingSuccessful',
+        cal("on", {
+          action: "bookingSuccessful",
           callback: (event: unknown) => {
-            setBooked(true)
+            setBooked(true);
             const detail =
-              event && typeof event === 'object' && 'detail' in event
+              event && typeof event === "object" && "detail" in event
                 ? (event as { detail: unknown }).detail
-                : event
-            onBooked(detail)
+                : event;
+            onBooked(detail);
           },
-        })
+        });
       } catch (error) {
-        console.warn('[quiz] Cal.com embed не ініціалізувався:', error)
+        console.warn("[quiz] Cal.com embed не ініціалізувався:", error);
       }
-    })()
+    })();
 
     return () => {
-      cancelled = true
-    }
+      cancelled = true;
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, []);
 
   return (
     <div className="animate-screen-in space-y-6">
@@ -104,15 +104,20 @@ export function BookingScreen({
             <ul className="mt-5 grid gap-2.5 sm:grid-cols-2">
               {[
                 { icon: Video, text: bookingContent.zoom },
-                { icon: Clock3, text: '30 хвилин особистої розмови' },
-                { icon: ShieldCheck, text: 'Конфіденційно, без публічних зобов’язань' },
-                { icon: CalendarCheck, text: 'Обираєш дату й час сама' },
+                { icon: Clock3, text: "30 хвилин особистої розмови" },
+                {
+                  icon: ShieldCheck,
+                  text: "Конфіденційно, без публічних зобов’язань",
+                },
+                { icon: CalendarCheck, text: "Обираєш дату й час сама" },
               ].map(({ icon: Icon, text }) => (
                 <li key={text} className="flex items-start gap-2.5">
                   <span className="mt-px grid size-6 shrink-0 place-items-center rounded-full bg-leaf-100 text-leaf-600">
                     <Icon className="size-3.5" strokeWidth={2.5} />
                   </span>
-                  <span className="text-[0.8125rem] leading-relaxed text-ink-soft">{text}</span>
+                  <span className="text-[0.8125rem] leading-relaxed text-ink-soft">
+                    {text}
+                  </span>
                 </li>
               ))}
             </ul>
@@ -120,7 +125,11 @@ export function BookingScreen({
         </div>
 
         <div className="mt-7 flex items-start gap-4 rounded-card border border-leaf-200 bg-leaf-50/60 p-4 sm:p-5">
-          <Robot pose="wave" className="h-20 shrink-0 sm:h-24" floating={false} />
+          <Robot
+            pose="wave"
+            className="h-20 shrink-0 sm:h-24"
+            floating={false}
+          />
           <RobotBubble
             text={bookingContent.value}
             tail="left"
@@ -151,13 +160,18 @@ export function BookingScreen({
           <Cal
             namespace={env.calNamespace}
             calLink={env.calLink}
-            style={{ width: '100%', height: '100%', minHeight: '600px', overflow: 'scroll' }}
-            config={{ layout: 'month_view', theme: 'light' }}
+            style={{
+              width: "100%",
+              height: "100%",
+              minHeight: "600px",
+              overflow: "scroll",
+            }}
+            config={{ layout: "month_view", theme: "light" }}
           />
         </div>
 
         <div className="border-t border-line bg-cream-50 px-5 py-3.5 text-xs text-ink-muted sm:px-7">
-          Якщо календар не завантажився —{' '}
+          Якщо календар не завантажився -{" "}
           <a
             href={`https://cal.com/${env.calLink}`}
             target="_blank"
@@ -181,9 +195,11 @@ export function BookingScreen({
       <div className="flex justify-center">
         <Button variant="ghost" size="sm" onClick={onBack}>
           <ArrowLeft className="size-3.5" strokeWidth={2.75} />
-          {analysisReady ? 'Повернутись до AI-аналізу' : 'Повернутись до результату'}
+          {analysisReady
+            ? "Повернутись до AI-аналізу"
+            : "Повернутись до результату"}
         </Button>
       </div>
     </div>
-  )
+  );
 }

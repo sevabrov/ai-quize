@@ -1,30 +1,30 @@
-import { useEffect } from 'react'
-import { AppShell } from './components/AppShell'
-import { useQuizFlow } from './hooks/useQuizFlow'
-import { AboutScreen } from './screens/AboutScreen'
-import { AnalysisScreen } from './screens/AnalysisScreen'
-import { BookingScreen } from './screens/BookingScreen'
-import { IntroScreen } from './screens/IntroScreen'
-import { QuizScreen } from './screens/QuizScreen'
-import { ResultScreen } from './screens/ResultScreen'
-import { isDemoMode } from './lib/env'
+import { useEffect } from "react";
+import { AppShell } from "./components/AppShell";
+import { useQuizFlow } from "./hooks/useQuizFlow";
+import { AboutScreen } from "./screens/AboutScreen";
+import { AnalysisScreen } from "./screens/AnalysisScreen";
+import { BookingScreen } from "./screens/BookingScreen";
+import { IntroScreen } from "./screens/IntroScreen";
+import { QuizScreen } from "./screens/QuizScreen";
+import { ResultScreen } from "./screens/ResultScreen";
+import { isDemoMode } from "./lib/env";
 
 export default function App() {
-  const flow = useQuizFlow()
-  const { state, actions, result } = flow
+  const flow = useQuizFlow();
+  const { state, actions, result } = flow;
 
   // Плавний скрол уверх при зміні екрану
   useEffect(() => {
-    window.scrollTo({ top: 0, behavior: 'smooth' })
-  }, [state.stage])
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, [state.stage]);
 
-  if (state.stage === 'intro') {
+  if (state.stage === "intro") {
     return (
       <>
         <IntroScreen onStart={actions.begin} />
         <DemoBadge />
       </>
-    )
+    );
   }
 
   return (
@@ -32,13 +32,15 @@ export default function App() {
       <AppShell
         onExit={actions.restart}
         syncState={flow.syncState}
-        width={state.stage === 'about' || state.stage === 'quiz' ? 'wide' : 'wide'}
+        width={
+          state.stage === "about" || state.stage === "quiz" ? "wide" : "wide"
+        }
       >
-        {state.stage === 'about' && <AboutScreen onNext={actions.startQuiz} />}
+        {state.stage === "about" && <AboutScreen onNext={actions.startQuiz} />}
 
-        {state.stage === 'quiz' && <QuizScreen flow={flow} />}
+        {state.stage === "quiz" && <QuizScreen flow={flow} />}
 
-        {state.stage === 'result' && result && (
+        {state.stage === "result" && result && (
           <ResultScreen
             result={result}
             onRequestAnalysis={actions.requestAnalysis}
@@ -46,12 +48,16 @@ export default function App() {
           />
         )}
 
-        {state.stage === 'analysis' && result && <AnalysisScreen flow={flow} result={result} />}
+        {state.stage === "analysis" && result && (
+          <AnalysisScreen flow={flow} result={result} />
+        )}
 
-        {state.stage === 'booking' && result && (
+        {state.stage === "booking" && result && (
           <BookingScreen
             onBack={() =>
-              state.analysisStartedAt ? actions.requestAnalysis() : actions.toResult()
+              state.analysisStartedAt
+                ? actions.requestAnalysis()
+                : actions.toResult()
             }
             onBooked={actions.registerBooking}
             onMihiClick={actions.registerMihiClick}
@@ -61,16 +67,16 @@ export default function App() {
       </AppShell>
       <DemoBadge />
     </>
-  )
+  );
 }
 
-/** Видимий маркер, коли таймери скорочені через .env — щоб не забути перед продакшеном. */
+/** Видимий маркер, коли таймери скорочені через .env - щоб не забути перед продакшеном. */
 function DemoBadge() {
-  if (!isDemoMode) return null
+  if (!isDemoMode) return null;
 
   return (
     <div className="pointer-events-none fixed bottom-4 left-4 z-50 rounded-full border border-amber-200 bg-amber-50/95 px-3 py-1.5 text-[0.6875rem] font-semibold text-accent-amber shadow-soft">
       DEMO: скорочені таймери
     </div>
-  )
+  );
 }

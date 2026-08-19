@@ -1,4 +1,4 @@
-import { useMemo } from 'react'
+import { useMemo } from "react";
 import {
   ArrowRight,
   BrainCircuit,
@@ -10,32 +10,32 @@ import {
   ShieldAlert,
   Sparkles,
   Star,
-} from 'lucide-react'
-import { CountdownRing } from '../components/CountdownRing'
-import { MihiTeaser } from '../components/MihiTeaser'
-import { ProfileEmblem } from '../components/ProfileEmblem'
-import { Robot } from '../components/Robot'
-import { RobotBubble } from '../components/RobotBubble'
-import { Button } from '../components/ui/Button'
-import { Card } from '../components/ui/Card'
-import { analysisContent } from '../data/content'
-import { formatMinutesWord, useCountdown } from '../hooks/useCountdown'
-import type { QuizFlow } from '../hooks/useQuizFlow'
-import { env } from '../lib/env'
-import { secondaryProfiles, type QuizResult } from '../lib/scoring'
-import { cn } from '../lib/cn'
+} from "lucide-react";
+import { CountdownRing } from "../components/CountdownRing";
+import { MihiTeaser } from "../components/MihiTeaser";
+import { ProfileEmblem } from "../components/ProfileEmblem";
+import { Robot } from "../components/Robot";
+import { RobotBubble } from "../components/RobotBubble";
+import { Button } from "../components/ui/Button";
+import { Card } from "../components/ui/Card";
+import { analysisContent } from "../data/content";
+import { formatMinutesWord, useCountdown } from "../hooks/useCountdown";
+import type { QuizFlow } from "../hooks/useQuizFlow";
+import { env } from "../lib/env";
+import { secondaryProfiles, type QuizResult } from "../lib/scoring";
+import { cn } from "../lib/cn";
 
 interface AnalysisScreenProps {
-  flow: QuizFlow
-  result: QuizResult
+  flow: QuizFlow;
+  result: QuizResult;
 }
 
 export function AnalysisScreen({ flow, result }: AnalysisScreenProps) {
-  const { state, actions } = flow
-  const startedAt = state.analysisStartedAt ?? Date.now()
-  const readyAt = startedAt + env.analysisDelayMs
+  const { state, actions } = flow;
+  const startedAt = state.analysisStartedAt ?? Date.now();
+  const readyAt = startedAt + env.analysisDelayMs;
 
-  const analysis = useCountdown(readyAt, actions.deliverAnalysis)
+  const analysis = useCountdown(readyAt, actions.deliverAnalysis);
 
   if (!analysis.isDone) {
     return (
@@ -45,10 +45,10 @@ export function AnalysisScreen({ flow, result }: AnalysisScreenProps) {
         onMihiClick={actions.registerMihiClick}
         onBooking={actions.goToBooking}
       />
-    )
+    );
   }
 
-  return <FullAnalysisView flow={flow} result={result} readyAt={readyAt} />
+  return <FullAnalysisView flow={flow} result={result} readyAt={readyAt} />;
 }
 
 /* ───────────────────────── очікування ───────────────────────── */
@@ -59,22 +59,22 @@ function WaitingView({
   onMihiClick,
   onBooking,
 }: {
-  remainingMs: number
-  totalMs: number
-  onMihiClick: () => void
-  onBooking: () => void
+  remainingMs: number;
+  totalMs: number;
+  onMihiClick: () => void;
+  onBooking: () => void;
 }) {
   const steps = [
     {
       when: `Через ${formatMinutesWord(totalMs)}`,
-      text: 'Ти отримаєш свій AI-аналіз',
+      text: "Ти отримаєш свій AI-аналіз",
     },
     {
       when: `Через ${formatMinutesWord(totalMs + env.bookingNudgeDelayMs)}`,
-      text: 'Надішлемо корисні рекомендації',
+      text: "Надішлемо корисні рекомендації",
     },
-    { when: 'Далі', text: 'Пропозиція особистого розбору з Оленою' },
-  ]
+    { when: "Далі", text: "Пропозиція особистого розбору з Оленою" },
+  ];
 
   return (
     <div className="animate-screen-in space-y-6">
@@ -94,7 +94,11 @@ function WaitingView({
           </div>
 
           <div className="flex justify-center sm:justify-end">
-            <CountdownRing remainingMs={remainingMs} totalMs={totalMs} size={140} />
+            <CountdownRing
+              remainingMs={remainingMs}
+              totalMs={totalMs}
+              size={140}
+            />
           </div>
         </div>
 
@@ -110,8 +114,10 @@ function WaitingView({
                 <div className="flex items-center gap-2.5">
                   <span
                     className={cn(
-                      'grid size-6 shrink-0 place-items-center rounded-full',
-                      i === 0 ? 'bg-leaf-500 text-white' : 'bg-leaf-100 text-leaf-500',
+                      "grid size-6 shrink-0 place-items-center rounded-full",
+                      i === 0
+                        ? "bg-leaf-500 text-white"
+                        : "bg-leaf-100 text-leaf-500",
                     )}
                   >
                     <CircleDot className="size-3.5" strokeWidth={2.5} />
@@ -137,20 +143,25 @@ function WaitingView({
           <div className="flex items-start gap-4">
             <Robot pose="think" className="h-24 shrink-0" floating={false} />
             <RobotBubble
-              text="Не хочеш чекати? Можна одразу обрати час особистого розбору — аналіз усе одно буде готовий."
+              text="Не хочеш чекати? Можна одразу обрати час особистого розбору - аналіз усе одно буде готовий."
               tail="left"
               typing={false}
               className="max-w-md"
             />
           </div>
-          <Button size="md" variant="secondary" onClick={onBooking} className="shrink-0">
+          <Button
+            size="md"
+            variant="secondary"
+            onClick={onBooking}
+            className="shrink-0"
+          >
             <CalendarHeart className="size-4" strokeWidth={2.25} />
             Обрати час розбору
           </Button>
         </div>
       </Card>
     </div>
-  )
+  );
 }
 
 /* ───────────────────────── повний аналіз ───────────────────────── */
@@ -160,16 +171,17 @@ function FullAnalysisView({
   result,
   readyAt,
 }: {
-  flow: QuizFlow
-  result: QuizResult
-  readyAt: number
+  flow: QuizFlow;
+  result: QuizResult;
+  readyAt: number;
 }) {
-  const { profile } = result
-  const { state, actions } = flow
+  const { profile } = result;
+  const { state, actions } = flow;
 
-  const nudgeAt = (state.analysisDeliveredAt ?? readyAt) + env.bookingNudgeDelayMs
-  const nudge = useCountdown(nudgeAt)
-  const extras = useMemo(() => secondaryProfiles(result), [result])
+  const nudgeAt =
+    (state.analysisDeliveredAt ?? readyAt) + env.bookingNudgeDelayMs;
+  const nudge = useCountdown(nudgeAt);
+  const extras = useMemo(() => secondaryProfiles(result), [result]);
 
   return (
     <div className="animate-screen-in space-y-6">
@@ -184,7 +196,9 @@ function FullAnalysisView({
             <div className="mt-4 flex items-center gap-2.5">
               <span className="text-2xl leading-none">{profile.emoji}</span>
               <div>
-                <p className="font-display text-lg font-extrabold text-ink">{profile.name}</p>
+                <p className="font-display text-lg font-extrabold text-ink">
+                  {profile.name}
+                </p>
                 <p className="text-sm text-leaf-600">{profile.tagline}</p>
               </div>
             </div>
@@ -200,7 +214,10 @@ function FullAnalysisView({
         <Section icon={Compass} title="Твій результат">
           <div className="space-y-3.5">
             {profile.summary.map((text) => (
-              <p key={text} className="text-[0.9375rem] leading-relaxed text-ink-soft">
+              <p
+                key={text}
+                className="text-[0.9375rem] leading-relaxed text-ink-soft"
+              >
                 {text}
               </p>
             ))}
@@ -212,7 +229,11 @@ function FullAnalysisView({
             <BulletList items={profile.strengths} tone="leaf" />
           </Section>
 
-          <Section icon={ShieldAlert} title="Що зараз може стримувати" tone="amber">
+          <Section
+            icon={ShieldAlert}
+            title="Що зараз може стримувати"
+            tone="amber"
+          >
             <BulletList items={profile.blockers} tone="amber" />
           </Section>
         </div>
@@ -220,7 +241,10 @@ function FullAnalysisView({
         <Section icon={BrainCircuit} title="Твоя головна точка росту">
           <div className="space-y-3 rounded-card border border-leaf-200 bg-leaf-50/60 p-5">
             {profile.growthPoint.map((text) => (
-              <p key={text} className="text-[0.9375rem] leading-relaxed text-ink">
+              <p
+                key={text}
+                className="text-[0.9375rem] leading-relaxed text-ink"
+              >
                 {text}
               </p>
             ))}
@@ -228,20 +252,29 @@ function FullAnalysisView({
         </Section>
 
         <Section icon={Lightbulb} title="Що тобі зараз підійде">
-          <p className="text-[0.9375rem] leading-relaxed text-ink-soft">{profile.fits}</p>
+          <p className="text-[0.9375rem] leading-relaxed text-ink-soft">
+            {profile.fits}
+          </p>
         </Section>
 
         <Section icon={Rocket} title="Наступний крок">
-          <p className="text-[0.9375rem] leading-relaxed text-ink-soft">{profile.nextStep}</p>
+          <p className="text-[0.9375rem] leading-relaxed text-ink-soft">
+            {profile.nextStep}
+          </p>
         </Section>
 
         {extras.length > 0 && (
           <Section icon={Sparkles} title="Що ще варто взяти у свій сценарій">
             <div className="grid gap-3 sm:grid-cols-2">
               {extras.map((extra) => (
-                <div key={extra.id} className="rounded-card border border-line bg-cream-50 p-4">
+                <div
+                  key={extra.id}
+                  className="rounded-card border border-line bg-cream-50 p-4"
+                >
                   <p className="flex items-center gap-2 font-display text-sm font-extrabold text-ink">
-                    <span className="text-base leading-none">{extra.emoji}</span>
+                    <span className="text-base leading-none">
+                      {extra.emoji}
+                    </span>
                     {extra.name}
                   </p>
                   <p className="mt-2 text-[0.8125rem] leading-relaxed text-ink-soft">
@@ -269,7 +302,11 @@ function FullAnalysisView({
                 </p>
               </div>
             </div>
-            <Button size="lg" onClick={actions.goToBooking} className="shrink-0">
+            <Button
+              size="lg"
+              onClick={actions.goToBooking}
+              className="shrink-0"
+            >
               {analysisContent.ctaBooking}
               <ArrowRight
                 className="size-4 transition-transform duration-200 group-hover:translate-x-1"
@@ -279,9 +316,14 @@ function FullAnalysisView({
           </div>
         </Card>
       ) : (
-        <Card tone="wash" padding="md" className="flex flex-wrap items-center justify-between gap-4">
+        <Card
+          tone="wash"
+          padding="md"
+          className="flex flex-wrap items-center justify-between gap-4"
+        >
           <p className="text-sm text-ink-soft">
-            Далі я підготую рекомендації — це ще {formatMinutesWord(nudge.remainingMs)}.
+            Далі я підготую рекомендації - це ще{" "}
+            {formatMinutesWord(nudge.remainingMs)}.
           </p>
           <Button size="sm" variant="secondary" onClick={actions.goToBooking}>
             <CalendarHeart className="size-3.5" strokeWidth={2.25} />
@@ -292,7 +334,7 @@ function FullAnalysisView({
 
       <MihiTeaser onOpen={actions.registerMihiClick} />
     </div>
-  )
+  );
 }
 
 /* ───────────────────────── дрібні блоки ───────────────────────── */
@@ -300,42 +342,53 @@ function FullAnalysisView({
 function Section({
   icon: Icon,
   title,
-  tone = 'default',
+  tone = "default",
   children,
 }: {
-  icon: typeof Star
-  title: string
-  tone?: 'default' | 'leaf' | 'amber'
-  children: React.ReactNode
+  icon: typeof Star;
+  title: string;
+  tone?: "default" | "leaf" | "amber";
+  children: React.ReactNode;
 }) {
   const tones = {
-    default: 'bg-cream-200 text-ink-soft',
-    leaf: 'bg-leaf-100 text-leaf-600',
-    amber: 'bg-amber-50 text-accent-amber',
-  } as const
+    default: "bg-cream-200 text-ink-soft",
+    leaf: "bg-leaf-100 text-leaf-600",
+    amber: "bg-amber-50 text-accent-amber",
+  } as const;
 
   return (
     <section>
       <div className="flex items-center gap-2.5">
-        <span className={cn('grid size-8 place-items-center rounded-full', tones[tone])}>
+        <span
+          className={cn(
+            "grid size-8 place-items-center rounded-full",
+            tones[tone],
+          )}
+        >
           <Icon className="size-4" strokeWidth={2.25} />
         </span>
         <h2 className="text-lg sm:text-xl">{title}</h2>
       </div>
       <div className="mt-4">{children}</div>
     </section>
-  )
+  );
 }
 
-function BulletList({ items, tone }: { items: string[]; tone: 'leaf' | 'amber' }) {
+function BulletList({
+  items,
+  tone,
+}: {
+  items: string[];
+  tone: "leaf" | "amber";
+}) {
   return (
     <ul className="space-y-2.5">
       {items.map((item) => (
         <li key={item} className="flex items-start gap-2.5">
           <span
             className={cn(
-              'mt-1.5 size-1.5 shrink-0 rounded-full',
-              tone === 'leaf' ? 'bg-leaf-400' : 'bg-accent-amber',
+              "mt-1.5 size-1.5 shrink-0 rounded-full",
+              tone === "leaf" ? "bg-leaf-400" : "bg-accent-amber",
             )}
           />
           <span className="text-[0.9375rem] leading-relaxed text-ink-soft first-letter:uppercase">
@@ -344,5 +397,5 @@ function BulletList({ items, tone }: { items: string[]; tone: 'leaf' | 'amber' }
         </li>
       ))}
     </ul>
-  )
+  );
 }
