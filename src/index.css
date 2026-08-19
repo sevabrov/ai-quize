@@ -1,0 +1,277 @@
+@import 'tailwindcss';
+
+/* ==========================================================================
+   Дизайн-система «AI-діагностика потенціалу»
+   Знята з макета: тепла кремова база, садова зелень, білі картки,
+   великі радіуси, м'які тіні, важкий геометричний заголовковий шрифт.
+   ========================================================================== */
+
+@theme {
+  /* --- Шрифти ------------------------------------------------------------ */
+  --font-display:
+    'Montserrat', 'Segoe UI', system-ui, -apple-system, sans-serif;
+  --font-sans: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+
+  /* --- Кремова база ------------------------------------------------------ */
+  --color-cream-50: #fbfaf5;
+  --color-cream-100: #f5f2ea;
+  --color-cream-200: #eee9dc;
+  --color-cream-300: #e3ddcb;
+
+  /* --- Зелень (primary) -------------------------------------------------- */
+  --color-leaf-50: #f2f6ec;
+  --color-leaf-100: #e5edd8;
+  --color-leaf-200: #cfdfb8;
+  --color-leaf-300: #b0c992;
+  --color-leaf-400: #91b06c;
+  --color-leaf-500: #74954f;
+  --color-leaf-600: #5f7e3f;
+  --color-leaf-700: #4b6532;
+  --color-leaf-800: #3a4e28;
+  --color-leaf-900: #2b3a1e;
+
+  /* --- Текст / лінії ----------------------------------------------------- */
+  --color-ink: #232b1e;
+  --color-ink-soft: #5d6553;
+  --color-ink-muted: #8a9080;
+  --color-line: #e6e1d2;
+  --color-line-strong: #d6d0bd;
+
+  /* --- Акценти для плиток результату ------------------------------------- */
+  --color-accent-amber: #d99a2b;
+  --color-accent-rose: #cf6b5b;
+  --color-accent-sky: #5b8bb0;
+
+  /* --- Радіуси ----------------------------------------------------------- */
+  --radius-field: 0.875rem;
+  --radius-card: 1.25rem;
+  --radius-panel: 1.75rem;
+  --radius-hero: 2.25rem;
+
+  /* --- Тіні -------------------------------------------------------------- */
+  --shadow-soft: 0 1px 2px rgb(35 43 30 / 0.04), 0 8px 24px -12px rgb(35 43 30 / 0.14);
+  --shadow-card: 0 1px 3px rgb(35 43 30 / 0.05), 0 18px 40px -24px rgb(35 43 30 / 0.22);
+  --shadow-lift: 0 2px 6px rgb(35 43 30 / 0.06), 0 30px 60px -30px rgb(35 43 30 / 0.3);
+  --shadow-bubble: 0 2px 4px rgb(35 43 30 / 0.05), 0 14px 30px -18px rgb(35 43 30 / 0.28);
+
+  /* --- Анімації ---------------------------------------------------------- */
+  --animate-float: float 6s ease-in-out infinite;
+  --animate-bubble-in: bubble-in 0.42s cubic-bezier(0.22, 1.2, 0.36, 1) both;
+  --animate-screen-in: screen-in 0.4s cubic-bezier(0.22, 1, 0.36, 1) both;
+  --animate-rise: rise 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+  --animate-blink: blink 5.5s steps(1, end) infinite;
+  --animate-wave: wave 2.6s ease-in-out infinite;
+  --animate-pulse-ring: pulse-ring 2.4s ease-out infinite;
+  --animate-typing: typing 1.2s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes bubble-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.94);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes screen-in {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes blink {
+  0%,
+  92%,
+  100% {
+    transform: scaleY(1);
+  }
+  95% {
+    transform: scaleY(0.1);
+  }
+}
+
+@keyframes wave {
+  0%,
+  100% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(-13deg);
+  }
+  60% {
+    transform: rotate(9deg);
+  }
+}
+
+@keyframes pulse-ring {
+  0% {
+    opacity: 0.55;
+    transform: scale(0.9);
+  }
+  70% {
+    opacity: 0;
+    transform: scale(1.35);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.35);
+  }
+}
+
+@keyframes typing {
+  0%,
+  60%,
+  100% {
+    opacity: 0.25;
+    transform: translateY(0);
+  }
+  30% {
+    opacity: 1;
+    transform: translateY(-3px);
+  }
+}
+
+/* ==========================================================================
+   База
+   ========================================================================== */
+
+@layer base {
+  * {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: var(--color-cream-100);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-feature-settings: 'ss01', 'cv11';
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+    color: var(--color-ink);
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  ::selection {
+    background: var(--color-leaf-200);
+    color: var(--color-leaf-900);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-leaf-500);
+    outline-offset: 2px;
+  }
+
+  /* Скролбар у стилі системи */
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: var(--color-cream-200);
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--color-leaf-300);
+    border-radius: 999px;
+    border: 2px solid var(--color-cream-200);
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--color-leaf-400);
+  }
+}
+
+/* ==========================================================================
+   Компонентні утиліти
+   ========================================================================== */
+
+@utility eyebrow {
+  font-family: var(--font-display);
+  font-size: 0.6875rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+@utility label-caps {
+  font-family: var(--font-display);
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* Кремово-зелений градієнт герою, як у макеті */
+@utility hero-wash {
+  background:
+    radial-gradient(120% 90% at 88% 8%, rgb(207 223 184 / 0.55) 0%, rgb(207 223 184 / 0) 58%),
+    radial-gradient(80% 70% at 96% 46%, rgb(145 176 108 / 0.28) 0%, rgb(145 176 108 / 0) 62%),
+    linear-gradient(158deg, #fbfaf5 0%, #f3f1e7 46%, #eef1e2 100%);
+}
+
+@utility panel-wash {
+  background: linear-gradient(170deg, #ffffff 0%, #fdfdf9 62%, #f7f7ef 100%);
+}
+
+/* Декоративні листочки на фоні герою */
+@utility leaf-veil {
+  background-image: radial-gradient(circle at 12% 82%, rgb(145 176 108 / 0.1) 0 1.5px, transparent 2px),
+    radial-gradient(circle at 78% 18%, rgb(145 176 108 / 0.12) 0 2px, transparent 2.5px);
+  background-size: 220px 220px, 320px 320px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

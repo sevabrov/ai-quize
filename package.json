@@ -1,0 +1,43 @@
+{
+  "name": "ai-quiz-olena-filatova",
+  "version": "1.0.0",
+  "description": "AI-діагностика потенціалу — інтерактивний квіз для MLM-підприємців (Олена Філатова)",
+  "scripts": {
+    "dev": "vite",
+    "api": "json-server db.json -p 3001",
+    "dev:all": "concurrently -n web,api -c green,cyan \"npm:dev\" \"npm:api\"",
+    "build": "tsc --noEmit && vite build",
+    "typecheck": "tsc --noEmit",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@calcom/embed-react": "^1.5.3",
+    "@radix-ui/react-accordion": "^1.2.20",
+    "@radix-ui/react-dialog": "^1.1.23",
+    "@radix-ui/react-progress": "^1.1.16",
+    "@radix-ui/react-radio-group": "^1.4.7",
+    "@radix-ui/react-slot": "^1.3.3",
+    "@radix-ui/react-visually-hidden": "^1.2.11",
+    "@tanstack/react-query": "^5.101.4",
+    "lucide-react": "^1.32.0",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "^4.3.3",
+    "@types/node": "^26.2.0",
+    "@types/react": "^19.2.18",
+    "@types/react-dom": "^19.2.4",
+    "@vitejs/plugin-react": "^6.0.5",
+    "concurrently": "^10.0.5",
+    "json-server": "^1.0.0-beta.15",
+    "tailwindcss": "^4.3.3",
+    "typescript": "^7.0.2",
+    "vite": "^8.2.1"
+  },
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  }
+}

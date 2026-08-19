@@ -1,0 +1,399 @@
+{
+  "sessions": [
+    {
+      "id": "E2rWuvdLtMg",
+      "clientId": "a142ed25-3f6f-4431-a595-ac58e055c9f2",
+      "startedAt": "2026-08-18T20:36:00.570Z",
+      "updatedAt": "2026-08-18T20:38:06.466Z",
+      "about": "Сева 23 роки безробітній",
+      "answers": {
+        "2": "c",
+        "3": "c",
+        "4": "b",
+        "5": "c",
+        "6": "c",
+        "7": "b",
+        "8": "d",
+        "9": "c",
+        "10": "d",
+        "11": "c",
+        "12": "c",
+        "13": "a",
+        "14": "c",
+        "15": "a"
+      },
+      "lastQuestionId": 15,
+      "completedAt": "2026-08-18T20:38:06.452Z",
+      "profileId": "scale",
+      "scores": [
+        {
+          "profileId": "scale",
+          "score": 5,
+          "matched": [
+            "3c",
+            "4b",
+            "7b",
+            "12c",
+            "13a"
+          ]
+        },
+        {
+          "profileId": "restart",
+          "score": 2,
+          "matched": [
+            "2c",
+            "8d"
+          ]
+        },
+        {
+          "profileId": "onboarding",
+          "score": 2,
+          "matched": [
+            "5c",
+            "9c"
+          ]
+        },
+        {
+          "profileId": "ai",
+          "score": 2,
+          "matched": [
+            "9c",
+            "10d"
+          ]
+        },
+        {
+          "profileId": "leader",
+          "score": 1,
+          "matched": [
+            "14c"
+          ]
+        },
+        {
+          "profileId": "recruiting",
+          "score": 0,
+          "matched": []
+        }
+      ],
+      "analysisRequestedAt": "2026-08-18T20:37:59.703Z",
+      "analysisDeliveredAt": null,
+      "bookingRequestedAt": "2026-08-18T20:38:06.452Z",
+      "mihiClickedAt": null,
+      "booking": null,
+      "meta": {
+        "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36",
+        "referrer": "",
+        "language": "en",
+        "screen": "3440×1440"
+      }
+    },
+    {
+      "id": "5uBMzmjccpI",
+      "clientId": "662689f5-7baa-4fff-86c1-eaad37168919",
+      "startedAt": "2026-08-18T20:41:08.985Z",
+      "updatedAt": "2026-08-18T20:41:43.215Z",
+      "about": "Ірина, 44 роки, Львів. У МЛМ 11 років, будувала структуру до 1500 людей, виростила 4 лідерів.",
+      "answers": {
+        "2": "f",
+        "3": "c",
+        "4": "b",
+        "5": "e",
+        "6": "c",
+        "7": "b",
+        "8": "e",
+        "9": "a",
+        "10": "c",
+        "11": "d",
+        "12": "b",
+        "13": "a",
+        "14": "e",
+        "15": "a"
+      },
+      "lastQuestionId": 15,
+      "completedAt": "2026-08-18T20:41:43.184Z",
+      "profileId": "scale",
+      "scores": [
+        {
+          "profileId": "scale",
+          "score": 11,
+          "matched": [
+            "2f",
+            "3c",
+            "4b",
+            "5e",
+            "7b",
+            "8e",
+            "10c",
+            "11d",
+            "12b",
+            "13a",
+            "14e"
+          ]
+        },
+        {
+          "profileId": "recruiting",
+          "score": 2,
+          "matched": [
+            "8e",
+            "9a"
+          ]
+        },
+        {
+          "profileId": "restart",
+          "score": 1,
+          "matched": [
+            "14e"
+          ]
+        },
+        {
+          "profileId": "leader",
+          "score": 1,
+          "matched": [
+            "5e"
+          ]
+        },
+        {
+          "profileId": "ai",
+          "score": 1,
+          "matched": [
+            "9a"
+          ]
+        },
+        {
+          "profileId": "onboarding",
+          "score": 0,
+          "matched": []
+        }
+      ],
+      "analysisRequestedAt": "2026-08-18T20:41:43.184Z",
+      "analysisDeliveredAt": null,
+      "bookingRequestedAt": null,
+      "mihiClickedAt": null,
+      "booking": null,
+      "meta": {
+        "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/149.0.0.0 Safari/537.36",
+        "referrer": "http://localhost:5173/",
+        "language": "en-GB",
+        "screen": "1440×1000"
+      }
+    },
+    {
+      "id": "TSrVnYbFn4Y",
+      "clientId": "d8f67901-aaab-4a71-990c-0ace8536738b",
+      "startedAt": "2026-08-18T21:13:08.567Z",
+      "updatedAt": "2026-08-18T21:13:08.627Z",
+      "about": "Тестова відповідь для перевірки збереження",
+      "answers": {},
+      "lastQuestionId": 1,
+      "completedAt": null,
+      "profileId": null,
+      "scores": null,
+      "analysisRequestedAt": null,
+      "analysisDeliveredAt": null,
+      "bookingRequestedAt": null,
+      "mihiClickedAt": null,
+      "booking": null,
+      "meta": {
+        "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/149.0.0.0 Safari/537.36",
+        "referrer": "",
+        "language": "en-GB",
+        "screen": "1440×1000"
+      }
+    },
+    {
+      "id": "pmY2O3fVztk",
+      "clientId": "5c30e431-74cc-42b6-9938-08026fa74e55",
+      "startedAt": "2026-08-18T21:14:27.518Z",
+      "updatedAt": "2026-08-18T21:14:27.599Z",
+      "about": "Тестова відповідь для перевірки збереження",
+      "answers": {},
+      "lastQuestionId": 1,
+      "completedAt": null,
+      "profileId": null,
+      "scores": null,
+      "analysisRequestedAt": null,
+      "analysisDeliveredAt": null,
+      "bookingRequestedAt": null,
+      "mihiClickedAt": null,
+      "booking": null,
+      "meta": {
+        "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/149.0.0.0 Safari/537.36",
+        "referrer": "",
+        "language": "en-GB",
+        "screen": "1440×1000"
+      }
+    },
+    {
+      "id": "HPvIDE1uSfk",
+      "clientId": "2b58acb3-884b-4e3e-96a5-dea05cffac05",
+      "startedAt": "2026-08-18T21:14:38.416Z",
+      "updatedAt": "2026-08-18T21:21:48.337Z",
+      "about": "cac sac a sc ascsacsacsacsasca",
+      "answers": {
+        "2": "b",
+        "3": "a",
+        "4": "b",
+        "5": "d",
+        "6": "b",
+        "7": "b",
+        "8": "d",
+        "9": "a",
+        "10": "c",
+        "11": "d",
+        "12": "b",
+        "13": "d",
+        "14": "a",
+        "15": "a"
+      },
+      "lastQuestionId": 15,
+      "completedAt": "2026-08-18T21:21:20.973Z",
+      "profileId": "scale",
+      "scores": [
+        {
+          "profileId": "scale",
+          "score": 5,
+          "matched": [
+            "4b",
+            "7b",
+            "10c",
+            "11d",
+            "12b"
+          ]
+        },
+        {
+          "profileId": "restart",
+          "score": 3,
+          "matched": [
+            "3a",
+            "8d",
+            "13d"
+          ]
+        },
+        {
+          "profileId": "ai",
+          "score": 2,
+          "matched": [
+            "5d",
+            "9a"
+          ]
+        },
+        {
+          "profileId": "recruiting",
+          "score": 1,
+          "matched": [
+            "9a"
+          ]
+        },
+        {
+          "profileId": "onboarding",
+          "score": 1,
+          "matched": [
+            "6b"
+          ]
+        },
+        {
+          "profileId": "leader",
+          "score": 0,
+          "matched": []
+        }
+      ],
+      "analysisRequestedAt": "2026-08-18T21:21:20.973Z",
+      "analysisDeliveredAt": "2026-08-18T21:21:48.290Z",
+      "bookingRequestedAt": "2026-08-18T21:21:16.040Z",
+      "mihiClickedAt": "2026-08-18T21:18:33.960Z",
+      "booking": null,
+      "meta": {
+        "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36",
+        "referrer": "http://localhost:5174/",
+        "language": "en",
+        "screen": "3440×1440"
+      }
+    },
+    {
+      "id": "3wsEC3kFsvA",
+      "clientId": "6d7b2d5d-81c0-4e23-9025-364ec7332d72",
+      "startedAt": "2026-08-18T21:16:02.977Z",
+      "updatedAt": "2026-08-18T21:16:09.422Z",
+      "about": "Перевірка після виправлення перезавантаження",
+      "answers": {
+        "2": "b",
+        "3": "b",
+        "4": "b"
+      },
+      "lastQuestionId": 4,
+      "completedAt": null,
+      "profileId": null,
+      "scores": null,
+      "analysisRequestedAt": null,
+      "analysisDeliveredAt": null,
+      "bookingRequestedAt": null,
+      "mihiClickedAt": null,
+      "booking": null,
+      "meta": {
+        "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/149.0.0.0 Safari/537.36",
+        "referrer": "",
+        "language": "en-GB",
+        "screen": "1440×1000"
+      }
+    }
+  ],
+  "leads": [
+    {
+      "about": "Сева 23 роки безробітній",
+      "profileId": "scale",
+      "intent": "analysis",
+      "sessionId": "E2rWuvdLtMg",
+      "createdAt": "2026-08-18T20:37:59.716Z",
+      "id": "i3pVbNyILpE"
+    },
+    {
+      "about": "Сева 23 роки безробітній",
+      "profileId": "scale",
+      "intent": "booking",
+      "sessionId": "E2rWuvdLtMg",
+      "createdAt": "2026-08-18T20:38:06.466Z",
+      "id": "VfCm-0Hhb-I"
+    },
+    {
+      "about": "Ірина, 44 роки, Львів. У МЛМ 11 років, будувала структуру до 1500 людей, виростила 4 лідерів.",
+      "profileId": "scale",
+      "intent": "analysis",
+      "sessionId": "5uBMzmjccpI",
+      "createdAt": "2026-08-18T20:41:43.217Z",
+      "id": "I4Qnp7vzicw"
+    },
+    {
+      "about": "cac sac a sc ascsacsacsacsasca",
+      "profileId": "scale",
+      "intent": "booking",
+      "sessionId": "HPvIDE1uSfk",
+      "createdAt": "2026-08-18T21:18:06.807Z",
+      "id": "H-qLTgnt030"
+    },
+    {
+      "about": "cac sac a sc ascsacsacsacsasca",
+      "profileId": "scale",
+      "intent": "analysis",
+      "sessionId": "HPvIDE1uSfk",
+      "createdAt": "2026-08-18T21:18:22.699Z",
+      "id": "fOX4Iym4Smw"
+    },
+    {
+      "about": "cac sac a sc ascsacsacsacsasca",
+      "profileId": "scale",
+      "intent": "booking",
+      "sessionId": "HPvIDE1uSfk",
+      "createdAt": "2026-08-18T21:21:16.062Z",
+      "id": "VmXjq5deWPA"
+    },
+    {
+      "about": "cac sac a sc ascsacsacsacsasca",
+      "profileId": "scale",
+      "intent": "analysis",
+      "sessionId": "HPvIDE1uSfk",
+      "createdAt": "2026-08-18T21:21:21.007Z",
+      "id": "aGPqUV_0FjE"
+    }
+  ],
+  "bookings": [],
+  "$schema": "./node_modules/json-server/schema.json"
+}
