@@ -157,6 +157,7 @@ export function IntroScreen({
             {/* робот */}
             <Robot
               pose="wave"
+              art="hero"
               className="absolute -left-2 bottom-8 h-64 drop-shadow-xl sm:bottom-6 sm:h-80"
             />
 

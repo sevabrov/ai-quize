@@ -339,7 +339,7 @@
       "id": "QiZQEoIhS7o",
       "clientId": "270681b3-9fa4-4bbd-bd9c-96d1e445b877",
       "startedAt": "2026-08-19T14:35:17.580Z",
-      "updatedAt": "2026-08-19T14:59:19.966Z",
+      "updatedAt": "2026-08-19T16:00:48.086Z",
       "about": "нцпнцпу нцц нцп цнпці цнпіц",
       "answers": {
         "2": "b",
@@ -358,7 +358,7 @@
         "15": "b"
       },
       "lastQuestionId": 15,
-      "completedAt": "2026-08-19T14:59:19.907Z",
+      "completedAt": "2026-08-19T14:43:23.149Z",
       "profileId": "scale",
       "scores": [
         {
@@ -421,6 +421,31 @@
         "referrer": "http://localhost:5173/",
         "language": "en",
         "screen": "3440×1440"
+      }
+    },
+    {
+      "id": "JGnwfPi2osU",
+      "clientId": "a0ffa38c-4d3b-4cdc-9689-8e742c8962e6",
+      "startedAt": "2026-08-19T16:01:33.938Z",
+      "updatedAt": "2026-08-19T19:01:45.946Z",
+      "about": "sdvdsvds dsv dsvds vdsvs",
+      "answers": {
+        "2": "c"
+      },
+      "lastQuestionId": 2,
+      "completedAt": null,
+      "profileId": null,
+      "scores": null,
+      "analysisRequestedAt": null,
+      "analysisDeliveredAt": null,
+      "bookingRequestedAt": null,
+      "mihiClickedAt": null,
+      "booking": null,
+      "meta": {
+        "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36",
+        "referrer": "http://localhost:5173/",
+        "language": "en",
+        "screen": "1440×900"
       }
     }
   ],

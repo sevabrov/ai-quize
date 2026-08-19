@@ -1,10 +1,10 @@
-import { ArrowRight, BadgeCheck, BookOpen, Quote } from 'lucide-react'
-import { Robot } from '../components/Robot'
-import { RobotBubble } from '../components/RobotBubble'
-import { OlenaPortrait } from '../components/OlenaPortrait'
-import { Button } from '../components/ui/Button'
-import { Card } from '../components/ui/Card'
-import { aboutOlena } from '../data/content'
+import { ArrowRight, BadgeCheck, BookOpen, Quote } from "lucide-react";
+import { Robot } from "../components/Robot";
+import { RobotBubble } from "../components/RobotBubble";
+import { OlenaPortrait } from "../components/OlenaPortrait";
+import { Button } from "../components/ui/Button";
+import { Card } from "../components/ui/Card";
+import { aboutOlena } from "../data/content";
 
 export function AboutScreen({ onNext }: { onNext: () => void }) {
   return (
@@ -13,7 +13,7 @@ export function AboutScreen({ onNext }: { onNext: () => void }) {
       <Card tone="wash" padding="lg">
         <div className="grid gap-6 sm:grid-cols-[auto_1fr] sm:items-center sm:gap-8">
           <div className="flex justify-center sm:block">
-            <Robot pose="wave" className="h-36 sm:h-44" />
+            <Robot pose="wave" art="heart" className="h-36 sm:h-44" />
           </div>
           <div>
             <span className="eyebrow text-leaf-600">Познайомимось?</span>
@@ -75,10 +75,15 @@ export function AboutScreen({ onNext }: { onNext: () => void }) {
             </div>
 
             <div className="mt-6 flex items-start gap-3 rounded-card border border-leaf-200 bg-leaf-50/60 p-4">
-              <BookOpen className="mt-0.5 size-5 shrink-0 text-leaf-600" strokeWidth={2.25} />
+              <BookOpen
+                className="mt-0.5 size-5 shrink-0 text-leaf-600"
+                strokeWidth={2.25}
+              />
               <p className="text-sm leading-relaxed text-ink-soft">
-                Співавтор настільної книги-тренінгу{' '}
-                <span className="font-semibold text-ink">«Найпростіший шлях у бізнес»</span>
+                Співавтор настільної книги-тренінгу{" "}
+                <span className="font-semibold text-ink">
+                  «Найпростіший шлях у бізнес»
+                </span>
               </p>
             </div>
 
@@ -90,14 +95,19 @@ export function AboutScreen({ onNext }: { onNext: () => void }) {
                 {aboutOlena.positioning.map((item) => (
                   <li key={item} className="flex items-start gap-2.5">
                     <span className="mt-1 size-1.5 shrink-0 rounded-full bg-leaf-400" />
-                    <span className="text-sm leading-relaxed text-ink-soft">{item}</span>
+                    <span className="text-sm leading-relaxed text-ink-soft">
+                      {item}
+                    </span>
                   </li>
                 ))}
               </ul>
             </div>
 
             <div className="mt-7 flex items-start gap-3 border-l-2 border-leaf-300 pl-4">
-              <Quote className="mt-0.5 size-4 shrink-0 text-leaf-400" strokeWidth={2.5} />
+              <Quote
+                className="mt-0.5 size-4 shrink-0 text-leaf-400"
+                strokeWidth={2.5}
+              />
               <p className="text-[0.9375rem] leading-relaxed text-ink">
                 {aboutOlena.closing}
               </p>
@@ -115,7 +125,11 @@ export function AboutScreen({ onNext }: { onNext: () => void }) {
               {aboutOlena.transition}
             </p>
           </div>
-          <Button size="lg" onClick={onNext} className="w-full shrink-0 sm:w-auto">
+          <Button
+            size="lg"
+            onClick={onNext}
+            className="w-full shrink-0 sm:w-auto"
+          >
             {aboutOlena.cta}
             <ArrowRight
               className="size-4 transition-transform duration-200 group-hover:translate-x-1"
@@ -125,5 +139,5 @@ export function AboutScreen({ onNext }: { onNext: () => void }) {
         </div>
       </Card>
     </div>
-  )
+  );
 }
