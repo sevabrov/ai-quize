@@ -34,6 +34,18 @@ export default function App() {
                 }
               : undefined
           }
+          // 1 діагностика = 1 користувач: замість «Почати» - доступ до результату
+          completed={
+            flow.isLocked
+              ? {
+                  completedAt: flow.completedAt,
+                  profileName: flow.completedProfile?.name ?? null,
+                  profileEmoji: flow.completedProfile?.emoji ?? null,
+                  canView: flow.canViewResult,
+                  onView: actions.viewResult,
+                }
+              : undefined
+          }
         />
         <DemoBadge />
       </>
@@ -44,8 +56,10 @@ export default function App() {
     <>
       <AppShell
         onExit={actions.exit}
-        onRestart={actions.restart}
+        // Після завершення діагностики «почати заново» більше не пропонуємо
+        onRestart={flow.isLocked ? undefined : actions.restart}
         syncState={flow.syncState}
+        locked={flow.isLocked}
         width={
           state.stage === "about" || state.stage === "quiz" ? "wide" : "wide"
         }

@@ -11,9 +11,11 @@ interface AppShellProps {
   children: ReactNode;
   /** Вихід на інтро - прогрес зберігається */
   onExit: () => void;
-  /** Повне очищення прогресу */
+  /** Повне очищення прогресу. Не передається, коли діагностику вже завершено. */
   onRestart?: () => void;
   syncState?: SyncState;
+  /** Діагностика завершена - повторне проходження недоступне */
+  locked?: boolean;
   /** Вузький контейнер для екранів-діалогів, широкий - для результату */
   width?: "narrow" | "wide";
 }
@@ -23,6 +25,7 @@ export function AppShell({
   onExit,
   onRestart,
   syncState = "idle",
+  locked = false,
   width = "wide",
 }: AppShellProps) {
   return (
@@ -37,7 +40,7 @@ export function AppShell({
           <Logo />
           <div className="flex items-center gap-3">
             <SyncBadge state={syncState} />
-            <ExitDialog onExit={onExit} onRestart={onRestart} />
+            <ExitDialog onExit={onExit} onRestart={onRestart} locked={locked} />
           </div>
         </header>
 
@@ -93,9 +96,11 @@ function SyncBadge({ state }: { state: SyncState }) {
 function ExitDialog({
   onExit,
   onRestart,
+  locked = false,
 }: {
   onExit: () => void;
   onRestart?: () => void;
+  locked?: boolean;
 }) {
   const [open, setOpen] = useState(false);
 
@@ -114,15 +119,18 @@ function ExitDialog({
       <Dialog.Portal>
         <Dialog.Overlay className="fixed inset-0 z-40 bg-leaf-900/25 backdrop-blur-[2px]" />
         <Dialog.Content className="fixed left-1/2 top-1/2 z-50 w-[calc(100%-2rem)] max-w-md -translate-x-1/2 -translate-y-1/2 animate-bubble-in rounded-panel border border-line bg-white p-7 shadow-lift">
-          <Dialog.Title className="text-xl">Вийти з діагностики?</Dialog.Title>
+          <Dialog.Title className="text-xl">
+            {locked ? "Вийти на головну?" : "Вийти з діагностики?"}
+          </Dialog.Title>
           <Dialog.Description className="mt-3 text-sm leading-relaxed text-ink-soft">
-            Прогрес і відповіді збережуться - коли повернешся, продовжимо з того
-            самого питання.
+            {locked
+              ? "Твій результат збережений - ти зможеш повернутись до нього з головної сторінки."
+              : "Прогрес і відповіді збережуться - коли повернешся, продовжимо з того самого питання."}
           </Dialog.Description>
           <div className="mt-6 flex flex-col gap-3 sm:flex-row">
             <Dialog.Close asChild>
               <Button size="md" variant="secondary" block>
-                Продовжити квіз
+                {locked ? "Залишитись" : "Продовжити квіз"}
               </Button>
             </Dialog.Close>
             <Button

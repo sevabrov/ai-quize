@@ -5,14 +5,25 @@
  *
  * Переходи чисто локальні й синхронні - екран не залежить від відповіді API.
  * Запис у json-server відбувається побічним ефектом, після зміни стану.
+ *
+ * Правило «1 діагностика = 1 користувач»: як тільки людина дійшла до результату,
+ * стан переходить у locked - квіз більше не можна пройти вдруге, а «Почати заново»
+ * недоступне. Результат, аналіз і запис на розбір лишаються доступними.
  */
 
-import { useCallback, useEffect, useMemo, useReducer } from "react";
+import { useCallback, useEffect, useMemo, useReducer, useRef } from "react";
 import { questions, totalQuestions } from "../data/questions";
-import type { ProfileId } from "../data/profiles";
+import { profiles, type ProfileId } from "../data/profiles";
 import { env } from "../lib/env";
 import { calculateResult, type QuizResult } from "../lib/scoring";
-import { readJSON, remove, storageKeys, writeJSON } from "../lib/storage";
+import {
+  readCompletion,
+  readJSON,
+  remove,
+  storageKeys,
+  writeCompletion,
+  writeJSON,
+} from "../lib/storage";
 import { useSessionSync } from "./useSessionSync";
 
 export type Stage =
@@ -36,6 +47,11 @@ export interface FlowState {
   answers: Record<number, string>;
   /** Остання реакція робота - «висить» у бабблі й на наступному питанні */
   lastReaction: string | null;
+  /**
+   * ISO-час завершення діагностики. Щойно заповнене - квіз замкнено назавжди
+   * (1 діагностика = 1 користувач).
+   */
+  completedAt: string | null;
   analysisStartedAt: number | null;
   analysisDeliveredAt: number | null;
   bookingRequestedAt: number | null;
@@ -51,6 +67,10 @@ type Action =
   | { type: "next" }
   | { type: "back" }
   | { type: "to-result" }
+  /** Замкнути повторне проходження - локально або за даними сервера */
+  | { type: "lock"; at: string }
+  /** Повернутись до вже готового результату з інтро */
+  | { type: "view-result" }
   | { type: "request-analysis" }
   | { type: "deliver-analysis" }
   | { type: "to-booking" }
@@ -65,12 +85,40 @@ const initialState: FlowState = {
   about: "",
   answers: {},
   lastReaction: null,
+  completedAt: null,
   analysisStartedAt: null,
   analysisDeliveredAt: null,
   bookingRequestedAt: null,
 };
 
+const nowISO = () => new Date().toISOString();
+
+/** Екрани, доступні після завершення діагностики. */
+const postResultStages: Stage[] = ["result", "analysis", "booking"];
+
+/** Куди повертати людину із замкненою діагностикою - лише екрани результату. */
+function resultTarget(state: FlowState): Stage {
+  return state.resumeStage && postResultStages.includes(state.resumeStage)
+    ? state.resumeStage
+    : "result";
+}
+
 function reducer(state: FlowState, action: Action): FlowState {
+  // 1 діагностика = 1 користувач: після завершення жодного повторного
+  // проходження - ні «Почати», ні «Почати заново», ні редагування відповідей.
+  if (state.completedAt) {
+    const blocked: Action["type"][] = [
+      "begin",
+      "to-quiz",
+      "set-about",
+      "answer",
+      "next",
+      "back",
+      "restart",
+    ];
+    if (blocked.includes(action.type)) return state;
+  }
+
   switch (action.type) {
     case "restore":
       return action.state;
@@ -96,7 +144,8 @@ function reducer(state: FlowState, action: Action): FlowState {
 
     case "next": {
       const isLast = state.index >= totalQuestions - 1;
-      if (isLast) return { ...state, stage: "result" };
+      // Останнє питання = діагностика пройдена, далі шлях лише в один бік
+      if (isLast) return { ...state, stage: "result", completedAt: nowISO() };
       return { ...state, index: state.index + 1 };
     }
 
@@ -106,7 +155,24 @@ function reducer(state: FlowState, action: Action): FlowState {
     }
 
     case "to-result":
-      return { ...state, stage: "result" };
+      return {
+        ...state,
+        stage: "result",
+        completedAt: state.completedAt ?? nowISO(),
+      };
+
+    case "lock": {
+      if (state.completedAt) return state;
+      const locked = { ...state, completedAt: action.at };
+      // Якщо сервер каже «пройдено», а людина стоїть на квізі - виводимо з квізу
+      if (state.stage === "about" || state.stage === "quiz") {
+        return { ...locked, stage: "intro", resumeStage: null };
+      }
+      return locked;
+    }
+
+    case "view-result":
+      return { ...state, stage: resultTarget(state), resumeStage: null };
 
     case "request-analysis":
       return {
@@ -137,6 +203,10 @@ function reducer(state: FlowState, action: Action): FlowState {
       return { ...state, stage: "intro", resumeStage: state.stage };
 
     case "resume":
+      // Після завершення «продовжити» означає «повернутись до результату»
+      if (state.completedAt) {
+        return { ...state, stage: resultTarget(state), resumeStage: null };
+      }
       return {
         ...state,
         stage: state.resumeStage ?? "about",
@@ -177,6 +247,7 @@ function hasProgress(state: FlowState): boolean {
   return (
     state.stage !== "intro" ||
     state.resumeStage !== null ||
+    state.completedAt !== null ||
     Object.keys(state.answers).length > 0 ||
     state.about.trim().length > 0
   );
@@ -185,27 +256,61 @@ function hasProgress(state: FlowState): boolean {
 export function useQuizFlow() {
   const [state, dispatch] = useReducer(reducer, initialState);
   const sync = useSessionSync();
+  const completionPushedRef = useRef(false);
 
   // Відновлення після перезавантаження або повернення після «Вийти»
   useEffect(() => {
+    const completion = readCompletion();
     const saved = readJSON<FlowState>(storageKeys.state);
-    if (!isValidState(saved)) return;
 
-    // resumeStage має сенс лише коли збережений стан - це «вийшла на інтро»
+    // Прогрес могли почистити, а позначку про завершення - ні: замок сильніший
+    if (!isValidState(saved)) {
+      if (completion) {
+        dispatch({
+          type: "restore",
+          state: { ...initialState, completedAt: completion.completedAt },
+        });
+      }
+      return;
+    }
+
+    const completedAt = completion?.completedAt ?? saved.completedAt ?? null;
+
+    // resumeStage має сенс лише коли збережений стан - це «вийшла на інтро».
+    // Після завершення діагностики повертати можна лише на екрани результату.
     const savedResume =
       saved.resumeStage &&
       saved.resumeStage !== "intro" &&
       stages.includes(saved.resumeStage)
         ? saved.resumeStage
-        : Object.keys(saved.answers).length > 0 || saved.about?.trim()
-          ? "quiz"
-          : "about";
+        : completedAt
+          ? "result"
+          : Object.keys(saved.answers).length > 0 || saved.about?.trim()
+            ? "quiz"
+            : "about";
+
+    const resumeStage =
+      saved.stage === "intro"
+        ? completedAt && !postResultStages.includes(savedResume)
+          ? "result"
+          : savedResume
+        : null;
+
+    // Завершена діагностика не може відновитись на «про себе» чи на питаннях
+    const stage: Stage =
+      completedAt && (saved.stage === "about" || saved.stage === "quiz")
+        ? Object.keys(saved.answers).length > 0
+          ? "result"
+          : "intro"
+        : saved.stage;
 
     const restored: FlowState = {
       ...initialState,
       ...saved,
+      stage,
+      completedAt,
       index: Math.min(Math.max(0, saved.index), totalQuestions - 1),
-      resumeStage: saved.stage === "intro" ? savedResume : null,
+      resumeStage,
     };
 
     if (hasProgress(restored)) {
@@ -213,11 +318,53 @@ export function useQuizFlow() {
     }
   }, []);
 
+  /**
+   * Звірка з сервером: якщо в записі сесії вже стоїть completedAt, діагностика
+   * пройдена - навіть коли локальну позначку встигли почистити.
+   */
+  useEffect(() => {
+    const remoteCompletedAt = sync.remoteSession?.completedAt;
+    if (remoteCompletedAt) dispatch({ type: "lock", at: remoteCompletedAt });
+  }, [sync.remoteSession?.completedAt]);
+
   // Збереження прогресу - зокрема й у стані «вийшла на інтро, але прогрес живий»
   useEffect(() => {
     if (!hasProgress(state)) return;
     writeJSON(storageKeys.state, state);
   }, [state]);
+
+  // Позначка «діагностику пройдено» - окремий ключ, який не чиститься з прогресом
+  useEffect(() => {
+    if (!state.completedAt) return;
+    const existing = readCompletion();
+    writeCompletion({
+      completedAt: existing?.completedAt ?? state.completedAt,
+      profileId: Object.keys(state.answers).length
+        ? calculateResult(state.answers).profileId
+        : (existing?.profileId ?? null),
+      sessionId: sync.sessionId ?? existing?.sessionId ?? null,
+    });
+  }, [state.completedAt, state.answers, sync.sessionId]);
+
+  /**
+   * Фіксація завершення на сервері - одразу на екрані результату, не чекаючи
+   * запиту аналізу. Саме це поле робить замок перевірним на бекенді.
+   */
+  useEffect(() => {
+    if (!state.completedAt || completionPushedRef.current) return;
+    // Без наявної сесії й відповідей писати нічого - інакше створимо порожній запис
+    if (!sync.sessionId || Object.keys(state.answers).length === 0) return;
+
+    completionPushedRef.current = true;
+    const computed = calculateResult(state.answers);
+    sync.push({
+      completedAt: state.completedAt,
+      profileId: computed.profileId,
+      scores: computed.scores,
+    });
+    // sync.push змінює identity щорендер - тому синхронізуємось лише за замком
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [state.completedAt, sync.sessionId]);
 
   const answeredCount = useMemo(() => {
     const optionAnswers = Object.keys(state.answers).length;
@@ -345,15 +492,38 @@ export function useQuizFlow() {
     window.scrollTo({ top: 0 });
   }, []);
 
+  /**
+   * Повне очищення прогресу. Після завершення діагностики недоступне -
+   * 1 діагностика = 1 користувач.
+   */
   const restart = useCallback(() => {
+    if (state.completedAt) return;
     remove(storageKeys.state);
     remove(storageKeys.session);
     remove(storageKeys.remote);
     dispatch({ type: "restart" });
     window.scrollTo({ top: 0 });
+  }, [state.completedAt]);
+
+  /** Повернення до вже готового результату з інтро. */
+  const viewResult = useCallback(() => {
+    dispatch({ type: "view-result" });
+    window.scrollTo({ top: 0 });
   }, []);
 
   const completeProfileId: ProfileId | null = result?.profileId ?? null;
+
+  const isLocked = state.completedAt !== null;
+
+  /** Профіль завершеної діагностики - для плашки на інтро. */
+  const completedProfile = useMemo(() => {
+    if (!state.completedAt) return null;
+    if (Object.keys(state.answers).length > 0) {
+      return calculateResult(state.answers).profile;
+    }
+    const storedId = readCompletion()?.profileId;
+    return profiles.find((p) => p.id === storedId) ?? null;
+  }, [state.completedAt, state.answers]);
 
   return {
     state,
@@ -362,8 +532,18 @@ export function useQuizFlow() {
     totalQuestions,
     result,
     completeProfileId,
-    /** Є збережений крок, на який можна повернутись з інтро */
-    canResume: state.stage === "intro" && state.resumeStage !== null,
+    /** Діагностику вже пройдено - повторне проходження заблоковане */
+    isLocked,
+    completedAt: state.completedAt,
+    completedProfile,
+    /** Чи є з чого показати результат (відповіді збереглися) */
+    canViewResult: isLocked && Object.keys(state.answers).length > 0,
+    /**
+     * Є збережений крок, на який можна повернутись з інтро.
+     * Для завершеної діагностики це завжди екрани результату, не квіз.
+     */
+    canResume:
+      !isLocked && state.stage === "intro" && state.resumeStage !== null,
     syncState: sync.syncState,
     actions: {
       begin,
@@ -383,6 +563,7 @@ export function useQuizFlow() {
       exit,
       resume,
       restart,
+      viewResult,
     },
   };
 }

@@ -1,5 +1,6 @@
 import {
   ArrowRight,
+  BadgeCheck,
   BrainCircuit,
   Clock3,
   History,
@@ -14,7 +15,7 @@ import { Robot } from "../components/Robot";
 import { RobotBubble } from "../components/RobotBubble";
 import { OlenaPortrait } from "../components/OlenaPortrait";
 import { Button } from "../components/ui/Button";
-import { heroContent, introDialogue } from "../data/content";
+import { completedContent, heroContent, introDialogue } from "../data/content";
 
 const bulletIcons = [
   MessageCircleHeart,
@@ -32,15 +33,40 @@ export interface ResumeInfo {
   onRestart: () => void;
 }
 
+/** Стан «діагностику вже пройдено» - квіз замкнено, доступний лише результат. */
+export interface CompletedInfo {
+  completedAt: string | null;
+  /** Назва профілю з результату - показуємо, якщо вона відома */
+  profileName: string | null;
+  profileEmoji: string | null;
+  /** Чи збереглися відповіді, щоб відкрити результат */
+  canView: boolean;
+  onView: () => void;
+}
+
 export function IntroScreen({
   onStart,
   resume,
+  completed,
 }: {
   onStart: () => void;
   resume?: ResumeInfo;
+  completed?: CompletedInfo;
 }) {
-  const ctaLabel = resume ? "Продовжити діагностику" : heroContent.cta;
-  const onCta = resume ? resume.onResume : onStart;
+  const ctaLabel = completed
+    ? completedContent.cta
+    : resume
+      ? "Продовжити діагностику"
+      : heroContent.cta;
+
+  const onCta = completed
+    ? completed.onView
+    : resume
+      ? resume.onResume
+      : onStart;
+
+  // Пройдена діагностика без збережених відповідей - показувати нічого, крім плашки
+  const showCta = !completed || completed.canView;
 
   return (
     <div className="min-h-dvh hero-wash leaf-veil">
@@ -54,7 +80,11 @@ export function IntroScreen({
           </div>
         </header>
 
-        {resume && <ResumeBanner resume={resume} />}
+        {completed ? (
+          <CompletedBanner completed={completed} />
+        ) : (
+          resume && <ResumeBanner resume={resume} />
+        )}
 
         {/* ───── герой ───── */}
         <section className="relative mt-6 grid items-center gap-10 md:mt-2 md:grid-cols-[1.05fr_0.95fr] md:gap-4">
@@ -83,19 +113,21 @@ export function IntroScreen({
               })}
             </ul>
 
-            <div className="mt-9">
-              <Button size="lg" onClick={onCta} className="w-full sm:w-auto">
-                {ctaLabel}
-                <ArrowRight
-                  className="size-4 transition-transform duration-200 group-hover:translate-x-1"
-                  strokeWidth={2.75}
-                />
-              </Button>
-            </div>
+            {showCta && (
+              <div className="mt-9">
+                <Button size="lg" onClick={onCta} className="w-full sm:w-auto">
+                  {ctaLabel}
+                  <ArrowRight
+                    className="size-4 transition-transform duration-200 group-hover:translate-x-1"
+                    strokeWidth={2.75}
+                  />
+                </Button>
+              </div>
+            )}
 
             <p className="mt-4 flex items-center gap-1.5 text-xs text-ink-muted">
               <Lock className="size-3.5" strokeWidth={2.25} />
-              {heroContent.note}
+              {completed ? completedContent.ctaHint : heroContent.note}
             </p>
           </div>
 
@@ -195,15 +227,21 @@ export function IntroScreen({
               </p>
 
               <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
-                <Button size="lg" onClick={onCta}>
-                  {ctaLabel}
-                  <ArrowRight
-                    className="size-4 transition-transform duration-200 group-hover:translate-x-1"
-                    strokeWidth={2.75}
-                  />
-                </Button>
+                {showCta && (
+                  <Button size="lg" onClick={onCta}>
+                    {ctaLabel}
+                    <ArrowRight
+                      className="size-4 transition-transform duration-200 group-hover:translate-x-1"
+                      strokeWidth={2.75}
+                    />
+                  </Button>
+                )}
                 <span className="text-sm text-ink-muted">
-                  {introDialogue.cta}
+                  {completed
+                    ? completed.canView
+                      ? completedContent.ctaHint
+                      : completedContent.noResult
+                    : introDialogue.cta}
                 </span>
               </div>
             </div>
@@ -215,6 +253,68 @@ export function IntroScreen({
 }
 
 /* ────────────────────────────────────────────────────────────────────────── */
+
+/** Плашка «діагностика вже пройдена» - замість запуску квізу вдруге. */
+function CompletedBanner({ completed }: { completed: CompletedInfo }) {
+  return (
+    <div className="animate-rise mt-6 flex flex-col gap-5 rounded-panel border border-leaf-200 bg-white/90 p-5 shadow-card backdrop-blur-sm sm:flex-row sm:items-center sm:justify-between sm:p-6">
+      <div className="flex items-start gap-3.5">
+        <span className="grid size-10 shrink-0 place-items-center rounded-full border border-leaf-200 bg-leaf-50 text-leaf-600">
+          <BadgeCheck className="size-5" strokeWidth={2.25} />
+        </span>
+        <div>
+          <p className="font-display text-base font-extrabold text-ink">
+            {completedContent.title}
+          </p>
+          <p className="mt-1 max-w-xl text-sm leading-relaxed text-ink-soft">
+            {completedContent.text}
+          </p>
+
+          {completed.profileName && (
+            <p className="mt-2.5 flex items-center gap-1.5 text-sm font-semibold text-leaf-700">
+              {completed.profileEmoji && (
+                <span className="text-base leading-none">
+                  {completed.profileEmoji}
+                </span>
+              )}
+              {completedContent.profileLabel}: {completed.profileName}
+            </p>
+          )}
+
+          {completed.completedAt && (
+            <p className="mt-1.5 text-xs text-ink-muted">
+              Пройдено {formatDate(completed.completedAt)}
+            </p>
+          )}
+        </div>
+      </div>
+
+      {completed.canView && (
+        <div className="shrink-0">
+          <Button size="md" onClick={completed.onView}>
+            {completedContent.cta}
+            <ArrowRight
+              className="size-4 transition-transform duration-200 group-hover:translate-x-1"
+              strokeWidth={2.75}
+            />
+          </Button>
+        </div>
+      )}
+    </div>
+  );
+}
+
+function formatDate(iso: string): string {
+  const date = new Date(iso);
+  if (Number.isNaN(date.getTime())) return "";
+  return date.toLocaleString("uk-UA", {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+  });
+}
 
 /** Плашка «продовжити з того самого місця» - показується, коли є збережений прогрес. */
 function ResumeBanner({ resume }: { resume: ResumeInfo }) {

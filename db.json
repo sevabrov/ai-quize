@@ -339,7 +339,7 @@
       "id": "QiZQEoIhS7o",
       "clientId": "270681b3-9fa4-4bbd-bd9c-96d1e445b877",
       "startedAt": "2026-08-19T14:35:17.580Z",
-      "updatedAt": "2026-08-19T14:43:23.238Z",
+      "updatedAt": "2026-08-19T14:59:19.966Z",
       "about": "нцпнцпу нцц нцп цнпці цнпіц",
       "answers": {
         "2": "b",
@@ -358,7 +358,7 @@
         "15": "b"
       },
       "lastQuestionId": 15,
-      "completedAt": "2026-08-19T14:43:23.149Z",
+      "completedAt": "2026-08-19T14:59:19.907Z",
       "profileId": "scale",
       "scores": [
         {
@@ -411,9 +411,9 @@
           "matched": []
         }
       ],
-      "analysisRequestedAt": "2026-08-19T14:43:03.012Z",
-      "analysisDeliveredAt": "2026-08-19T14:43:03.142Z",
-      "bookingRequestedAt": "2026-08-19T14:43:23.149Z",
+      "analysisRequestedAt": "2026-08-19T14:58:23.149Z",
+      "analysisDeliveredAt": "2026-08-19T14:58:56.554Z",
+      "bookingRequestedAt": "2026-08-19T14:59:19.907Z",
       "mihiClickedAt": null,
       "booking": null,
       "meta": {
@@ -512,6 +512,22 @@
       "sessionId": "QiZQEoIhS7o",
       "createdAt": "2026-08-19T14:43:23.243Z",
       "id": "i0lDAMgNWWY"
+    },
+    {
+      "about": "нцпнцпу нцц нцп цнпці цнпіц",
+      "profileId": "scale",
+      "intent": "analysis",
+      "sessionId": "QiZQEoIhS7o",
+      "createdAt": "2026-08-19T14:58:23.343Z",
+      "id": "PN1Nz9zSjzM"
+    },
+    {
+      "about": "нцпнцпу нцц нцп цнпці цнпіц",
+      "profileId": "scale",
+      "intent": "booking",
+      "sessionId": "QiZQEoIhS7o",
+      "createdAt": "2026-08-19T14:59:19.967Z",
+      "id": "S69WS4QQ_mU"
     }
   ],
   "bookings": [],

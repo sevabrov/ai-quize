@@ -6,6 +6,12 @@
 const STATE_KEY = "ai-quiz:flow:v1";
 const SESSION_KEY = "ai-quiz:session-id:v1";
 const REMOTE_KEY = "ai-quiz:remote-id:v1";
+/**
+ * Позначка «діагностику вже пройдено».
+ * Живе окремим ключем і НЕ видаляється разом із прогресом:
+ * правило «1 діагностика = 1 користувач» має переживати і «Почати заново», і F5.
+ */
+const COMPLETED_KEY = "ai-quiz:completed:v1";
 
 export function readJSON<T>(key: string): T | null {
   try {
@@ -36,6 +42,7 @@ export const storageKeys = {
   state: STATE_KEY,
   session: SESSION_KEY,
   remote: REMOTE_KEY,
+  completed: COMPLETED_KEY,
 };
 
 function read(key: string): string | null {
@@ -64,3 +71,22 @@ export const writeSessionId = (id: string) => write(SESSION_KEY, id);
  */
 export const readRemoteId = () => read(REMOTE_KEY);
 export const writeRemoteId = (id: string) => write(REMOTE_KEY, id);
+
+/** Факт завершення діагностики - джерело правди для блокування повторного проходження. */
+export interface CompletionRecord {
+  completedAt: string;
+  /** Профіль, який випав - щоб показати його на інтро навіть без збереженого прогресу */
+  profileId: string | null;
+  /** Серверний id сесії - для звірки з бекендом */
+  sessionId: string | null;
+}
+
+export function readCompletion(): CompletionRecord | null {
+  const record = readJSON<CompletionRecord>(COMPLETED_KEY);
+  if (!record || typeof record.completedAt !== "string") return null;
+  return record;
+}
+
+export function writeCompletion(record: CompletionRecord): void {
+  writeJSON(COMPLETED_KEY, record);
+}
