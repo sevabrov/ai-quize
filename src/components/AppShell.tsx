@@ -1,6 +1,6 @@
 import { useState, type ReactNode } from "react";
 import * as Dialog from "@radix-ui/react-dialog";
-import { Check, CloudOff, LogOut, Lock, Loader2 } from "lucide-react";
+import { Check, CloudOff, LogOut, Lock, Loader2, Trash2 } from "lucide-react";
 import { Logo } from "./Logo";
 import { Button } from "./ui/Button";
 import { cn } from "../lib/cn";
@@ -9,7 +9,10 @@ type SyncState = "idle" | "saving" | "saved" | "offline";
 
 interface AppShellProps {
   children: ReactNode;
+  /** Вихід на інтро - прогрес зберігається */
   onExit: () => void;
+  /** Повне очищення прогресу */
+  onRestart?: () => void;
   syncState?: SyncState;
   /** Вузький контейнер для екранів-діалогів, широкий - для результату */
   width?: "narrow" | "wide";
@@ -18,6 +21,7 @@ interface AppShellProps {
 export function AppShell({
   children,
   onExit,
+  onRestart,
   syncState = "idle",
   width = "wide",
 }: AppShellProps) {
@@ -33,7 +37,7 @@ export function AppShell({
           <Logo />
           <div className="flex items-center gap-3">
             <SyncBadge state={syncState} />
-            <ExitDialog onExit={onExit} />
+            <ExitDialog onExit={onExit} onRestart={onRestart} />
           </div>
         </header>
 
@@ -86,7 +90,13 @@ function SyncBadge({ state }: { state: SyncState }) {
   );
 }
 
-function ExitDialog({ onExit }: { onExit: () => void }) {
+function ExitDialog({
+  onExit,
+  onRestart,
+}: {
+  onExit: () => void;
+  onRestart?: () => void;
+}) {
   const [open, setOpen] = useState(false);
 
   return (
@@ -106,8 +116,8 @@ function ExitDialog({ onExit }: { onExit: () => void }) {
         <Dialog.Content className="fixed left-1/2 top-1/2 z-50 w-[calc(100%-2rem)] max-w-md -translate-x-1/2 -translate-y-1/2 animate-bubble-in rounded-panel border border-line bg-white p-7 shadow-lift">
           <Dialog.Title className="text-xl">Вийти з діагностики?</Dialog.Title>
           <Dialog.Description className="mt-3 text-sm leading-relaxed text-ink-soft">
-            Прогрес і відповіді буде видалено. Якщо хочеш просто зробити паузу -
-            закрий вкладку, і ми продовжимо з того самого місця.
+            Прогрес і відповіді збережуться - коли повернешся, продовжимо з того
+            самого питання.
           </Dialog.Description>
           <div className="mt-6 flex flex-col gap-3 sm:flex-row">
             <Dialog.Close asChild>
@@ -126,6 +136,20 @@ function ExitDialog({ onExit }: { onExit: () => void }) {
               Так, вийти
             </Button>
           </div>
+
+          {onRestart && (
+            <button
+              type="button"
+              onClick={() => {
+                setOpen(false);
+                onRestart();
+              }}
+              className="mt-5 flex w-full items-center justify-center gap-1.5 text-xs font-semibold text-ink-muted transition-colors hover:text-accent-amber"
+            >
+              <Trash2 className="size-3.5" strokeWidth={2.5} />
+              Видалити відповіді й почати заново
+            </button>
+          )}
         </Dialog.Content>
       </Dialog.Portal>
     </Dialog.Root>

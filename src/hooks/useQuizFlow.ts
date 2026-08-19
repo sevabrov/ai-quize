@@ -25,6 +25,11 @@ export type Stage =
 
 export interface FlowState {
   stage: Stage;
+  /**
+   * Куди повертатись після «Вийти».
+   * Заповнюється лише коли користувач вийшов на інтро, маючи прогрес.
+   */
+  resumeStage: Stage | null;
   /** Індекс у масиві questions */
   index: number;
   about: string;
@@ -49,10 +54,13 @@ type Action =
   | { type: "request-analysis" }
   | { type: "deliver-analysis" }
   | { type: "to-booking" }
+  | { type: "exit" }
+  | { type: "resume" }
   | { type: "restart" };
 
 const initialState: FlowState = {
   stage: "intro",
+  resumeStage: null,
   index: 0,
   about: "",
   answers: {},
@@ -68,7 +76,7 @@ function reducer(state: FlowState, action: Action): FlowState {
       return action.state;
 
     case "begin":
-      return { ...state, stage: "about" };
+      return { ...state, stage: "about", resumeStage: null };
 
     case "to-quiz":
       return { ...state, stage: "quiz", index: 0 };
@@ -122,6 +130,19 @@ function reducer(state: FlowState, action: Action): FlowState {
         bookingRequestedAt: state.bookingRequestedAt ?? Date.now(),
       };
 
+    // «Вийти» - лише повернення на інтро. Відповіді лишаються недоторканими,
+    // щоб користувач продовжив із того самого кроку.
+    case "exit":
+      if (state.stage === "intro") return state;
+      return { ...state, stage: "intro", resumeStage: state.stage };
+
+    case "resume":
+      return {
+        ...state,
+        stage: state.resumeStage ?? "about",
+        resumeStage: null,
+      };
+
     case "restart":
       return { ...initialState };
 
@@ -130,14 +151,34 @@ function reducer(state: FlowState, action: Action): FlowState {
   }
 }
 
+const stages: Stage[] = [
+  "intro",
+  "about",
+  "quiz",
+  "result",
+  "analysis",
+  "booking",
+];
+
 function isValidState(value: unknown): value is FlowState {
   if (!value || typeof value !== "object") return false;
   const candidate = value as FlowState;
   return (
     typeof candidate.stage === "string" &&
+    stages.includes(candidate.stage) &&
     typeof candidate.index === "number" &&
     typeof candidate.answers === "object" &&
     candidate.answers !== null
+  );
+}
+
+/** Чи є що відновлювати: користувач уже кудись просунувся далі за інтро. */
+function hasProgress(state: FlowState): boolean {
+  return (
+    state.stage !== "intro" ||
+    state.resumeStage !== null ||
+    Object.keys(state.answers).length > 0 ||
+    state.about.trim().length > 0
   );
 }
 
@@ -145,17 +186,36 @@ export function useQuizFlow() {
   const [state, dispatch] = useReducer(reducer, initialState);
   const sync = useSessionSync();
 
-  // Відновлення після перезавантаження
+  // Відновлення після перезавантаження або повернення після «Вийти»
   useEffect(() => {
     const saved = readJSON<FlowState>(storageKeys.state);
-    if (isValidState(saved) && saved.stage !== "intro") {
-      dispatch({ type: "restore", state: { ...initialState, ...saved } });
+    if (!isValidState(saved)) return;
+
+    // resumeStage має сенс лише коли збережений стан - це «вийшла на інтро»
+    const savedResume =
+      saved.resumeStage &&
+      saved.resumeStage !== "intro" &&
+      stages.includes(saved.resumeStage)
+        ? saved.resumeStage
+        : Object.keys(saved.answers).length > 0 || saved.about?.trim()
+          ? "quiz"
+          : "about";
+
+    const restored: FlowState = {
+      ...initialState,
+      ...saved,
+      index: Math.min(Math.max(0, saved.index), totalQuestions - 1),
+      resumeStage: saved.stage === "intro" ? savedResume : null,
+    };
+
+    if (hasProgress(restored)) {
+      dispatch({ type: "restore", state: restored });
     }
   }, []);
 
-  // Збереження прогресу
+  // Збереження прогресу - зокрема й у стані «вийшла на інтро, але прогрес живий»
   useEffect(() => {
-    if (state.stage === "intro") return;
+    if (!hasProgress(state)) return;
     writeJSON(storageKeys.state, state);
   }, [state]);
 
@@ -273,6 +333,18 @@ export function useQuizFlow() {
     [sync],
   );
 
+  /** «Вийти» - прогрес лишається у сховищі, повертаємось на інтро. */
+  const exit = useCallback(() => {
+    dispatch({ type: "exit" });
+    window.scrollTo({ top: 0 });
+  }, []);
+
+  /** Повернення до збереженого кроку з інтро. */
+  const resume = useCallback(() => {
+    dispatch({ type: "resume" });
+    window.scrollTo({ top: 0 });
+  }, []);
+
   const restart = useCallback(() => {
     remove(storageKeys.state);
     remove(storageKeys.session);
@@ -290,6 +362,8 @@ export function useQuizFlow() {
     totalQuestions,
     result,
     completeProfileId,
+    /** Є збережений крок, на який можна повернутись з інтро */
+    canResume: state.stage === "intro" && state.resumeStage !== null,
     syncState: sync.syncState,
     actions: {
       begin,
@@ -306,6 +380,8 @@ export function useQuizFlow() {
       goToBooking,
       registerMihiClick,
       registerBooking,
+      exit,
+      resume,
       restart,
     },
   };

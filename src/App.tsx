@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { AppShell } from "./components/AppShell";
-import { useQuizFlow } from "./hooks/useQuizFlow";
+import { useQuizFlow, type QuizFlow } from "./hooks/useQuizFlow";
 import { AboutScreen } from "./screens/AboutScreen";
 import { AnalysisScreen } from "./screens/AnalysisScreen";
 import { BookingScreen } from "./screens/BookingScreen";
@@ -21,7 +21,20 @@ export default function App() {
   if (state.stage === "intro") {
     return (
       <>
-        <IntroScreen onStart={actions.begin} />
+        <IntroScreen
+          onStart={actions.begin}
+          resume={
+            flow.canResume
+              ? {
+                  label: resumeLabel(flow),
+                  answered: flow.answeredCount,
+                  total: flow.totalQuestions,
+                  onResume: actions.resume,
+                  onRestart: actions.restart,
+                }
+              : undefined
+          }
+        />
         <DemoBadge />
       </>
     );
@@ -30,7 +43,8 @@ export default function App() {
   return (
     <>
       <AppShell
-        onExit={actions.restart}
+        onExit={actions.exit}
+        onRestart={actions.restart}
         syncState={flow.syncState}
         width={
           state.stage === "about" || state.stage === "quiz" ? "wide" : "wide"
@@ -68,6 +82,24 @@ export default function App() {
       <DemoBadge />
     </>
   );
+}
+
+/** Людська назва кроку, на якому користувач зупинився. */
+function resumeLabel({ state, totalQuestions }: QuizFlow): string {
+  switch (state.resumeStage) {
+    case "about":
+      return "Знайомство з Оленою";
+    case "quiz":
+      return `Питання ${state.index + 1} із ${totalQuestions}`;
+    case "result":
+      return "Твій результат";
+    case "analysis":
+      return "Аналіз від Олени";
+    case "booking":
+      return "Запис на розбір";
+    default:
+      return "Діагностика";
+  }
 }
 
 /** Видимий маркер, коли таймери скорочені через .env - щоб не забути перед продакшеном. */

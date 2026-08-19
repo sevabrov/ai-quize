@@ -2,9 +2,11 @@ import {
   ArrowRight,
   BrainCircuit,
   Clock3,
+  History,
   Lightbulb,
   Lock,
   MessageCircleHeart,
+  RotateCcw,
   UserRoundCheck,
 } from "lucide-react";
 import { Logo } from "../components/Logo";
@@ -21,7 +23,25 @@ const bulletIcons = [
   UserRoundCheck,
 ];
 
-export function IntroScreen({ onStart }: { onStart: () => void }) {
+export interface ResumeInfo {
+  /** Крок, на якому користувач зупинився - «Питання 7 із 15» */
+  label: string;
+  answered: number;
+  total: number;
+  onResume: () => void;
+  onRestart: () => void;
+}
+
+export function IntroScreen({
+  onStart,
+  resume,
+}: {
+  onStart: () => void;
+  resume?: ResumeInfo;
+}) {
+  const ctaLabel = resume ? "Продовжити діагностику" : heroContent.cta;
+  const onCta = resume ? resume.onResume : onStart;
+
   return (
     <div className="min-h-dvh hero-wash leaf-veil">
       <div className="mx-auto w-full max-w-6xl px-4 pb-16 pt-5 sm:px-6">
@@ -33,6 +53,8 @@ export function IntroScreen({ onStart }: { onStart: () => void }) {
             {heroContent.eyebrow}
           </div>
         </header>
+
+        {resume && <ResumeBanner resume={resume} />}
 
         {/* ───── герой ───── */}
         <section className="relative mt-6 grid items-center gap-10 md:mt-2 md:grid-cols-[1.05fr_0.95fr] md:gap-4">
@@ -62,8 +84,8 @@ export function IntroScreen({ onStart }: { onStart: () => void }) {
             </ul>
 
             <div className="mt-9">
-              <Button size="lg" onClick={onStart} className="w-full sm:w-auto">
-                {heroContent.cta}
+              <Button size="lg" onClick={onCta} className="w-full sm:w-auto">
+                {ctaLabel}
                 <ArrowRight
                   className="size-4 transition-transform duration-200 group-hover:translate-x-1"
                   strokeWidth={2.75}
@@ -173,8 +195,8 @@ export function IntroScreen({ onStart }: { onStart: () => void }) {
               </p>
 
               <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
-                <Button size="lg" onClick={onStart}>
-                  {heroContent.cta}
+                <Button size="lg" onClick={onCta}>
+                  {ctaLabel}
                   <ArrowRight
                     className="size-4 transition-transform duration-200 group-hover:translate-x-1"
                     strokeWidth={2.75}
@@ -187,6 +209,44 @@ export function IntroScreen({ onStart }: { onStart: () => void }) {
             </div>
           </div>
         </section>
+      </div>
+    </div>
+  );
+}
+
+/* ────────────────────────────────────────────────────────────────────────── */
+
+/** Плашка «продовжити з того самого місця» - показується, коли є збережений прогрес. */
+function ResumeBanner({ resume }: { resume: ResumeInfo }) {
+  return (
+    <div className="animate-rise mt-6 flex flex-col gap-5 rounded-panel border border-leaf-200 bg-white/90 p-5 shadow-card backdrop-blur-sm sm:flex-row sm:items-center sm:justify-between sm:p-6">
+      <div className="flex items-start gap-3.5">
+        <span className="grid size-10 shrink-0 place-items-center rounded-full border border-leaf-200 bg-leaf-50 text-leaf-600">
+          <History className="size-5" strokeWidth={2.25} />
+        </span>
+        <div>
+          <p className="font-display text-base font-extrabold text-ink">
+            Твоя діагностика збережена
+          </p>
+          <p className="mt-1 text-sm leading-relaxed text-ink-soft">
+            Зупинилась на кроці «{resume.label}». Відповідей збережено:{" "}
+            {resume.answered} із {resume.total}.
+          </p>
+        </div>
+      </div>
+
+      <div className="flex shrink-0 flex-col gap-2 sm:flex-row sm:items-center">
+        <Button size="md" onClick={resume.onResume}>
+          Продовжити
+          <ArrowRight
+            className="size-4 transition-transform duration-200 group-hover:translate-x-1"
+            strokeWidth={2.75}
+          />
+        </Button>
+        <Button size="md" variant="ghost" onClick={resume.onRestart}>
+          <RotateCcw className="size-3.5" strokeWidth={2.75} />
+          Почати заново
+        </Button>
       </div>
     </div>
   );
