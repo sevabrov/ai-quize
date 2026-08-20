@@ -8,7 +8,7 @@
  * Тому виклики нагору віддають помилку, а рівень хуків її ковтає (див. useSession).
  */
 
-import { env } from "./env";
+import { env, isApiEnabled } from "./env";
 import type { ProfileId } from "../data/profiles";
 
 export interface SessionScore {
@@ -120,7 +120,28 @@ export function emptySession(clientId: string): QuizSession {
   };
 }
 
-export const api = {
+export interface LeadPayload {
+  sessionId: string;
+  about: string;
+  profileId: ProfileId | null;
+  intent: "analysis" | "booking";
+}
+
+export interface BookingPayload {
+  sessionId: string;
+  calLink: string;
+  detail: unknown;
+}
+
+export interface QuizApi {
+  createSession(clientId: string): Promise<QuizSession>;
+  getSession(id: string): Promise<QuizSession>;
+  patchSession(id: string, patch: Partial<QuizSession>): Promise<QuizSession>;
+  createLead(payload: LeadPayload): Promise<unknown>;
+  createBooking(payload: BookingPayload): Promise<unknown>;
+}
+
+const remoteApi: QuizApi = {
   /**
    * Створює запис сесії. Повертає запис із серверним `id` -
    * саме його треба використовувати в наступних PATCH-запитах.
@@ -144,26 +165,52 @@ export const api = {
   },
 
   /** Окрема колекція лідів - те, що бізнесу потрібно не втратити. */
-  createLead(payload: {
-    sessionId: string;
-    about: string;
-    profileId: ProfileId | null;
-    intent: "analysis" | "booking";
-  }): Promise<unknown> {
+  createLead(payload: LeadPayload): Promise<unknown> {
     return request("/leads", {
       method: "POST",
       body: JSON.stringify({ ...payload, createdAt: new Date().toISOString() }),
     });
   },
 
-  createBooking(payload: {
-    sessionId: string;
-    calLink: string;
-    detail: unknown;
-  }): Promise<unknown> {
+  createBooking(payload: BookingPayload): Promise<unknown> {
     return request("/bookings", {
       method: "POST",
       body: JSON.stringify({ ...payload, createdAt: new Date().toISOString() }),
     });
   },
 };
+
+/**
+ * Статичний режим (GitHub Pages, VITE_API_URL=""): бекенду немає.
+ *
+ * Нічого не шлемо, але й не падаємо - інакше кожна відповідь давала б
+ * провалений fetch у консоль і бейдж «Локально». Прогрес живе в localStorage
+ * (storage.ts), а результати все одно йдуть у Google Таблицю (sheets.ts),
+ * тому для замовника нічого не губиться.
+ */
+const localApi: QuizApi = {
+  async createSession(clientId: string): Promise<QuizSession> {
+    return emptySession(clientId);
+  },
+
+  async getSession(id: string): Promise<QuizSession> {
+    return emptySession(id);
+  },
+
+  async patchSession(
+    id: string,
+    patch: Partial<QuizSession>,
+  ): Promise<QuizSession> {
+    return { ...emptySession(id), ...patch };
+  },
+
+  async createLead(payload: LeadPayload): Promise<unknown> {
+    return payload;
+  },
+
+  async createBooking(payload: BookingPayload): Promise<unknown> {
+    return payload;
+  },
+};
+
+export const api: QuizApi = isApiEnabled ? remoteApi : localApi;

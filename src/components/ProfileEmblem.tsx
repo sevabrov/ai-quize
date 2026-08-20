@@ -1,8 +1,9 @@
 import type { EmblemVariant } from "../data/profiles";
+import { asset } from "../lib/asset";
 import { cn } from "../lib/cn";
 
 /** Прозорий PNG у палітрі проєкту, зібраний із 3D-рендера макета */
-const ART = { src: "/4.png", width: 500, height: 500 };
+const ART = { src: asset("/4.png"), width: 500, height: 500 };
 
 interface ProfileEmblemProps {
   /**

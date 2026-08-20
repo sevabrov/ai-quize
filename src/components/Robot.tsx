@@ -1,3 +1,4 @@
+import { asset } from "../lib/asset";
 import { cn } from "../lib/cn";
 
 export type RobotPose = "wave" | "think" | "calm" | "celebrate";
@@ -19,9 +20,9 @@ export type RobotArt = "default" | "hero" | "heart";
 
 /** Прозорі PNG у палітрі проєкту, зібрані із 3D-рендера макета */
 const ART: Record<RobotArt, { src: string; width: number; height: number }> = {
-  default: { src: "/1.png", width: 500, height: 500 },
-  hero: { src: "/2.png", width: 1254, height: 1254 },
-  heart: { src: "/3.png", width: 800, height: 800 },
+  default: { src: asset("/1.png"), width: 500, height: 500 },
+  hero: { src: asset("/2.png"), width: 1254, height: 1254 },
+  heart: { src: asset("/3.png"), width: 800, height: 800 },
 };
 
 /**

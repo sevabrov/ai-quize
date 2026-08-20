@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { asset } from '../lib/asset';
 import { cn } from '../lib/cn';
 
 /**
@@ -9,7 +10,7 @@ import { cn } from '../lib/cn';
  * тому верстка ніде не «падає» і не показує битих картинок.
  */
 
-const PHOTO_SRC = '/olena.png';
+const PHOTO_SRC = asset('/olena.png');
 
 export function OlenaPortrait({
   className,

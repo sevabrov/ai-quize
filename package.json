@@ -7,6 +7,7 @@
     "api": "json-server db.json -p 3001",
     "dev:all": "concurrently -n web,api -c green,cyan \"npm:dev\" \"npm:api\"",
     "build": "tsc --noEmit && vite build",
+    "build:pages": "tsc --noEmit && vite build --base=/ai-quize/",
     "typecheck": "tsc --noEmit",
     "preview": "vite preview"
   },

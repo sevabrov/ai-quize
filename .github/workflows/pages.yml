@@ -1,0 +1,59 @@
+name: Deploy to GitHub Pages
+
+# Демо-стенд для замовника: https://sevabrov.github.io/ai-quize/
+# Це статична збірка - json-server тут не працює (див. docs/deploy.md).
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Паралельні деплої Pages конфліктують між собою
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+
+      - run: npm ci
+
+      - run: npm run build:pages
+        env:
+          # Порожньо = статичний режим: на Pages бекенду немає, запити не йдуть
+          VITE_API_URL: ""
+          # Єдине сховище результатів для демо. Задати в
+          # Settings → Secrets and variables → Actions → Secrets
+          VITE_SHEETS_URL: ${{ secrets.VITE_SHEETS_URL }}
+          VITE_SHEETS_SECRET: ${{ secrets.VITE_SHEETS_SECRET }}
+          # Таймінги демо. Задати у тій же формі, вкладка Variables
+          # (8000 = 8 секунд замість 3 хвилин). Порожньо = 3 хвилини за ТЗ.
+          VITE_ANALYSIS_DELAY_MS: ${{ vars.VITE_ANALYSIS_DELAY_MS }}
+          VITE_BOOKING_NUDGE_DELAY_MS: ${{ vars.VITE_BOOKING_NUDGE_DELAY_MS }}
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
