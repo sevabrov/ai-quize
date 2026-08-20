@@ -17,6 +17,13 @@ import { profiles, type ProfileId } from "../data/profiles";
 import { env } from "../lib/env";
 import { calculateResult, type QuizResult } from "../lib/scoring";
 import {
+  formatAnswers,
+  formatDateTime,
+  formatScores,
+  pushToSheet,
+  readCalDetail,
+} from "../lib/sheets";
+import {
   readBooked,
   readCompletion,
   readJSON,
@@ -273,6 +280,8 @@ export function useQuizFlow() {
   const [state, dispatch] = useReducer(reducer, initialState);
   const sync = useSessionSync();
   const completionPushedRef = useRef(false);
+  /** Окремий замок для таблиці: вона пишеться незалежно від json-server */
+  const sheetPushedRef = useRef(false);
   /** Останній payload Cal.com - щоб зберегти його разом із позначкою бронювання */
   const bookingDetailRef = useRef<unknown>(null);
   /** Синхронний замок: два івенти Cal.com в одному тіку не створять два записи */
@@ -414,6 +423,33 @@ export function useQuizFlow() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state.completedAt, sync.sessionId]);
 
+  /**
+   * Рядок у Google Таблиці - основне сховище для бізнесу.
+   *
+   * Свідомо НЕ прив'язано до sync.sessionId: у проді json-server немає, і така
+   * прив'язка означала б порожню таблицю. Ключ рядка живе в localStorage.
+   *
+   * Повторний запис після F5 - не баг: Apps Script робить upsert по тому самому
+   * ключу, тож перезавантаження ще й дає безкоштовну ретрай-спробу, якщо перша
+   * відправка не долетіла.
+   */
+  useEffect(() => {
+    if (!state.completedAt || sheetPushedRef.current) return;
+    if (Object.keys(state.answers).length === 0) return;
+
+    sheetPushedRef.current = true;
+    const computed = calculateResult(state.answers);
+    pushToSheet({
+      completedAt: formatDateTime(state.completedAt),
+      about: state.about,
+      profile: `${computed.profile.emoji} ${computed.profile.name}`,
+      scores: formatScores(computed),
+      answers: formatAnswers(state.answers),
+      // Після бронювання перезапис не має відкотити статус назад у «Ні»
+      booked: state.bookedAt ? "Так" : "Ні",
+    });
+  }, [state.completedAt, state.answers, state.about, state.bookedAt]);
+
   const answeredCount = useMemo(() => {
     const optionAnswers = Object.keys(state.answers).length;
     return optionAnswers + (state.about.trim() ? 1 : 0);
@@ -525,6 +561,10 @@ export function useQuizFlow() {
       bookedLockRef.current = true;
       bookingDetailRef.current = detail;
       dispatch({ type: "mark-booked", at: bookedAt });
+
+      // Той самий ключ рядка - Apps Script дозаповнить наявний рядок,
+      // не створюючи другий і не чіпаючи результати квізу
+      pushToSheet({ booked: "Так", ...readCalDetail(detail) });
 
       sync.saveBooking({ calLink: env.calLink, detail });
       sync.push({
