@@ -17,10 +17,12 @@ import { profiles, type ProfileId } from "../data/profiles";
 import { env } from "../lib/env";
 import { calculateResult, type QuizResult } from "../lib/scoring";
 import {
+  readBooked,
   readCompletion,
   readJSON,
   remove,
   storageKeys,
+  writeBooked,
   writeCompletion,
   writeJSON,
 } from "../lib/storage";
@@ -55,6 +57,11 @@ export interface FlowState {
   analysisStartedAt: number | null;
   analysisDeliveredAt: number | null;
   bookingRequestedAt: number | null;
+  /**
+   * ISO-час успішного бронювання в Cal.com. Щойно заповнене - календар
+   * більше не показуємо (1 бронювання = 1 користувач), і це переживає F5.
+   */
+  bookedAt: string | null;
 }
 
 type Action =
@@ -74,6 +81,8 @@ type Action =
   | { type: "request-analysis" }
   | { type: "deliver-analysis" }
   | { type: "to-booking" }
+  /** Замкнути повторне бронювання - локально або за даними сервера */
+  | { type: "mark-booked"; at: string }
   | { type: "exit" }
   | { type: "resume" }
   | { type: "restart" };
@@ -89,6 +98,7 @@ const initialState: FlowState = {
   analysisStartedAt: null,
   analysisDeliveredAt: null,
   bookingRequestedAt: null,
+  bookedAt: null,
 };
 
 const nowISO = () => new Date().toISOString();
@@ -196,6 +206,11 @@ function reducer(state: FlowState, action: Action): FlowState {
         bookingRequestedAt: state.bookingRequestedAt ?? Date.now(),
       };
 
+    // Перше бронювання виграє: повторні події Cal.com нічого не переписують
+    case "mark-booked":
+      if (state.bookedAt) return state;
+      return { ...state, bookedAt: action.at };
+
     // «Вийти» - лише повернення на інтро. Відповіді лишаються недоторканими,
     // щоб користувач продовжив із того самого кроку.
     case "exit":
@@ -248,6 +263,7 @@ function hasProgress(state: FlowState): boolean {
     state.stage !== "intro" ||
     state.resumeStage !== null ||
     state.completedAt !== null ||
+    state.bookedAt !== null ||
     Object.keys(state.answers).length > 0 ||
     state.about.trim().length > 0
   );
@@ -257,24 +273,35 @@ export function useQuizFlow() {
   const [state, dispatch] = useReducer(reducer, initialState);
   const sync = useSessionSync();
   const completionPushedRef = useRef(false);
+  /** Останній payload Cal.com - щоб зберегти його разом із позначкою бронювання */
+  const bookingDetailRef = useRef<unknown>(null);
+  /** Синхронний замок: два івенти Cal.com в одному тіку не створять два записи */
+  const bookedLockRef = useRef(false);
 
   // Відновлення після перезавантаження або повернення після «Вийти»
   useEffect(() => {
     const completion = readCompletion();
+    const booked = readBooked();
     const saved = readJSON<FlowState>(storageKeys.state);
 
-    // Прогрес могли почистити, а позначку про завершення - ні: замок сильніший
+    // Прогрес могли почистити, а позначки про завершення / бронювання - ні:
+    // замок сильніший за прогрес
     if (!isValidState(saved)) {
-      if (completion) {
+      if (completion || booked) {
         dispatch({
           type: "restore",
-          state: { ...initialState, completedAt: completion.completedAt },
+          state: {
+            ...initialState,
+            completedAt: completion?.completedAt ?? null,
+            bookedAt: booked?.bookedAt ?? null,
+          },
         });
       }
       return;
     }
 
     const completedAt = completion?.completedAt ?? saved.completedAt ?? null;
+    const bookedAt = booked?.bookedAt ?? saved.bookedAt ?? null;
 
     // resumeStage має сенс лише коли збережений стан - це «вийшла на інтро».
     // Після завершення діагностики повертати можна лише на екрани результату.
@@ -309,6 +336,7 @@ export function useQuizFlow() {
       ...saved,
       stage,
       completedAt,
+      bookedAt,
       index: Math.min(Math.max(0, saved.index), totalQuestions - 1),
       resumeStage,
     };
@@ -326,6 +354,15 @@ export function useQuizFlow() {
     const remoteCompletedAt = sync.remoteSession?.completedAt;
     if (remoteCompletedAt) dispatch({ type: "lock", at: remoteCompletedAt });
   }, [sync.remoteSession?.completedAt]);
+
+  /**
+   * Те саме для бронювання: якщо в сесії на сервері вже є booking.bookedAt,
+   * зустріч заброньовано - другий раз календар не показуємо.
+   */
+  useEffect(() => {
+    const remoteBookedAt = sync.remoteSession?.booking?.bookedAt;
+    if (remoteBookedAt) dispatch({ type: "mark-booked", at: remoteBookedAt });
+  }, [sync.remoteSession?.booking?.bookedAt]);
 
   // Збереження прогресу - зокрема й у стані «вийшла на інтро, але прогрес живий»
   useEffect(() => {
@@ -345,6 +382,17 @@ export function useQuizFlow() {
       sessionId: sync.sessionId ?? existing?.sessionId ?? null,
     });
   }, [state.completedAt, state.answers, sync.sessionId]);
+
+  // Позначка «зустріч заброньовано» - теж окремий ключ, живе поза прогресом
+  useEffect(() => {
+    if (!state.bookedAt) return;
+    const existing = readBooked();
+    writeBooked({
+      bookedAt: existing?.bookedAt ?? state.bookedAt,
+      sessionId: sync.sessionId ?? existing?.sessionId ?? null,
+      detail: bookingDetailRef.current ?? existing?.detail ?? null,
+    });
+  }, [state.bookedAt, sync.sessionId]);
 
   /**
    * Фіксація завершення на сервері - одразу на екрані результату, не чекаючи
@@ -465,19 +513,32 @@ export function useQuizFlow() {
     sync.push({ mihiClickedAt: new Date().toISOString() });
   }, [sync]);
 
+  /**
+   * Успішне бронювання. 1 бронювання = 1 користувач: перша подія замикає
+   * календар, повторні (у т.ч. дубль-івенти Cal.com) нічого не пишуть.
+   */
   const registerBooking = useCallback(
     (detail: unknown) => {
+      if (state.bookedAt || bookedLockRef.current || readBooked()) return;
+
+      const bookedAt = new Date().toISOString();
+      bookedLockRef.current = true;
+      bookingDetailRef.current = detail;
+      dispatch({ type: "mark-booked", at: bookedAt });
+
       sync.saveBooking({ calLink: env.calLink, detail });
       sync.push({
         booking: {
-          requestedAt: new Date().toISOString(),
-          bookedAt: new Date().toISOString(),
+          requestedAt: state.bookingRequestedAt
+            ? new Date(state.bookingRequestedAt).toISOString()
+            : bookedAt,
+          bookedAt,
           calLink: env.calLink,
           payload: detail,
         },
       });
     },
-    [sync],
+    [state.bookedAt, state.bookingRequestedAt, sync],
   );
 
   /** «Вийти» - прогрес лишається у сховищі, повертаємось на інтро. */
@@ -535,6 +596,9 @@ export function useQuizFlow() {
     /** Діагностику вже пройдено - повторне проходження заблоковане */
     isLocked,
     completedAt: state.completedAt,
+    /** Зустріч уже заброньовано - повторне бронювання заблоковане */
+    isBooked: state.bookedAt !== null,
+    bookedAt: state.bookedAt,
     completedProfile,
     /** Чи є з чого показати результат (відповіді збереглися) */
     canViewResult: isLocked && Object.keys(state.answers).length > 0,

@@ -321,10 +321,7 @@ function FullAnalysisView({
           padding="md"
           className="flex flex-wrap items-center justify-between gap-4"
         >
-          <p className="text-sm text-ink-soft">
-            Далі я підготую рекомендації - це ще{" "}
-            {formatMinutesWord(nudge.remainingMs)}.
-          </p>
+          <p className="text-sm text-ink-soft">Записуйся на розбір з Оленою</p>
           <Button size="sm" variant="secondary" onClick={actions.goToBooking}>
             <CalendarHeart className="size-3.5" strokeWidth={2.25} />
             Хочу на розбір

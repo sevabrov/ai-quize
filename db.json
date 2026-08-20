@@ -447,6 +447,1112 @@
         "language": "en",
         "screen": "1440×900"
       }
+    },
+    {
+      "id": "mXiICjmKA-Q",
+      "clientId": "56c77f23-701d-4f15-a542-0cbab18a8da7",
+      "startedAt": "2026-08-19T19:29:46.758Z",
+      "updatedAt": "2026-08-20T11:12:52.681Z",
+      "about": "Всеволод, 23 роки немаэ досвыду",
+      "answers": {
+        "2": "b",
+        "3": "c",
+        "4": "e",
+        "5": "c",
+        "6": "d",
+        "7": "d",
+        "8": "d",
+        "9": "c",
+        "10": "d",
+        "11": "c",
+        "12": "b",
+        "13": "b",
+        "14": "e",
+        "15": "b"
+      },
+      "lastQuestionId": 15,
+      "completedAt": "2026-08-19T19:30:57.538Z",
+      "profileId": "scale",
+      "scores": [
+        {
+          "profileId": "scale",
+          "score": 5,
+          "matched": [
+            "3c",
+            "7d",
+            "12b",
+            "13b",
+            "14e"
+          ]
+        },
+        {
+          "profileId": "restart",
+          "score": 3,
+          "matched": [
+            "8d",
+            "13b",
+            "14e"
+          ]
+        },
+        {
+          "profileId": "onboarding",
+          "score": 2,
+          "matched": [
+            "5c",
+            "9c"
+          ]
+        },
+        {
+          "profileId": "ai",
+          "score": 2,
+          "matched": [
+            "9c",
+            "10d"
+          ]
+        },
+        {
+          "profileId": "recruiting",
+          "score": 1,
+          "matched": [
+            "6d"
+          ]
+        },
+        {
+          "profileId": "leader",
+          "score": 1,
+          "matched": [
+            "4e"
+          ]
+        }
+      ],
+      "analysisRequestedAt": "2026-08-20T11:04:44.603Z",
+      "analysisDeliveredAt": "2026-08-20T11:06:07.081Z",
+      "bookingRequestedAt": "2026-08-20T11:09:46.625Z",
+      "mihiClickedAt": "2026-08-20T10:57:33.826Z",
+      "booking": {
+        "requestedAt": "2026-08-20T10:56:25.839Z",
+        "bookedAt": "2026-08-20T10:56:25.839Z",
+        "calLink": "vsevolod-brovarnyi-t7v9gb/test-consultation",
+        "payload": {
+          "type": "bookingSuccessful",
+          "namespace": "olena-razbor",
+          "fullType": "CAL:olena-razbor:bookingSuccessful",
+          "data": {
+            "booking": {
+              "id": 24076616,
+              "uid": "uaM6whcZtiDrAiTqBnrcJe",
+              "uuid": "01a01f5d-3fc0-71c0-8b39-717f20fab041",
+              "idempotencyKey": "9126dc70-1683-5e08-a8db-d3c72fc29850",
+              "userId": 2282791,
+              "userPrimaryEmail": "vsevolod.brovarnyi@gmail.com",
+              "eventTypeId": 5208541,
+              "title": "«Test consultation» за участі ведучого Vsevolod Brovarnyi і учасника Vsevolod Brovarnyi",
+              "description": "Test",
+              "customInputs": {},
+              "responses": {
+                "name": "Vsevolod Brovarnyi",
+                "email": "vsevolod.brovarnyi@gmail.com",
+                "notes": "Test",
+                "guests": [],
+                "Telegram": "+38063440 6952",
+                "location": {
+                  "value": "integrations:google:meet",
+                  "optionValue": ""
+                },
+                "attendeePhoneNumber": "+34666306149"
+              },
+              "startTime": "2026-08-20T13:30:00.000Z",
+              "endTime": "2026-08-20T14:00:00.000Z",
+              "location": "integrations:google:meet",
+              "createdAt": "2026-08-20T10:56:22.437Z",
+              "updatedAt": "2026-08-20T10:56:22.437Z",
+              "status": "ACCEPTED",
+              "paid": false,
+              "destinationCalendarId": 1183381,
+              "cancellationReason": null,
+              "rejectionReason": null,
+              "reassignReason": null,
+              "reassignById": null,
+              "dynamicEventSlugRef": null,
+              "dynamicGroupSlugRef": null,
+              "rescheduled": null,
+              "fromReschedule": null,
+              "recurringEventId": null,
+              "smsReminderNumber": null,
+              "scheduledJobs": [],
+              "metadata": {},
+              "privateNoteMode": null,
+              "isRecorded": false,
+              "aiTranscriptSummary": null,
+              "iCalUID": "uaM6whcZtiDrAiTqBnrcJe@Cal.com",
+              "iCalSequence": 0,
+              "rating": null,
+              "ratingFeedback": null,
+              "noShowHost": false,
+              "oneTimePassword": null,
+              "cancelledBy": null,
+              "rescheduledBy": null,
+              "creationSource": "WEBAPP",
+              "user": {
+                "uuid": "4d7a07ae-d925-4c0d-ab0d-809156a2bc0e",
+                "email": null,
+                "name": "Vsevolod Brovarnyi",
+                "timeZone": "Europe/Madrid",
+                "username": "vsevolod-brovarnyi-t7v9gb",
+                "isPlatformManaged": false
+              },
+              "attendees": [
+                {
+                  "id": 28753824,
+                  "email": "vsevolod.brovarnyi@gmail.com",
+                  "name": "Vsevolod Brovarnyi",
+                  "timeZone": "Europe/Madrid",
+                  "phoneNumber": "+34666306149",
+                  "locale": "uk",
+                  "bookingId": 24076616,
+                  "noShow": false,
+                  "createdAt": "2026-08-20T10:56:22.437Z"
+                }
+              ],
+              "payment": [],
+              "references": [
+                {
+                  "type": "google_calendar",
+                  "uid": "_elgkqdjnd1hlkt398hp42qake516ssj399ik0gr1dgn66rrd",
+                  "thirdPartyRecurringEventId": null,
+                  "meetingId": "_elgkqdjnd1hlkt398hp42qake516ssj399ik0gr1dgn66rrd",
+                  "meetingPassword": "",
+                  "meetingUrl": "https://meet.google.com/nqg-babg-rbx",
+                  "externalCalendarId": "vsevolod.brovarnyi@gmail.com",
+                  "syncObservedVersion": "etag:\"3574446767603134\"",
+                  "syncObservedAt": "2026-08-20T10:56:25.602Z",
+                  "credentialId": 1891019
+                },
+                {
+                  "type": "google_meet_video",
+                  "meetingUrl": "https://meet.google.com/nqg-babg-rbx",
+                  "uid": "uaM6whcZtiDrAiTqBnrcJe",
+                  "credentialId": 1891019
+                }
+              ],
+              "userUuid": "4d7a07ae-d925-4c0d-ab0d-809156a2bc0e",
+              "appsStatus": [
+                {
+                  "appName": "Google Calendar",
+                  "type": "google_calendar",
+                  "success": 1,
+                  "failures": 0,
+                  "errors": [],
+                  "warnings": []
+                },
+                {
+                  "appName": "Google Meet",
+                  "type": "conferencing",
+                  "success": 1,
+                  "failures": 0,
+                  "errors": []
+                }
+              ],
+              "paymentRequired": false,
+              "luckyUsers": [],
+              "isDryRun": false,
+              "videoCallUrl": "https://meet.google.com/nqg-babg-rbx",
+              "organizationId": null,
+              "previousBooking": null
+            },
+            "eventType": {
+              "id": 5208541,
+              "title": "Test consultation",
+              "description": "",
+              "interfaceLanguage": null,
+              "eventName": null,
+              "slug": "test-consultation",
+              "isInstantEvent": false,
+              "instantMeetingParameters": [],
+              "bannerUrl": null,
+              "aiPhoneCallConfig": null,
+              "schedulingType": null,
+              "length": 30,
+              "locations": [
+                {
+                  "type": "integrations:google:meet",
+                  "credentialId": 1891020
+                }
+              ],
+              "enablePerHostLocations": false,
+              "customInputs": [],
+              "disableGuests": true,
+              "metadata": {},
+              "lockTimeZoneToggleOnBookingPage": false,
+              "lockedTimeZone": null,
+              "requiresConfirmation": false,
+              "autoTranslateDescriptionEnabled": false,
+              "fieldTranslations": [],
+              "requiresBookerEmailVerification": false,
+              "recurringEvent": null,
+              "price": 0,
+              "currency": "usd",
+              "seatsPerTimeSlot": null,
+              "disableCancelling": false,
+              "disableCancellingScope": "HOST_AND_ATTENDEE",
+              "disableRescheduling": false,
+              "disableReschedulingScope": "HOST_AND_ATTENDEE",
+              "minimumRescheduleNotice": null,
+              "allowReschedulingCancelledBookings": false,
+              "seatsShowAvailabilityCount": true,
+              "bookingFields": [
+                {
+                  "name": "name",
+                  "type": "name",
+                  "defaultLabel": "your_name",
+                  "required": true,
+                  "editable": "system",
+                  "sources": [
+                    {
+                      "id": "default",
+                      "type": "default",
+                      "label": "Default"
+                    }
+                  ]
+                },
+                {
+                  "name": "email",
+                  "type": "email",
+                  "defaultLabel": "email_address",
+                  "required": true,
+                  "editable": "system-but-optional",
+                  "sources": [
+                    {
+                      "id": "default",
+                      "type": "default",
+                      "label": "Default"
+                    }
+                  ]
+                },
+                {
+                  "name": "attendeePhoneNumber",
+                  "type": "phone",
+                  "defaultLabel": "phone_number",
+                  "required": false,
+                  "hidden": false,
+                  "editable": "system-but-optional",
+                  "sources": [
+                    {
+                      "id": "default",
+                      "type": "default",
+                      "label": "Default"
+                    }
+                  ]
+                },
+                {
+                  "name": "location",
+                  "type": "radioInput",
+                  "defaultLabel": "location",
+                  "required": false,
+                  "getOptionsAt": "locations",
+                  "optionsInputs": {
+                    "attendeeInPerson": {
+                      "type": "address",
+                      "required": true,
+                      "placeholder": ""
+                    },
+                    "somewhereElse": {
+                      "type": "text",
+                      "required": true,
+                      "placeholder": ""
+                    },
+                    "phone": {
+                      "type": "phone",
+                      "required": true,
+                      "placeholder": ""
+                    }
+                  },
+                  "hideWhenJustOneOption": true,
+                  "editable": "system",
+                  "sources": [
+                    {
+                      "id": "default",
+                      "type": "default",
+                      "label": "Default"
+                    }
+                  ],
+                  "options": [
+                    {
+                      "label": "Google Meet",
+                      "value": "integrations:google:meet",
+                      "inputPlaceholder": ""
+                    }
+                  ]
+                },
+                {
+                  "name": "title",
+                  "type": "text",
+                  "defaultLabel": "what_is_this_meeting_about",
+                  "defaultPlaceholder": "",
+                  "required": true,
+                  "hidden": true,
+                  "editable": "system-but-optional",
+                  "sources": [
+                    {
+                      "id": "default",
+                      "type": "default",
+                      "label": "Default"
+                    }
+                  ]
+                },
+                {
+                  "name": "notes",
+                  "type": "textarea",
+                  "defaultLabel": "additional_notes",
+                  "defaultPlaceholder": "share_additional_notes",
+                  "required": false,
+                  "editable": "system-but-optional",
+                  "sources": [
+                    {
+                      "id": "default",
+                      "type": "default",
+                      "label": "Default"
+                    }
+                  ]
+                },
+                {
+                  "name": "guests",
+                  "type": "multiemail",
+                  "defaultLabel": "additional_guests",
+                  "defaultPlaceholder": "email",
+                  "required": false,
+                  "hidden": true,
+                  "editable": "system-but-optional",
+                  "sources": [
+                    {
+                      "id": "default",
+                      "type": "default",
+                      "label": "Default"
+                    }
+                  ]
+                },
+                {
+                  "name": "rescheduleReason",
+                  "type": "textarea",
+                  "defaultLabel": "reason_for_reschedule",
+                  "defaultPlaceholder": "reschedule_placeholder",
+                  "required": false,
+                  "views": [
+                    {
+                      "label": "Reschedule View",
+                      "id": "reschedule"
+                    }
+                  ],
+                  "hidden": true,
+                  "editable": "system-but-optional",
+                  "sources": [
+                    {
+                      "id": "default",
+                      "type": "default",
+                      "label": "Default"
+                    }
+                  ]
+                },
+                {
+                  "name": "Instagram",
+                  "type": "text",
+                  "label": "Instagram",
+                  "placeholder": "",
+                  "required": true,
+                  "hidden": true,
+                  "editable": "user",
+                  "sources": [
+                    {
+                      "id": "user",
+                      "type": "user",
+                      "label": "User",
+                      "fieldRequired": true
+                    }
+                  ],
+                  "disableOnPrefill": true
+                },
+                {
+                  "name": "Telegram",
+                  "type": "text",
+                  "label": "Telegram",
+                  "placeholder": "",
+                  "required": true,
+                  "editable": "user",
+                  "sources": [
+                    {
+                      "id": "user",
+                      "type": "user",
+                      "label": "User",
+                      "fieldRequired": true
+                    }
+                  ]
+                }
+              ],
+              "hideOrganizerEmail": false,
+              "isCalEvent": false,
+              "teamId": null,
+              "userId": 2282791,
+              "team": null,
+              "successRedirectUrl": null,
+              "isSuccessRedirectUrlApproved": true,
+              "successRedirectUrlUpdatedAt": null,
+              "forwardParamsSuccessRedirect": true,
+              "redirectUrlOnNoRoutingFormResponse": null,
+              "workflows": [],
+              "owner": {
+                "id": 2282791,
+                "avatarUrl": "https://lh3.googleusercontent.com/a/ACg8ocI4wwtDKcvUPzboX_CO0sPTrU4zvIvvNgTBsiQ98FiRlTVrexuz=s96-c",
+                "username": "vsevolod-brovarnyi-t7v9gb",
+                "name": "Vsevolod Brovarnyi",
+                "weekStart": "Sunday",
+                "brandColor": null,
+                "darkBrandColor": null,
+                "cornerStyle": "rounded",
+                "theme": null,
+                "metadata": {
+                  "stripeCustomerId": "cus_UCKVzNbv3dgLEE"
+                },
+                "organization": null,
+                "defaultScheduleId": 1361647,
+                "whitelistRedirectUrls": true,
+                "nonProfileUsername": "vsevolod-brovarnyi-t7v9gb",
+                "profile": {
+                  "id": null,
+                  "upId": "usr-2282791",
+                  "username": "vsevolod-brovarnyi-t7v9gb",
+                  "organizationId": null,
+                  "organization": null
+                }
+              },
+              "schedule": {
+                "id": 1361647,
+                "timeZone": "Europe/Madrid"
+              },
+              "instantMeetingSchedule": null,
+              "periodType": "UNLIMITED",
+              "periodDays": null,
+              "periodEndDate": null,
+              "periodStartDate": null,
+              "periodCountCalendarDays": null,
+              "hidden": false,
+              "shouldMergePhoneSystemFields": null,
+              "assignAllTeamMembers": false,
+              "rescheduleWithSameRoundRobinHost": false,
+              "allowRRHostChoiceOnReschedule": false,
+              "restrictionScheduleId": null,
+              "useBookerTimezone": false,
+              "parent": null,
+              "subsetOfHosts": [],
+              "bookerLayouts": null,
+              "profile": {
+                "username": "vsevolod-brovarnyi-t7v9gb",
+                "name": "Vsevolod Brovarnyi",
+                "weekStart": "Sunday",
+                "image": "https://lh3.googleusercontent.com/a/ACg8ocI4wwtDKcvUPzboX_CO0sPTrU4zvIvvNgTBsiQ98FiRlTVrexuz=s96-c",
+                "brandColor": null,
+                "darkBrandColor": null,
+                "cornerStyle": "rounded",
+                "theme": null,
+                "bookerLayouts": null
+              },
+              "subsetOfUsers": [
+                {
+                  "username": "vsevolod-brovarnyi-t7v9gb",
+                  "name": "Vsevolod Brovarnyi",
+                  "weekStart": "Sunday",
+                  "avatarUrl": "https://lh3.googleusercontent.com/a/ACg8ocI4wwtDKcvUPzboX_CO0sPTrU4zvIvvNgTBsiQ98FiRlTVrexuz=s96-c",
+                  "profile": {
+                    "id": null,
+                    "upId": "usr-2282791",
+                    "username": "vsevolod-brovarnyi-t7v9gb",
+                    "organizationId": null,
+                    "organization": null
+                  },
+                  "bookerUrl": "https://cal.com"
+                }
+              ],
+              "entity": {
+                "fromRedirectOfNonOrgLink": false,
+                "considerUnpublished": false,
+                "orgSlug": null,
+                "teamSlug": null,
+                "name": null,
+                "hideProfileLink": false
+              },
+              "isDynamic": false,
+              "showInstantEventConnectNowModal": false,
+              "skipRedirectWarning": true
+            },
+            "date": "2026-08-20T13:30:00.000Z",
+            "duration": 30,
+            "organizer": {
+              "name": "Vsevolod Brovarnyi",
+              "email": "vsevolod.brovarnyi@gmail.com",
+              "timeZone": "Europe/Madrid"
+            },
+            "confirmed": true
+          }
+        }
+      },
+      "meta": {
+        "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36",
+        "referrer": "http://localhost:5173/",
+        "language": "en",
+        "screen": "3440×1440"
+      }
+    },
+    {
+      "id": "gtUrCSvWUAI",
+      "clientId": "49be50d7-e164-42c7-b2aa-f712d4111b80",
+      "startedAt": "2026-08-20T11:13:15.629Z",
+      "updatedAt": "2026-08-20T11:24:17.750Z",
+      "about": "sdfdsfsfdsfdsfdsfdsf",
+      "answers": {
+        "2": "c",
+        "3": "c",
+        "4": "a",
+        "5": "a",
+        "6": "f",
+        "7": "c",
+        "8": "d",
+        "9": "f",
+        "10": "c",
+        "11": "a",
+        "12": "c",
+        "13": "e",
+        "14": "e",
+        "15": "b"
+      },
+      "lastQuestionId": 15,
+      "completedAt": "2026-08-20T11:24:17.658Z",
+      "profileId": "scale",
+      "scores": [
+        {
+          "profileId": "scale",
+          "score": 4,
+          "matched": [
+            "3c",
+            "10c",
+            "12c",
+            "14e"
+          ]
+        },
+        {
+          "profileId": "restart",
+          "score": 3,
+          "matched": [
+            "2c",
+            "8d",
+            "14e"
+          ]
+        },
+        {
+          "profileId": "leader",
+          "score": 3,
+          "matched": [
+            "5a",
+            "6f",
+            "7c"
+          ]
+        },
+        {
+          "profileId": "onboarding",
+          "score": 2,
+          "matched": [
+            "4a",
+            "7c"
+          ]
+        },
+        {
+          "profileId": "recruiting",
+          "score": 0,
+          "matched": []
+        },
+        {
+          "profileId": "ai",
+          "score": 0,
+          "matched": []
+        }
+      ],
+      "analysisRequestedAt": "2026-08-20T11:24:17.658Z",
+      "analysisDeliveredAt": "2026-08-20T11:24:17.746Z",
+      "bookingRequestedAt": "2026-08-20T11:23:19.076Z",
+      "mihiClickedAt": null,
+      "booking": {
+        "requestedAt": "2026-08-20T11:13:45.794Z",
+        "bookedAt": "2026-08-20T11:14:22.426Z",
+        "calLink": "vsevolod-brovarnyi-t7v9gb/test-consultation",
+        "payload": {
+          "type": "bookingSuccessful",
+          "namespace": "olena-razbor",
+          "fullType": "CAL:olena-razbor:bookingSuccessful",
+          "data": {
+            "booking": {
+              "id": 24077270,
+              "uid": "2fdxf7zG7FVU8XGp6YfC2R",
+              "uuid": "01a01f94-2e40-7f23-89e8-add691710645",
+              "idempotencyKey": "36efb160-1051-5417-95ab-3677a68d68e8",
+              "userId": 2282791,
+              "userPrimaryEmail": "vsevolod.brovarnyi@gmail.com",
+              "eventTypeId": 5208541,
+              "title": "«Test consultation» за участі ведучого Vsevolod Brovarnyi і учасника Vsevolod Brovarnyi",
+              "description": "444444",
+              "customInputs": {},
+              "responses": {
+                "name": "Vsevolod Brovarnyi",
+                "email": "vsevolod.brovarnyi.spain@gmail.com",
+                "notes": "444444",
+                "guests": [],
+                "Telegram": "4444",
+                "location": {
+                  "value": "integrations:zoom",
+                  "optionValue": ""
+                },
+                "attendeePhoneNumber": "+34666393754"
+              },
+              "startTime": "2026-08-20T14:30:00.000Z",
+              "endTime": "2026-08-20T15:00:00.000Z",
+              "location": "integrations:zoom",
+              "createdAt": "2026-08-20T11:14:20.310Z",
+              "updatedAt": "2026-08-20T11:14:20.310Z",
+              "status": "ACCEPTED",
+              "paid": false,
+              "destinationCalendarId": 1183381,
+              "cancellationReason": null,
+              "rejectionReason": null,
+              "reassignReason": null,
+              "reassignById": null,
+              "dynamicEventSlugRef": null,
+              "dynamicGroupSlugRef": null,
+              "rescheduled": null,
+              "fromReschedule": null,
+              "recurringEventId": null,
+              "smsReminderNumber": null,
+              "scheduledJobs": [],
+              "metadata": {},
+              "privateNoteMode": null,
+              "isRecorded": false,
+              "aiTranscriptSummary": null,
+              "iCalUID": "2fdxf7zG7FVU8XGp6YfC2R@Cal.com",
+              "iCalSequence": 0,
+              "rating": null,
+              "ratingFeedback": null,
+              "noShowHost": false,
+              "oneTimePassword": null,
+              "cancelledBy": null,
+              "rescheduledBy": null,
+              "creationSource": "WEBAPP",
+              "user": {
+                "uuid": "4d7a07ae-d925-4c0d-ab0d-809156a2bc0e",
+                "email": null,
+                "name": "Vsevolod Brovarnyi",
+                "timeZone": "Europe/Madrid",
+                "username": "vsevolod-brovarnyi-t7v9gb",
+                "isPlatformManaged": false
+              },
+              "attendees": [
+                {
+                  "id": 28754572,
+                  "email": "vsevolod.brovarnyi.spain@gmail.com",
+                  "name": "Vsevolod Brovarnyi",
+                  "timeZone": "Europe/Madrid",
+                  "phoneNumber": "+34666393754",
+                  "locale": "uk",
+                  "bookingId": 24077270,
+                  "noShow": false,
+                  "createdAt": "2026-08-20T11:14:20.310Z"
+                }
+              ],
+              "payment": [],
+              "references": [
+                {
+                  "type": "zoom_video",
+                  "uid": "86892173599",
+                  "meetingId": "86892173599",
+                  "meetingPassword": "E60C0t",
+                  "meetingUrl": "https://us05web.zoom.us/j/86892173599?pwd=Ux3CrjYzCHDd3sgNhWDDbRHTtADDRU.1",
+                  "syncObservedVersion": null,
+                  "syncObservedAt": null,
+                  "credentialId": 2478174
+                },
+                {
+                  "type": "google_calendar",
+                  "uid": "_69j68u366tt4edq6apajgm27e0r5ipi369940gr1dgn66rrd",
+                  "thirdPartyRecurringEventId": null,
+                  "meetingId": "_69j68u366tt4edq6apajgm27e0r5ipi369940gr1dgn66rrd",
+                  "meetingPassword": "",
+                  "meetingUrl": "",
+                  "externalCalendarId": "vsevolod.brovarnyi@gmail.com",
+                  "syncObservedVersion": "etag:\"3574448923862622\"",
+                  "syncObservedAt": "2026-08-20T11:14:22.056Z",
+                  "credentialId": 1891019
+                }
+              ],
+              "userUuid": "4d7a07ae-d925-4c0d-ab0d-809156a2bc0e",
+              "appsStatus": [
+                {
+                  "appName": "Zoom Video",
+                  "type": "zoom_video",
+                  "success": 1,
+                  "failures": 0,
+                  "errors": []
+                },
+                {
+                  "appName": "Google Calendar",
+                  "type": "google_calendar",
+                  "success": 1,
+                  "failures": 0,
+                  "errors": [],
+                  "warnings": []
+                }
+              ],
+              "paymentRequired": false,
+              "luckyUsers": [],
+              "isDryRun": false,
+              "videoCallUrl": "https://us05web.zoom.us/j/86892173599?pwd=Ux3CrjYzCHDd3sgNhWDDbRHTtADDRU.1",
+              "organizationId": null,
+              "previousBooking": null
+            },
+            "eventType": {
+              "id": 5208541,
+              "title": "Test consultation",
+              "description": "",
+              "interfaceLanguage": null,
+              "eventName": null,
+              "slug": "test-consultation",
+              "isInstantEvent": false,
+              "instantMeetingParameters": [],
+              "bannerUrl": null,
+              "aiPhoneCallConfig": null,
+              "schedulingType": null,
+              "length": 30,
+              "locations": [
+                {
+                  "type": "integrations:zoom",
+                  "credentialId": 2478174
+                }
+              ],
+              "enablePerHostLocations": false,
+              "customInputs": [],
+              "disableGuests": true,
+              "metadata": {},
+              "lockTimeZoneToggleOnBookingPage": false,
+              "lockedTimeZone": null,
+              "requiresConfirmation": false,
+              "autoTranslateDescriptionEnabled": false,
+              "fieldTranslations": [],
+              "requiresBookerEmailVerification": false,
+              "recurringEvent": null,
+              "price": 0,
+              "currency": "usd",
+              "seatsPerTimeSlot": null,
+              "disableCancelling": false,
+              "disableCancellingScope": "HOST_AND_ATTENDEE",
+              "disableRescheduling": false,
+              "disableReschedulingScope": "HOST_AND_ATTENDEE",
+              "minimumRescheduleNotice": null,
+              "allowReschedulingCancelledBookings": false,
+              "seatsShowAvailabilityCount": true,
+              "bookingFields": [
+                {
+                  "name": "name",
+                  "type": "name",
+                  "defaultLabel": "your_name",
+                  "required": true,
+                  "editable": "system",
+                  "sources": [
+                    {
+                      "id": "default",
+                      "type": "default",
+                      "label": "Default"
+                    }
+                  ]
+                },
+                {
+                  "name": "email",
+                  "type": "email",
+                  "defaultLabel": "email_address",
+                  "required": true,
+                  "editable": "system-but-optional",
+                  "sources": [
+                    {
+                      "id": "default",
+                      "type": "default",
+                      "label": "Default"
+                    }
+                  ]
+                },
+                {
+                  "name": "attendeePhoneNumber",
+                  "type": "phone",
+                  "defaultLabel": "phone_number",
+                  "required": false,
+                  "hidden": false,
+                  "editable": "system-but-optional",
+                  "sources": [
+                    {
+                      "id": "default",
+                      "type": "default",
+                      "label": "Default"
+                    }
+                  ]
+                },
+                {
+                  "name": "location",
+                  "type": "radioInput",
+                  "defaultLabel": "location",
+                  "required": false,
+                  "getOptionsAt": "locations",
+                  "optionsInputs": {
+                    "attendeeInPerson": {
+                      "type": "address",
+                      "required": true,
+                      "placeholder": ""
+                    },
+                    "somewhereElse": {
+                      "type": "text",
+                      "required": true,
+                      "placeholder": ""
+                    },
+                    "phone": {
+                      "type": "phone",
+                      "required": true,
+                      "placeholder": ""
+                    }
+                  },
+                  "hideWhenJustOneOption": true,
+                  "editable": "system",
+                  "sources": [
+                    {
+                      "id": "default",
+                      "type": "default",
+                      "label": "Default"
+                    }
+                  ],
+                  "options": [
+                    {
+                      "label": "Zoom Video",
+                      "value": "integrations:zoom",
+                      "inputPlaceholder": ""
+                    }
+                  ]
+                },
+                {
+                  "name": "title",
+                  "type": "text",
+                  "defaultLabel": "what_is_this_meeting_about",
+                  "defaultPlaceholder": "",
+                  "required": true,
+                  "hidden": true,
+                  "editable": "system-but-optional",
+                  "sources": [
+                    {
+                      "id": "default",
+                      "type": "default",
+                      "label": "Default"
+                    }
+                  ]
+                },
+                {
+                  "name": "notes",
+                  "type": "textarea",
+                  "defaultLabel": "additional_notes",
+                  "defaultPlaceholder": "share_additional_notes",
+                  "required": false,
+                  "editable": "system-but-optional",
+                  "sources": [
+                    {
+                      "id": "default",
+                      "type": "default",
+                      "label": "Default"
+                    }
+                  ]
+                },
+                {
+                  "name": "guests",
+                  "type": "multiemail",
+                  "defaultLabel": "additional_guests",
+                  "defaultPlaceholder": "email",
+                  "required": false,
+                  "hidden": true,
+                  "editable": "system-but-optional",
+                  "sources": [
+                    {
+                      "id": "default",
+                      "type": "default",
+                      "label": "Default"
+                    }
+                  ]
+                },
+                {
+                  "name": "rescheduleReason",
+                  "type": "textarea",
+                  "defaultLabel": "reason_for_reschedule",
+                  "defaultPlaceholder": "reschedule_placeholder",
+                  "required": false,
+                  "views": [
+                    {
+                      "label": "Reschedule View",
+                      "id": "reschedule"
+                    }
+                  ],
+                  "hidden": true,
+                  "editable": "system-but-optional",
+                  "sources": [
+                    {
+                      "id": "default",
+                      "type": "default",
+                      "label": "Default"
+                    }
+                  ]
+                },
+                {
+                  "name": "Instagram",
+                  "type": "text",
+                  "label": "Instagram",
+                  "placeholder": "",
+                  "required": true,
+                  "hidden": true,
+                  "editable": "user",
+                  "sources": [
+                    {
+                      "id": "user",
+                      "type": "user",
+                      "label": "User",
+                      "fieldRequired": true
+                    }
+                  ],
+                  "disableOnPrefill": true
+                },
+                {
+                  "name": "Telegram",
+                  "type": "text",
+                  "label": "Telegram",
+                  "placeholder": "",
+                  "required": true,
+                  "editable": "user",
+                  "sources": [
+                    {
+                      "id": "user",
+                      "type": "user",
+                      "label": "User",
+                      "fieldRequired": true
+                    }
+                  ]
+                }
+              ],
+              "hideOrganizerEmail": false,
+              "isCalEvent": false,
+              "teamId": null,
+              "userId": 2282791,
+              "team": null,
+              "successRedirectUrl": null,
+              "isSuccessRedirectUrlApproved": true,
+              "successRedirectUrlUpdatedAt": null,
+              "forwardParamsSuccessRedirect": true,
+              "redirectUrlOnNoRoutingFormResponse": null,
+              "workflows": [],
+              "owner": {
+                "id": 2282791,
+                "avatarUrl": "https://lh3.googleusercontent.com/a/ACg8ocI4wwtDKcvUPzboX_CO0sPTrU4zvIvvNgTBsiQ98FiRlTVrexuz=s96-c",
+                "username": "vsevolod-brovarnyi-t7v9gb",
+                "name": "Vsevolod Brovarnyi",
+                "weekStart": "Sunday",
+                "brandColor": null,
+                "darkBrandColor": null,
+                "cornerStyle": "rounded",
+                "theme": null,
+                "metadata": {
+                  "stripeCustomerId": "cus_UCKVzNbv3dgLEE"
+                },
+                "organization": null,
+                "defaultScheduleId": 1361647,
+                "whitelistRedirectUrls": true,
+                "nonProfileUsername": "vsevolod-brovarnyi-t7v9gb",
+                "profile": {
+                  "id": null,
+                  "upId": "usr-2282791",
+                  "username": "vsevolod-brovarnyi-t7v9gb",
+                  "organizationId": null,
+                  "organization": null
+                }
+              },
+              "schedule": {
+                "id": 1361647,
+                "timeZone": "Europe/Madrid"
+              },
+              "instantMeetingSchedule": null,
+              "periodType": "UNLIMITED",
+              "periodDays": null,
+              "periodEndDate": null,
+              "periodStartDate": null,
+              "periodCountCalendarDays": null,
+              "hidden": false,
+              "shouldMergePhoneSystemFields": null,
+              "assignAllTeamMembers": false,
+              "rescheduleWithSameRoundRobinHost": false,
+              "allowRRHostChoiceOnReschedule": false,
+              "restrictionScheduleId": null,
+              "useBookerTimezone": false,
+              "parent": null,
+              "subsetOfHosts": [],
+              "bookerLayouts": null,
+              "profile": {
+                "username": "vsevolod-brovarnyi-t7v9gb",
+                "name": "Vsevolod Brovarnyi",
+                "weekStart": "Sunday",
+                "image": "https://lh3.googleusercontent.com/a/ACg8ocI4wwtDKcvUPzboX_CO0sPTrU4zvIvvNgTBsiQ98FiRlTVrexuz=s96-c",
+                "brandColor": null,
+                "darkBrandColor": null,
+                "cornerStyle": "rounded",
+                "theme": null,
+                "bookerLayouts": null
+              },
+              "subsetOfUsers": [
+                {
+                  "username": "vsevolod-brovarnyi-t7v9gb",
+                  "name": "Vsevolod Brovarnyi",
+                  "weekStart": "Sunday",
+                  "avatarUrl": "https://lh3.googleusercontent.com/a/ACg8ocI4wwtDKcvUPzboX_CO0sPTrU4zvIvvNgTBsiQ98FiRlTVrexuz=s96-c",
+                  "profile": {
+                    "id": null,
+                    "upId": "usr-2282791",
+                    "username": "vsevolod-brovarnyi-t7v9gb",
+                    "organizationId": null,
+                    "organization": null
+                  },
+                  "bookerUrl": "https://cal.com"
+                }
+              ],
+              "entity": {
+                "fromRedirectOfNonOrgLink": false,
+                "considerUnpublished": false,
+                "orgSlug": null,
+                "teamSlug": null,
+                "name": null,
+                "hideProfileLink": false
+              },
+              "isDynamic": false,
+              "showInstantEventConnectNowModal": false,
+              "skipRedirectWarning": true
+            },
+            "date": "2026-08-20T14:30:00.000Z",
+            "duration": 30,
+            "organizer": {
+              "name": "Vsevolod Brovarnyi",
+              "email": "vsevolod.brovarnyi@gmail.com",
+              "timeZone": "Europe/Madrid"
+            },
+            "confirmed": true
+          }
+        }
+      },
+      "meta": {
+        "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36",
+        "referrer": "http://localhost:5173/",
+        "language": "en",
+        "screen": "3440×1440"
+      }
     }
   ],
   "leads": [
@@ -553,8 +1659,1073 @@
       "sessionId": "QiZQEoIhS7o",
       "createdAt": "2026-08-19T14:59:19.967Z",
       "id": "S69WS4QQ_mU"
+    },
+    {
+      "about": "Всеволод, 23 роки немаэ досвыду",
+      "profileId": "scale",
+      "intent": "analysis",
+      "sessionId": "mXiICjmKA-Q",
+      "createdAt": "2026-08-20T10:32:53.298Z",
+      "id": "gESylqRgRYw"
+    },
+    {
+      "about": "Всеволод, 23 роки немаэ досвыду",
+      "profileId": "scale",
+      "intent": "booking",
+      "sessionId": "mXiICjmKA-Q",
+      "createdAt": "2026-08-20T10:45:27.356Z",
+      "id": "wyz_sRYdFwo"
+    },
+    {
+      "about": "Всеволод, 23 роки немаэ досвыду",
+      "profileId": "scale",
+      "intent": "analysis",
+      "sessionId": "mXiICjmKA-Q",
+      "createdAt": "2026-08-20T11:04:22.957Z",
+      "id": "Z-NYZE9uBdY"
+    },
+    {
+      "about": "Всеволод, 23 роки немаэ досвыду",
+      "profileId": "scale",
+      "intent": "booking",
+      "sessionId": "mXiICjmKA-Q",
+      "createdAt": "2026-08-20T11:04:30.407Z",
+      "id": "t87_pJpIsUs"
+    },
+    {
+      "about": "Всеволод, 23 роки немаэ досвыду",
+      "profileId": "scale",
+      "intent": "analysis",
+      "sessionId": "mXiICjmKA-Q",
+      "createdAt": "2026-08-20T11:04:34.324Z",
+      "id": "7G8AHmDM6do"
+    },
+    {
+      "about": "Всеволод, 23 роки немаэ досвыду",
+      "profileId": "scale",
+      "intent": "booking",
+      "sessionId": "mXiICjmKA-Q",
+      "createdAt": "2026-08-20T11:04:38.174Z",
+      "id": "DL2ccI71XG8"
+    },
+    {
+      "about": "Всеволод, 23 роки немаэ досвыду",
+      "profileId": "scale",
+      "intent": "analysis",
+      "sessionId": "mXiICjmKA-Q",
+      "createdAt": "2026-08-20T11:04:44.657Z",
+      "id": "khYiy_H5qMI"
+    },
+    {
+      "about": "Всеволод, 23 роки немаэ досвыду",
+      "profileId": "scale",
+      "intent": "booking",
+      "sessionId": "mXiICjmKA-Q",
+      "createdAt": "2026-08-20T11:09:46.712Z",
+      "id": "Bi5b_1nG2CI"
+    },
+    {
+      "about": "sdfdsfsfdsfdsfdsfdsf",
+      "profileId": "scale",
+      "intent": "booking",
+      "sessionId": "gtUrCSvWUAI",
+      "createdAt": "2026-08-20T11:13:45.814Z",
+      "id": "IILA6GcPDFo"
+    },
+    {
+      "about": "sdfdsfsfdsfdsfdsfdsf",
+      "profileId": "scale",
+      "intent": "analysis",
+      "sessionId": "gtUrCSvWUAI",
+      "createdAt": "2026-08-20T11:17:04.237Z",
+      "id": "bJ3xcKnez14"
+    },
+    {
+      "about": "sdfdsfsfdsfdsfdsfdsf",
+      "profileId": "scale",
+      "intent": "booking",
+      "sessionId": "gtUrCSvWUAI",
+      "createdAt": "2026-08-20T11:17:10.773Z",
+      "id": "4WcwEiH93MU"
+    },
+    {
+      "about": "sdfdsfsfdsfdsfdsfdsf",
+      "profileId": "scale",
+      "intent": "analysis",
+      "sessionId": "gtUrCSvWUAI",
+      "createdAt": "2026-08-20T11:17:13.694Z",
+      "id": "NoVbwxKf8ZI"
+    },
+    {
+      "about": "sdfdsfsfdsfdsfdsfdsf",
+      "profileId": "scale",
+      "intent": "booking",
+      "sessionId": "gtUrCSvWUAI",
+      "createdAt": "2026-08-20T11:22:42.631Z",
+      "id": "Cx4xMgZ9BQg"
+    },
+    {
+      "about": "sdfdsfsfdsfdsfdsfdsf",
+      "profileId": "scale",
+      "intent": "analysis",
+      "sessionId": "gtUrCSvWUAI",
+      "createdAt": "2026-08-20T11:22:46.169Z",
+      "id": "H4jkH2_O6Bg"
+    },
+    {
+      "about": "sdfdsfsfdsfdsfdsfdsf",
+      "profileId": "scale",
+      "intent": "booking",
+      "sessionId": "gtUrCSvWUAI",
+      "createdAt": "2026-08-20T11:23:19.127Z",
+      "id": "Yn6JwWTLTT8"
+    },
+    {
+      "about": "sdfdsfsfdsfdsfdsfdsf",
+      "profileId": "scale",
+      "intent": "analysis",
+      "sessionId": "gtUrCSvWUAI",
+      "createdAt": "2026-08-20T11:24:17.749Z",
+      "id": "p_Urbgwe0fI"
     }
   ],
-  "bookings": [],
+  "bookings": [
+    {
+      "calLink": "vsevolod-brovarnyi-t7v9gb/test-consultation",
+      "detail": {
+        "type": "bookingSuccessful",
+        "namespace": "olena-razbor",
+        "fullType": "CAL:olena-razbor:bookingSuccessful",
+        "data": {
+          "booking": {
+            "id": 24076616,
+            "uid": "uaM6whcZtiDrAiTqBnrcJe",
+            "uuid": "01a01f5d-3fc0-71c0-8b39-717f20fab041",
+            "idempotencyKey": "9126dc70-1683-5e08-a8db-d3c72fc29850",
+            "userId": 2282791,
+            "userPrimaryEmail": "vsevolod.brovarnyi@gmail.com",
+            "eventTypeId": 5208541,
+            "title": "«Test consultation» за участі ведучого Vsevolod Brovarnyi і учасника Vsevolod Brovarnyi",
+            "description": "Test",
+            "customInputs": {},
+            "responses": {
+              "name": "Vsevolod Brovarnyi",
+              "email": "vsevolod.brovarnyi@gmail.com",
+              "notes": "Test",
+              "guests": [],
+              "Telegram": "+38063440 6952",
+              "location": {
+                "value": "integrations:google:meet",
+                "optionValue": ""
+              },
+              "attendeePhoneNumber": "+34666306149"
+            },
+            "startTime": "2026-08-20T13:30:00.000Z",
+            "endTime": "2026-08-20T14:00:00.000Z",
+            "location": "integrations:google:meet",
+            "createdAt": "2026-08-20T10:56:22.437Z",
+            "updatedAt": "2026-08-20T10:56:22.437Z",
+            "status": "ACCEPTED",
+            "paid": false,
+            "destinationCalendarId": 1183381,
+            "cancellationReason": null,
+            "rejectionReason": null,
+            "reassignReason": null,
+            "reassignById": null,
+            "dynamicEventSlugRef": null,
+            "dynamicGroupSlugRef": null,
+            "rescheduled": null,
+            "fromReschedule": null,
+            "recurringEventId": null,
+            "smsReminderNumber": null,
+            "scheduledJobs": [],
+            "metadata": {},
+            "privateNoteMode": null,
+            "isRecorded": false,
+            "aiTranscriptSummary": null,
+            "iCalUID": "uaM6whcZtiDrAiTqBnrcJe@Cal.com",
+            "iCalSequence": 0,
+            "rating": null,
+            "ratingFeedback": null,
+            "noShowHost": false,
+            "oneTimePassword": null,
+            "cancelledBy": null,
+            "rescheduledBy": null,
+            "creationSource": "WEBAPP",
+            "user": {
+              "uuid": "4d7a07ae-d925-4c0d-ab0d-809156a2bc0e",
+              "email": null,
+              "name": "Vsevolod Brovarnyi",
+              "timeZone": "Europe/Madrid",
+              "username": "vsevolod-brovarnyi-t7v9gb",
+              "isPlatformManaged": false
+            },
+            "attendees": [
+              {
+                "id": 28753824,
+                "email": "vsevolod.brovarnyi@gmail.com",
+                "name": "Vsevolod Brovarnyi",
+                "timeZone": "Europe/Madrid",
+                "phoneNumber": "+34666306149",
+                "locale": "uk",
+                "bookingId": 24076616,
+                "noShow": false,
+                "createdAt": "2026-08-20T10:56:22.437Z"
+              }
+            ],
+            "payment": [],
+            "references": [
+              {
+                "type": "google_calendar",
+                "uid": "_elgkqdjnd1hlkt398hp42qake516ssj399ik0gr1dgn66rrd",
+                "thirdPartyRecurringEventId": null,
+                "meetingId": "_elgkqdjnd1hlkt398hp42qake516ssj399ik0gr1dgn66rrd",
+                "meetingPassword": "",
+                "meetingUrl": "https://meet.google.com/nqg-babg-rbx",
+                "externalCalendarId": "vsevolod.brovarnyi@gmail.com",
+                "syncObservedVersion": "etag:\"3574446767603134\"",
+                "syncObservedAt": "2026-08-20T10:56:25.602Z",
+                "credentialId": 1891019
+              },
+              {
+                "type": "google_meet_video",
+                "meetingUrl": "https://meet.google.com/nqg-babg-rbx",
+                "uid": "uaM6whcZtiDrAiTqBnrcJe",
+                "credentialId": 1891019
+              }
+            ],
+            "userUuid": "4d7a07ae-d925-4c0d-ab0d-809156a2bc0e",
+            "appsStatus": [
+              {
+                "appName": "Google Calendar",
+                "type": "google_calendar",
+                "success": 1,
+                "failures": 0,
+                "errors": [],
+                "warnings": []
+              },
+              {
+                "appName": "Google Meet",
+                "type": "conferencing",
+                "success": 1,
+                "failures": 0,
+                "errors": []
+              }
+            ],
+            "paymentRequired": false,
+            "luckyUsers": [],
+            "isDryRun": false,
+            "videoCallUrl": "https://meet.google.com/nqg-babg-rbx",
+            "organizationId": null,
+            "previousBooking": null
+          },
+          "eventType": {
+            "id": 5208541,
+            "title": "Test consultation",
+            "description": "",
+            "interfaceLanguage": null,
+            "eventName": null,
+            "slug": "test-consultation",
+            "isInstantEvent": false,
+            "instantMeetingParameters": [],
+            "bannerUrl": null,
+            "aiPhoneCallConfig": null,
+            "schedulingType": null,
+            "length": 30,
+            "locations": [
+              {
+                "type": "integrations:google:meet",
+                "credentialId": 1891020
+              }
+            ],
+            "enablePerHostLocations": false,
+            "customInputs": [],
+            "disableGuests": true,
+            "metadata": {},
+            "lockTimeZoneToggleOnBookingPage": false,
+            "lockedTimeZone": null,
+            "requiresConfirmation": false,
+            "autoTranslateDescriptionEnabled": false,
+            "fieldTranslations": [],
+            "requiresBookerEmailVerification": false,
+            "recurringEvent": null,
+            "price": 0,
+            "currency": "usd",
+            "seatsPerTimeSlot": null,
+            "disableCancelling": false,
+            "disableCancellingScope": "HOST_AND_ATTENDEE",
+            "disableRescheduling": false,
+            "disableReschedulingScope": "HOST_AND_ATTENDEE",
+            "minimumRescheduleNotice": null,
+            "allowReschedulingCancelledBookings": false,
+            "seatsShowAvailabilityCount": true,
+            "bookingFields": [
+              {
+                "name": "name",
+                "type": "name",
+                "defaultLabel": "your_name",
+                "required": true,
+                "editable": "system",
+                "sources": [
+                  {
+                    "id": "default",
+                    "type": "default",
+                    "label": "Default"
+                  }
+                ]
+              },
+              {
+                "name": "email",
+                "type": "email",
+                "defaultLabel": "email_address",
+                "required": true,
+                "editable": "system-but-optional",
+                "sources": [
+                  {
+                    "id": "default",
+                    "type": "default",
+                    "label": "Default"
+                  }
+                ]
+              },
+              {
+                "name": "attendeePhoneNumber",
+                "type": "phone",
+                "defaultLabel": "phone_number",
+                "required": false,
+                "hidden": false,
+                "editable": "system-but-optional",
+                "sources": [
+                  {
+                    "id": "default",
+                    "type": "default",
+                    "label": "Default"
+                  }
+                ]
+              },
+              {
+                "name": "location",
+                "type": "radioInput",
+                "defaultLabel": "location",
+                "required": false,
+                "getOptionsAt": "locations",
+                "optionsInputs": {
+                  "attendeeInPerson": {
+                    "type": "address",
+                    "required": true,
+                    "placeholder": ""
+                  },
+                  "somewhereElse": {
+                    "type": "text",
+                    "required": true,
+                    "placeholder": ""
+                  },
+                  "phone": {
+                    "type": "phone",
+                    "required": true,
+                    "placeholder": ""
+                  }
+                },
+                "hideWhenJustOneOption": true,
+                "editable": "system",
+                "sources": [
+                  {
+                    "id": "default",
+                    "type": "default",
+                    "label": "Default"
+                  }
+                ],
+                "options": [
+                  {
+                    "label": "Google Meet",
+                    "value": "integrations:google:meet",
+                    "inputPlaceholder": ""
+                  }
+                ]
+              },
+              {
+                "name": "title",
+                "type": "text",
+                "defaultLabel": "what_is_this_meeting_about",
+                "defaultPlaceholder": "",
+                "required": true,
+                "hidden": true,
+                "editable": "system-but-optional",
+                "sources": [
+                  {
+                    "id": "default",
+                    "type": "default",
+                    "label": "Default"
+                  }
+                ]
+              },
+              {
+                "name": "notes",
+                "type": "textarea",
+                "defaultLabel": "additional_notes",
+                "defaultPlaceholder": "share_additional_notes",
+                "required": false,
+                "editable": "system-but-optional",
+                "sources": [
+                  {
+                    "id": "default",
+                    "type": "default",
+                    "label": "Default"
+                  }
+                ]
+              },
+              {
+                "name": "guests",
+                "type": "multiemail",
+                "defaultLabel": "additional_guests",
+                "defaultPlaceholder": "email",
+                "required": false,
+                "hidden": true,
+                "editable": "system-but-optional",
+                "sources": [
+                  {
+                    "id": "default",
+                    "type": "default",
+                    "label": "Default"
+                  }
+                ]
+              },
+              {
+                "name": "rescheduleReason",
+                "type": "textarea",
+                "defaultLabel": "reason_for_reschedule",
+                "defaultPlaceholder": "reschedule_placeholder",
+                "required": false,
+                "views": [
+                  {
+                    "label": "Reschedule View",
+                    "id": "reschedule"
+                  }
+                ],
+                "hidden": true,
+                "editable": "system-but-optional",
+                "sources": [
+                  {
+                    "id": "default",
+                    "type": "default",
+                    "label": "Default"
+                  }
+                ]
+              },
+              {
+                "name": "Instagram",
+                "type": "text",
+                "label": "Instagram",
+                "placeholder": "",
+                "required": true,
+                "hidden": true,
+                "editable": "user",
+                "sources": [
+                  {
+                    "id": "user",
+                    "type": "user",
+                    "label": "User",
+                    "fieldRequired": true
+                  }
+                ],
+                "disableOnPrefill": true
+              },
+              {
+                "name": "Telegram",
+                "type": "text",
+                "label": "Telegram",
+                "placeholder": "",
+                "required": true,
+                "editable": "user",
+                "sources": [
+                  {
+                    "id": "user",
+                    "type": "user",
+                    "label": "User",
+                    "fieldRequired": true
+                  }
+                ]
+              }
+            ],
+            "hideOrganizerEmail": false,
+            "isCalEvent": false,
+            "teamId": null,
+            "userId": 2282791,
+            "team": null,
+            "successRedirectUrl": null,
+            "isSuccessRedirectUrlApproved": true,
+            "successRedirectUrlUpdatedAt": null,
+            "forwardParamsSuccessRedirect": true,
+            "redirectUrlOnNoRoutingFormResponse": null,
+            "workflows": [],
+            "owner": {
+              "id": 2282791,
+              "avatarUrl": "https://lh3.googleusercontent.com/a/ACg8ocI4wwtDKcvUPzboX_CO0sPTrU4zvIvvNgTBsiQ98FiRlTVrexuz=s96-c",
+              "username": "vsevolod-brovarnyi-t7v9gb",
+              "name": "Vsevolod Brovarnyi",
+              "weekStart": "Sunday",
+              "brandColor": null,
+              "darkBrandColor": null,
+              "cornerStyle": "rounded",
+              "theme": null,
+              "metadata": {
+                "stripeCustomerId": "cus_UCKVzNbv3dgLEE"
+              },
+              "organization": null,
+              "defaultScheduleId": 1361647,
+              "whitelistRedirectUrls": true,
+              "nonProfileUsername": "vsevolod-brovarnyi-t7v9gb",
+              "profile": {
+                "id": null,
+                "upId": "usr-2282791",
+                "username": "vsevolod-brovarnyi-t7v9gb",
+                "organizationId": null,
+                "organization": null
+              }
+            },
+            "schedule": {
+              "id": 1361647,
+              "timeZone": "Europe/Madrid"
+            },
+            "instantMeetingSchedule": null,
+            "periodType": "UNLIMITED",
+            "periodDays": null,
+            "periodEndDate": null,
+            "periodStartDate": null,
+            "periodCountCalendarDays": null,
+            "hidden": false,
+            "shouldMergePhoneSystemFields": null,
+            "assignAllTeamMembers": false,
+            "rescheduleWithSameRoundRobinHost": false,
+            "allowRRHostChoiceOnReschedule": false,
+            "restrictionScheduleId": null,
+            "useBookerTimezone": false,
+            "parent": null,
+            "subsetOfHosts": [],
+            "bookerLayouts": null,
+            "profile": {
+              "username": "vsevolod-brovarnyi-t7v9gb",
+              "name": "Vsevolod Brovarnyi",
+              "weekStart": "Sunday",
+              "image": "https://lh3.googleusercontent.com/a/ACg8ocI4wwtDKcvUPzboX_CO0sPTrU4zvIvvNgTBsiQ98FiRlTVrexuz=s96-c",
+              "brandColor": null,
+              "darkBrandColor": null,
+              "cornerStyle": "rounded",
+              "theme": null,
+              "bookerLayouts": null
+            },
+            "subsetOfUsers": [
+              {
+                "username": "vsevolod-brovarnyi-t7v9gb",
+                "name": "Vsevolod Brovarnyi",
+                "weekStart": "Sunday",
+                "avatarUrl": "https://lh3.googleusercontent.com/a/ACg8ocI4wwtDKcvUPzboX_CO0sPTrU4zvIvvNgTBsiQ98FiRlTVrexuz=s96-c",
+                "profile": {
+                  "id": null,
+                  "upId": "usr-2282791",
+                  "username": "vsevolod-brovarnyi-t7v9gb",
+                  "organizationId": null,
+                  "organization": null
+                },
+                "bookerUrl": "https://cal.com"
+              }
+            ],
+            "entity": {
+              "fromRedirectOfNonOrgLink": false,
+              "considerUnpublished": false,
+              "orgSlug": null,
+              "teamSlug": null,
+              "name": null,
+              "hideProfileLink": false
+            },
+            "isDynamic": false,
+            "showInstantEventConnectNowModal": false,
+            "skipRedirectWarning": true
+          },
+          "date": "2026-08-20T13:30:00.000Z",
+          "duration": 30,
+          "organizer": {
+            "name": "Vsevolod Brovarnyi",
+            "email": "vsevolod.brovarnyi@gmail.com",
+            "timeZone": "Europe/Madrid"
+          },
+          "confirmed": true
+        }
+      },
+      "sessionId": "mXiICjmKA-Q",
+      "createdAt": "2026-08-20T10:56:25.840Z",
+      "id": "abcOwVUoja0"
+    },
+    {
+      "calLink": "vsevolod-brovarnyi-t7v9gb/test-consultation",
+      "detail": {
+        "type": "bookingSuccessful",
+        "namespace": "olena-razbor",
+        "fullType": "CAL:olena-razbor:bookingSuccessful",
+        "data": {
+          "booking": {
+            "id": 24077270,
+            "uid": "2fdxf7zG7FVU8XGp6YfC2R",
+            "uuid": "01a01f94-2e40-7f23-89e8-add691710645",
+            "idempotencyKey": "36efb160-1051-5417-95ab-3677a68d68e8",
+            "userId": 2282791,
+            "userPrimaryEmail": "vsevolod.brovarnyi@gmail.com",
+            "eventTypeId": 5208541,
+            "title": "«Test consultation» за участі ведучого Vsevolod Brovarnyi і учасника Vsevolod Brovarnyi",
+            "description": "444444",
+            "customInputs": {},
+            "responses": {
+              "name": "Vsevolod Brovarnyi",
+              "email": "vsevolod.brovarnyi.spain@gmail.com",
+              "notes": "444444",
+              "guests": [],
+              "Telegram": "4444",
+              "location": {
+                "value": "integrations:zoom",
+                "optionValue": ""
+              },
+              "attendeePhoneNumber": "+34666393754"
+            },
+            "startTime": "2026-08-20T14:30:00.000Z",
+            "endTime": "2026-08-20T15:00:00.000Z",
+            "location": "integrations:zoom",
+            "createdAt": "2026-08-20T11:14:20.310Z",
+            "updatedAt": "2026-08-20T11:14:20.310Z",
+            "status": "ACCEPTED",
+            "paid": false,
+            "destinationCalendarId": 1183381,
+            "cancellationReason": null,
+            "rejectionReason": null,
+            "reassignReason": null,
+            "reassignById": null,
+            "dynamicEventSlugRef": null,
+            "dynamicGroupSlugRef": null,
+            "rescheduled": null,
+            "fromReschedule": null,
+            "recurringEventId": null,
+            "smsReminderNumber": null,
+            "scheduledJobs": [],
+            "metadata": {},
+            "privateNoteMode": null,
+            "isRecorded": false,
+            "aiTranscriptSummary": null,
+            "iCalUID": "2fdxf7zG7FVU8XGp6YfC2R@Cal.com",
+            "iCalSequence": 0,
+            "rating": null,
+            "ratingFeedback": null,
+            "noShowHost": false,
+            "oneTimePassword": null,
+            "cancelledBy": null,
+            "rescheduledBy": null,
+            "creationSource": "WEBAPP",
+            "user": {
+              "uuid": "4d7a07ae-d925-4c0d-ab0d-809156a2bc0e",
+              "email": null,
+              "name": "Vsevolod Brovarnyi",
+              "timeZone": "Europe/Madrid",
+              "username": "vsevolod-brovarnyi-t7v9gb",
+              "isPlatformManaged": false
+            },
+            "attendees": [
+              {
+                "id": 28754572,
+                "email": "vsevolod.brovarnyi.spain@gmail.com",
+                "name": "Vsevolod Brovarnyi",
+                "timeZone": "Europe/Madrid",
+                "phoneNumber": "+34666393754",
+                "locale": "uk",
+                "bookingId": 24077270,
+                "noShow": false,
+                "createdAt": "2026-08-20T11:14:20.310Z"
+              }
+            ],
+            "payment": [],
+            "references": [
+              {
+                "type": "zoom_video",
+                "uid": "86892173599",
+                "meetingId": "86892173599",
+                "meetingPassword": "E60C0t",
+                "meetingUrl": "https://us05web.zoom.us/j/86892173599?pwd=Ux3CrjYzCHDd3sgNhWDDbRHTtADDRU.1",
+                "syncObservedVersion": null,
+                "syncObservedAt": null,
+                "credentialId": 2478174
+              },
+              {
+                "type": "google_calendar",
+                "uid": "_69j68u366tt4edq6apajgm27e0r5ipi369940gr1dgn66rrd",
+                "thirdPartyRecurringEventId": null,
+                "meetingId": "_69j68u366tt4edq6apajgm27e0r5ipi369940gr1dgn66rrd",
+                "meetingPassword": "",
+                "meetingUrl": "",
+                "externalCalendarId": "vsevolod.brovarnyi@gmail.com",
+                "syncObservedVersion": "etag:\"3574448923862622\"",
+                "syncObservedAt": "2026-08-20T11:14:22.056Z",
+                "credentialId": 1891019
+              }
+            ],
+            "userUuid": "4d7a07ae-d925-4c0d-ab0d-809156a2bc0e",
+            "appsStatus": [
+              {
+                "appName": "Zoom Video",
+                "type": "zoom_video",
+                "success": 1,
+                "failures": 0,
+                "errors": []
+              },
+              {
+                "appName": "Google Calendar",
+                "type": "google_calendar",
+                "success": 1,
+                "failures": 0,
+                "errors": [],
+                "warnings": []
+              }
+            ],
+            "paymentRequired": false,
+            "luckyUsers": [],
+            "isDryRun": false,
+            "videoCallUrl": "https://us05web.zoom.us/j/86892173599?pwd=Ux3CrjYzCHDd3sgNhWDDbRHTtADDRU.1",
+            "organizationId": null,
+            "previousBooking": null
+          },
+          "eventType": {
+            "id": 5208541,
+            "title": "Test consultation",
+            "description": "",
+            "interfaceLanguage": null,
+            "eventName": null,
+            "slug": "test-consultation",
+            "isInstantEvent": false,
+            "instantMeetingParameters": [],
+            "bannerUrl": null,
+            "aiPhoneCallConfig": null,
+            "schedulingType": null,
+            "length": 30,
+            "locations": [
+              {
+                "type": "integrations:zoom",
+                "credentialId": 2478174
+              }
+            ],
+            "enablePerHostLocations": false,
+            "customInputs": [],
+            "disableGuests": true,
+            "metadata": {},
+            "lockTimeZoneToggleOnBookingPage": false,
+            "lockedTimeZone": null,
+            "requiresConfirmation": false,
+            "autoTranslateDescriptionEnabled": false,
+            "fieldTranslations": [],
+            "requiresBookerEmailVerification": false,
+            "recurringEvent": null,
+            "price": 0,
+            "currency": "usd",
+            "seatsPerTimeSlot": null,
+            "disableCancelling": false,
+            "disableCancellingScope": "HOST_AND_ATTENDEE",
+            "disableRescheduling": false,
+            "disableReschedulingScope": "HOST_AND_ATTENDEE",
+            "minimumRescheduleNotice": null,
+            "allowReschedulingCancelledBookings": false,
+            "seatsShowAvailabilityCount": true,
+            "bookingFields": [
+              {
+                "name": "name",
+                "type": "name",
+                "defaultLabel": "your_name",
+                "required": true,
+                "editable": "system",
+                "sources": [
+                  {
+                    "id": "default",
+                    "type": "default",
+                    "label": "Default"
+                  }
+                ]
+              },
+              {
+                "name": "email",
+                "type": "email",
+                "defaultLabel": "email_address",
+                "required": true,
+                "editable": "system-but-optional",
+                "sources": [
+                  {
+                    "id": "default",
+                    "type": "default",
+                    "label": "Default"
+                  }
+                ]
+              },
+              {
+                "name": "attendeePhoneNumber",
+                "type": "phone",
+                "defaultLabel": "phone_number",
+                "required": false,
+                "hidden": false,
+                "editable": "system-but-optional",
+                "sources": [
+                  {
+                    "id": "default",
+                    "type": "default",
+                    "label": "Default"
+                  }
+                ]
+              },
+              {
+                "name": "location",
+                "type": "radioInput",
+                "defaultLabel": "location",
+                "required": false,
+                "getOptionsAt": "locations",
+                "optionsInputs": {
+                  "attendeeInPerson": {
+                    "type": "address",
+                    "required": true,
+                    "placeholder": ""
+                  },
+                  "somewhereElse": {
+                    "type": "text",
+                    "required": true,
+                    "placeholder": ""
+                  },
+                  "phone": {
+                    "type": "phone",
+                    "required": true,
+                    "placeholder": ""
+                  }
+                },
+                "hideWhenJustOneOption": true,
+                "editable": "system",
+                "sources": [
+                  {
+                    "id": "default",
+                    "type": "default",
+                    "label": "Default"
+                  }
+                ],
+                "options": [
+                  {
+                    "label": "Zoom Video",
+                    "value": "integrations:zoom",
+                    "inputPlaceholder": ""
+                  }
+                ]
+              },
+              {
+                "name": "title",
+                "type": "text",
+                "defaultLabel": "what_is_this_meeting_about",
+                "defaultPlaceholder": "",
+                "required": true,
+                "hidden": true,
+                "editable": "system-but-optional",
+                "sources": [
+                  {
+                    "id": "default",
+                    "type": "default",
+                    "label": "Default"
+                  }
+                ]
+              },
+              {
+                "name": "notes",
+                "type": "textarea",
+                "defaultLabel": "additional_notes",
+                "defaultPlaceholder": "share_additional_notes",
+                "required": false,
+                "editable": "system-but-optional",
+                "sources": [
+                  {
+                    "id": "default",
+                    "type": "default",
+                    "label": "Default"
+                  }
+                ]
+              },
+              {
+                "name": "guests",
+                "type": "multiemail",
+                "defaultLabel": "additional_guests",
+                "defaultPlaceholder": "email",
+                "required": false,
+                "hidden": true,
+                "editable": "system-but-optional",
+                "sources": [
+                  {
+                    "id": "default",
+                    "type": "default",
+                    "label": "Default"
+                  }
+                ]
+              },
+              {
+                "name": "rescheduleReason",
+                "type": "textarea",
+                "defaultLabel": "reason_for_reschedule",
+                "defaultPlaceholder": "reschedule_placeholder",
+                "required": false,
+                "views": [
+                  {
+                    "label": "Reschedule View",
+                    "id": "reschedule"
+                  }
+                ],
+                "hidden": true,
+                "editable": "system-but-optional",
+                "sources": [
+                  {
+                    "id": "default",
+                    "type": "default",
+                    "label": "Default"
+                  }
+                ]
+              },
+              {
+                "name": "Instagram",
+                "type": "text",
+                "label": "Instagram",
+                "placeholder": "",
+                "required": true,
+                "hidden": true,
+                "editable": "user",
+                "sources": [
+                  {
+                    "id": "user",
+                    "type": "user",
+                    "label": "User",
+                    "fieldRequired": true
+                  }
+                ],
+                "disableOnPrefill": true
+              },
+              {
+                "name": "Telegram",
+                "type": "text",
+                "label": "Telegram",
+                "placeholder": "",
+                "required": true,
+                "editable": "user",
+                "sources": [
+                  {
+                    "id": "user",
+                    "type": "user",
+                    "label": "User",
+                    "fieldRequired": true
+                  }
+                ]
+              }
+            ],
+            "hideOrganizerEmail": false,
+            "isCalEvent": false,
+            "teamId": null,
+            "userId": 2282791,
+            "team": null,
+            "successRedirectUrl": null,
+            "isSuccessRedirectUrlApproved": true,
+            "successRedirectUrlUpdatedAt": null,
+            "forwardParamsSuccessRedirect": true,
+            "redirectUrlOnNoRoutingFormResponse": null,
+            "workflows": [],
+            "owner": {
+              "id": 2282791,
+              "avatarUrl": "https://lh3.googleusercontent.com/a/ACg8ocI4wwtDKcvUPzboX_CO0sPTrU4zvIvvNgTBsiQ98FiRlTVrexuz=s96-c",
+              "username": "vsevolod-brovarnyi-t7v9gb",
+              "name": "Vsevolod Brovarnyi",
+              "weekStart": "Sunday",
+              "brandColor": null,
+              "darkBrandColor": null,
+              "cornerStyle": "rounded",
+              "theme": null,
+              "metadata": {
+                "stripeCustomerId": "cus_UCKVzNbv3dgLEE"
+              },
+              "organization": null,
+              "defaultScheduleId": 1361647,
+              "whitelistRedirectUrls": true,
+              "nonProfileUsername": "vsevolod-brovarnyi-t7v9gb",
+              "profile": {
+                "id": null,
+                "upId": "usr-2282791",
+                "username": "vsevolod-brovarnyi-t7v9gb",
+                "organizationId": null,
+                "organization": null
+              }
+            },
+            "schedule": {
+              "id": 1361647,
+              "timeZone": "Europe/Madrid"
+            },
+            "instantMeetingSchedule": null,
+            "periodType": "UNLIMITED",
+            "periodDays": null,
+            "periodEndDate": null,
+            "periodStartDate": null,
+            "periodCountCalendarDays": null,
+            "hidden": false,
+            "shouldMergePhoneSystemFields": null,
+            "assignAllTeamMembers": false,
+            "rescheduleWithSameRoundRobinHost": false,
+            "allowRRHostChoiceOnReschedule": false,
+            "restrictionScheduleId": null,
+            "useBookerTimezone": false,
+            "parent": null,
+            "subsetOfHosts": [],
+            "bookerLayouts": null,
+            "profile": {
+              "username": "vsevolod-brovarnyi-t7v9gb",
+              "name": "Vsevolod Brovarnyi",
+              "weekStart": "Sunday",
+              "image": "https://lh3.googleusercontent.com/a/ACg8ocI4wwtDKcvUPzboX_CO0sPTrU4zvIvvNgTBsiQ98FiRlTVrexuz=s96-c",
+              "brandColor": null,
+              "darkBrandColor": null,
+              "cornerStyle": "rounded",
+              "theme": null,
+              "bookerLayouts": null
+            },
+            "subsetOfUsers": [
+              {
+                "username": "vsevolod-brovarnyi-t7v9gb",
+                "name": "Vsevolod Brovarnyi",
+                "weekStart": "Sunday",
+                "avatarUrl": "https://lh3.googleusercontent.com/a/ACg8ocI4wwtDKcvUPzboX_CO0sPTrU4zvIvvNgTBsiQ98FiRlTVrexuz=s96-c",
+                "profile": {
+                  "id": null,
+                  "upId": "usr-2282791",
+                  "username": "vsevolod-brovarnyi-t7v9gb",
+                  "organizationId": null,
+                  "organization": null
+                },
+                "bookerUrl": "https://cal.com"
+              }
+            ],
+            "entity": {
+              "fromRedirectOfNonOrgLink": false,
+              "considerUnpublished": false,
+              "orgSlug": null,
+              "teamSlug": null,
+              "name": null,
+              "hideProfileLink": false
+            },
+            "isDynamic": false,
+            "showInstantEventConnectNowModal": false,
+            "skipRedirectWarning": true
+          },
+          "date": "2026-08-20T14:30:00.000Z",
+          "duration": 30,
+          "organizer": {
+            "name": "Vsevolod Brovarnyi",
+            "email": "vsevolod.brovarnyi@gmail.com",
+            "timeZone": "Europe/Madrid"
+          },
+          "confirmed": true
+        }
+      },
+      "sessionId": "gtUrCSvWUAI",
+      "createdAt": "2026-08-20T11:14:22.427Z",
+      "id": "Y9nEWWWLVCo"
+    }
+  ],
   "$schema": "./node_modules/json-server/schema.json"
 }

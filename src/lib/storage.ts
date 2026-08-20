@@ -12,6 +12,12 @@ const REMOTE_KEY = "ai-quiz:remote-id:v1";
  * правило «1 діагностика = 1 користувач» має переживати і «Почати заново», і F5.
  */
 const COMPLETED_KEY = "ai-quiz:completed:v1";
+/**
+ * Позначка «зустріч уже заброньовано».
+ * Так само окремий ключ, який переживає F5: правило «1 бронювання = 1 користувач»
+ * не має залежати від того, чи лишився локальний прогрес.
+ */
+const BOOKED_KEY = "ai-quiz:booked:v1";
 
 export function readJSON<T>(key: string): T | null {
   try {
@@ -43,6 +49,7 @@ export const storageKeys = {
   session: SESSION_KEY,
   remote: REMOTE_KEY,
   completed: COMPLETED_KEY,
+  booked: BOOKED_KEY,
 };
 
 function read(key: string): string | null {
@@ -89,4 +96,23 @@ export function readCompletion(): CompletionRecord | null {
 
 export function writeCompletion(record: CompletionRecord): void {
   writeJSON(COMPLETED_KEY, record);
+}
+
+/** Факт бронювання - джерело правди для блокування повторного запису на розбір. */
+export interface BookedRecord {
+  bookedAt: string;
+  /** Серверний id сесії - для звірки з бекендом */
+  sessionId: string | null;
+  /** Що саме повернув Cal.com - щоб показати деталі зустрічі без запиту до API */
+  detail: unknown;
+}
+
+export function readBooked(): BookedRecord | null {
+  const record = readJSON<BookedRecord>(BOOKED_KEY);
+  if (!record || typeof record.bookedAt !== "string") return null;
+  return record;
+}
+
+export function writeBooked(record: BookedRecord): void {
+  writeJSON(BOOKED_KEY, record);
 }

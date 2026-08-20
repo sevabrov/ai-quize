@@ -90,6 +90,9 @@ export default function App() {
             onBooked={actions.registerBooking}
             onMihiClick={actions.registerMihiClick}
             analysisReady={Boolean(state.analysisDeliveredAt)}
+            // 1 бронювання = 1 користувач: замок переживає F5 і повторний вхід
+            alreadyBooked={flow.isBooked}
+            bookedAt={flow.bookedAt}
           />
         )}
       </AppShell>
