@@ -3,7 +3,6 @@ import {
   ArrowRight,
   BrainCircuit,
   CalendarHeart,
-  CircleDot,
   Compass,
   Lightbulb,
   Rocket,
