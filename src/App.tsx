@@ -60,6 +60,8 @@ export default function App() {
         onRestart={flow.isLocked ? undefined : actions.restart}
         syncState={flow.syncState}
         locked={flow.isLocked}
+        // ТИМЧАСОВО (тест): пройти ще раз можна лише отримавши повний аналіз
+        onRetake={flow.canRetake ? actions.retake : undefined}
         width={
           state.stage === "about" || state.stage === "quiz" ? "wide" : "wide"
         }
