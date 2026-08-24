@@ -64,18 +64,6 @@ function WaitingView({
   onMihiClick: () => void;
   onBooking: () => void;
 }) {
-  const steps = [
-    {
-      when: `Через ${formatMinutesWord(totalMs)}`,
-      text: 'Ти отримаєш свій AI-аналіз',
-    },
-    {
-      when: `Через ${formatMinutesWord(totalMs + env.bookingNudgeDelayMs)}`,
-      text: 'Надішлемо корисні рекомендації',
-    },
-    { when: 'Далі', text: 'Пропозиція особистого розбору з Оленою' },
-  ];
-
   return (
     <div className='animate-screen-in space-y-6'>
       <Card padding='lg'>
@@ -104,37 +92,6 @@ function WaitingView({
 
         <div className='mt-7'>
           <MihiTeaser variant='compact' onOpen={onMihiClick} />
-        </div>
-
-        {/* таймлайн із макета */}
-        <div className='mt-8 border-t border-line pt-7'>
-          <div className='grid gap-6 sm:grid-cols-3'>
-            {steps.map((step, i) => (
-              <div key={step.when} className='relative'>
-                <div className='flex items-center gap-2.5'>
-                  <span
-                    className={cn(
-                      'grid size-6 shrink-0 place-items-center rounded-full',
-                      i === 0
-                        ? 'bg-leaf-500 text-white'
-                        : 'bg-leaf-100 text-leaf-500',
-                    )}
-                  >
-                    <CircleDot className='size-3.5' strokeWidth={2.5} />
-                  </span>
-                  <span className='font-display text-xs font-extrabold uppercase tracking-[0.06em] text-ink'>
-                    {step.when}
-                  </span>
-                </div>
-                <p className='mt-2 pl-8.5 text-[0.8125rem] leading-relaxed text-ink-soft'>
-                  {step.text}
-                </p>
-                {i < steps.length - 1 && (
-                  <span className='absolute left-3 top-8 hidden h-8 w-px bg-line sm:block' />
-                )}
-              </div>
-            ))}
-          </div>
         </div>
       </Card>
 

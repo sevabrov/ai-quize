@@ -174,7 +174,8 @@ export function BookingScreen({
             text={booked ? bookingContent.bookedRobot : bookingContent.value}
             tail='left'
             typing={false}
-            className='max-w-xl border-leaf-200'
+            fullWidth
+            className='border-leaf-200'
           />
         </div>
       </Card>

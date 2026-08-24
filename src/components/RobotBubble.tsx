@@ -1,14 +1,15 @@
-import { useEffect, useState } from "react";
-import { Sparkles } from "lucide-react";
-import { cn } from "../lib/cn";
+import { useEffect, useState } from 'react';
+import { Sparkles } from 'lucide-react';
+import { cn } from '../lib/cn';
 
 interface RobotBubbleProps {
   text: string;
   /** Куди дивиться «хвостик» */
-  tail?: "left" | "bottom" | "none";
+  tail?: 'left' | 'bottom' | 'none';
   /** Підпис над текстом */
   title?: string;
   className?: string;
+  fullWidth?: boolean;
   /** Імітація друкування перед появою нового тексту */
   typing?: boolean;
 }
@@ -19,10 +20,11 @@ interface RobotBubbleProps {
  */
 export function RobotBubble({
   text,
-  tail = "left",
+  tail = 'left',
   title,
   className,
   typing = true,
+  fullWidth = false,
 }: RobotBubbleProps) {
   const [shown, setShown] = useState(text);
   const [isTyping, setIsTyping] = useState(false);
@@ -46,39 +48,41 @@ export function RobotBubble({
   return (
     <div
       className={cn(
-        "relative max-w-sm rounded-[1.4rem] border border-line bg-white px-5 py-4 shadow-bubble",
+        'relative' +
+          (fullWidth ? ' w-full' : ' max-w-sm') +
+          ' rounded-[1.4rem] border border-line bg-white px-5 py-4 shadow-bubble',
         className,
       )}
     >
-      {tail === "left" && (
+      {tail === 'left' && (
         <span
-          aria-hidden="true"
-          className="absolute -left-[7px] top-9 size-3.5 rotate-45 rounded-[3px] border-b border-l border-line bg-white"
+          aria-hidden='true'
+          className='absolute -left-[7px] top-9 size-3.5 rotate-45 rounded-[3px] border-b border-l border-line bg-white'
         />
       )}
-      {tail === "bottom" && (
+      {tail === 'bottom' && (
         <span
-          aria-hidden="true"
-          className="absolute -bottom-[7px] left-10 size-3.5 rotate-45 rounded-[3px] border-r border-b border-line bg-white"
+          aria-hidden='true'
+          className='absolute -bottom-[7px] left-10 size-3.5 rotate-45 rounded-[3px] border-r border-b border-line bg-white'
         />
       )}
 
       {title && (
-        <div className="mb-2 flex items-center gap-1.5 text-leaf-600">
-          <Sparkles className="size-3.5" strokeWidth={2.5} />
-          <span className="eyebrow">{title}</span>
+        <div className='mb-2 flex items-center gap-1.5 text-leaf-600'>
+          <Sparkles className='size-3.5' strokeWidth={2.5} />
+          <span className='eyebrow'>{title}</span>
         </div>
       )}
 
       {isTyping ? (
         <div
-          className="flex items-center gap-1.5 py-1.5"
-          aria-label="AI-помічник друкує"
+          className='flex items-center gap-1.5 py-1.5'
+          aria-label='AI-помічник друкує'
         >
           {[0, 1, 2].map((i) => (
             <span
               key={i}
-              className="size-2 rounded-full bg-leaf-400 animate-typing"
+              className='size-2 rounded-full bg-leaf-400 animate-typing'
               style={{ animationDelay: `${i * 0.16}s` }}
             />
           ))}
@@ -86,7 +90,7 @@ export function RobotBubble({
       ) : (
         <p
           key={shown}
-          className="animate-bubble-in text-[0.9375rem] leading-relaxed text-ink-soft"
+          className='animate-bubble-in text-[0.9375rem] leading-relaxed text-ink-soft'
         >
           {shown}
         </p>

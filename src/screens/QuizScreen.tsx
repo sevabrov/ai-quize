@@ -16,21 +16,30 @@ export function QuizScreen({ flow }: { flow: QuizFlow }) {
   const { state, question, totalQuestions, actions } = flow;
   const selected = state.answers[question.id] ?? "";
 
-  // Скрол до верху при зміні питання
+  /**
+   * Реакція робота - окремий крок. Питання й варіанти зникають, і замість них
+   * людина бачить робота з фідбеком та вибір: змінити відповідь або йти далі.
+   */
+  const [revealed, setRevealed] = useState(false);
+
+  // Нове питання - знову ховаємо реакцію й скролимо до верху
   useEffect(() => {
+    setRevealed(false);
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, [question.id]);
 
   const bubbleText = useMemo(() => {
     if (question.kind === "text") {
-      return state.lastReaction ?? question.hint ?? question.title;
+      return state.lastReaction ?? question.reaction ?? question.title;
     }
-    if (selected) {
-      const option = question.options?.find((o) => o.id === selected);
-      if (option) return option.reaction;
-    }
-    return state.lastReaction ?? question.title;
+    const option = question.options?.find((o) => o.id === selected);
+    return option?.reaction ?? state.lastReaction ?? question.title;
   }, [question, selected, state.lastReaction]);
+
+  const handleNext = () => {
+    setRevealed(false);
+    actions.next();
+  };
 
   return (
     <div className="animate-screen-in">
@@ -42,23 +51,17 @@ export function QuizScreen({ flow }: { flow: QuizFlow }) {
 
       <div className="mt-7 grid gap-6 lg:grid-cols-[1fr_20rem] lg:items-start">
         <Card padding="none" className="overflow-hidden">
-          <div className="grid gap-5 p-5 sm:p-7 md:grid-cols-[10.5rem_1fr] md:gap-7 lg:grid-cols-[12rem_1fr]">
-            {/* ───── робот + реакція ───── */}
-            <div className="flex items-start gap-4 md:block">
-              <Robot
-                pose={selected || question.kind === "text" ? "think" : "calm"}
-                className="h-28 shrink-0 md:h-52 md:w-full"
-                floating={false}
-              />
-              <RobotBubble
-                text={bubbleText}
-                tail="left"
-                className="flex-1 md:mt-3 md:max-w-none"
-              />
-            </div>
-
-            {/* ───── питання ───── */}
-            <div className="min-w-0">
+          {revealed ? (
+            /* ───── робот + реакція ───── */
+            <ReactionPanel
+              text={bubbleText}
+              isLast={state.index === totalQuestions - 1}
+              onEdit={() => setRevealed(false)}
+              onNext={handleNext}
+            />
+          ) : (
+            /* ───── питання ───── */
+            <div className="p-5 sm:p-7">
               <h2 className="text-2xl leading-tight text-leaf-700 sm:text-[1.75rem]">
                 {question.title}
               </h2>
@@ -71,29 +74,77 @@ export function QuizScreen({ flow }: { flow: QuizFlow }) {
 
               <div className="mt-6">
                 {question.kind === "text" ? (
-                  <AboutField question={question} flow={flow} />
-                ) : (
-                  <OptionList
+                  <AboutField
                     question={question}
-                    selected={selected}
                     flow={flow}
+                    onReveal={() => setRevealed(true)}
                   />
+                ) : (
+                  <>
+                    <OptionList
+                      question={question}
+                      selected={selected}
+                      flow={flow}
+                    />
+                    <NavRow
+                      disabled={!selected}
+                      isLast={state.index === totalQuestions - 1}
+                      nextLabel="Далі"
+                      onBack={actions.back}
+                      onNext={() => setRevealed(true)}
+                    />
+                  </>
                 )}
               </div>
-
-              {question.kind !== "text" && (
-                <NavRow
-                  disabled={!selected}
-                  isLast={state.index === totalQuestions - 1}
-                  onBack={actions.back}
-                  onNext={actions.next}
-                />
-              )}
             </div>
-          </div>
+          )}
         </Card>
 
         <QuizChecklist currentIndex={state.index} className="hidden lg:block" />
+      </div>
+    </div>
+  );
+}
+
+/* ────────────────────────────────────────────────────────────────────────── */
+
+/** Крок реакції: робот, фідбек і вибір - переграти відповідь або далі. */
+function ReactionPanel({
+  text,
+  isLast,
+  onEdit,
+  onNext,
+}: {
+  text: string;
+  isLast: boolean;
+  onEdit: () => void;
+  onNext: () => void;
+}) {
+  return (
+    <div className="grid gap-5 p-5 sm:p-7 md:grid-cols-[10.5rem_1fr] md:gap-7 lg:grid-cols-[12rem_1fr]">
+      <Robot
+        pose="think"
+        className="h-28 shrink-0 md:h-52 md:w-full"
+        floating={false}
+      />
+
+      <div className="min-w-0">
+        <RobotBubble text={text} tail="left" className="md:max-w-none" />
+
+        <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+          <Button variant="ghost" size="sm" onClick={onEdit}>
+            <PenLine className="size-3.5" strokeWidth={2.75} />
+            Змінити відповідь
+          </Button>
+
+          <Button size="md" onClick={onNext} className="min-w-36">
+            {isLast ? "Показати результат" : "Далі"}
+            <ArrowRight
+              className="size-4 transition-transform duration-200 group-hover:translate-x-1"
+              strokeWidth={2.75}
+            />
+          </Button>
+        </div>
       </div>
     </div>
   );
@@ -190,12 +241,13 @@ function OptionList({
 function AboutField({
   question,
   flow,
+  onReveal,
 }: {
   question: Question;
   flow: QuizFlow;
+  onReveal: () => void;
 }) {
   const [text, setText] = useState(flow.state.about);
-  const [submitted, setSubmitted] = useState(Boolean(flow.state.lastReaction));
   const areaRef = useRef<HTMLTextAreaElement>(null);
 
   useEffect(() => {
@@ -206,13 +258,9 @@ function AboutField({
 
   const handleContinue = () => {
     if (!isValid) return;
-    if (!submitted) {
-      // Спочатку показуємо реакцію робота, і лише потім пускаємо далі
-      flow.actions.submitAbout(text.trim(), question.reaction ?? "");
-      setSubmitted(true);
-      return;
-    }
-    flow.actions.next();
+    // Спочатку показуємо реакцію робота, і лише потім пускаємо далі
+    flow.actions.submitAbout(text.trim(), question.reaction ?? "");
+    onReveal();
   };
 
   return (
@@ -232,7 +280,6 @@ function AboutField({
         onChange={(event) => {
           setText(event.target.value);
           flow.actions.setAbout(event.target.value);
-          if (submitted) setSubmitted(false);
         }}
         rows={6}
         placeholder={question.placeholder}
@@ -253,7 +300,7 @@ function AboutField({
       <NavRow
         disabled={!isValid}
         isLast={false}
-        nextLabel={submitted ? "Далі" : "Готово"}
+        nextLabel="Готово"
         onBack={flow.actions.back}
         onNext={handleContinue}
       />
