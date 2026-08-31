@@ -7,9 +7,7 @@ function delayMs(raw: unknown, fallback: number): number {
   return Number.isFinite(value) && value > 0 ? value : fallback;
 }
 
-const apiUrl = String(
-  import.meta.env.VITE_API_URL ?? 'http://localhost:3001',
-)
+const apiUrl = String(import.meta.env.VITE_API_URL ?? 'http://localhost:3001')
   .trim()
   .replace(/\/+$/, '');
 
@@ -31,7 +29,7 @@ export const env = {
   sheetsSecret: import.meta.env.VITE_SHEETS_SECRET ?? '',
 
   /** Cal.com: <username>/<event-type>, напр. olena/consultation */
-  calLink: 'vsevolod-brovarnyi-t7v9gb/test-consultation',
+  calLink: 'filatova-olena/зустріч',
   calNamespace: 'olena-razbor',
 
   /** Партнерське посилання MIHI з ТЗ */
@@ -40,7 +38,10 @@ export const env = {
     'https://mihi.care/ua/a-79-mihi-the-business-of-a-new-era?referral_code=100001',
 
   /** 3 хвилини за ТЗ. Для демо замовнику - VITE_ANALYSIS_DELAY_MS=8000. */
-  analysisDelayMs: delayMs(import.meta.env.VITE_ANALYSIS_DELAY_MS, 3 * 60 * 1000),
+  analysisDelayMs: delayMs(
+    import.meta.env.VITE_ANALYSIS_DELAY_MS,
+    3 * 60 * 1000,
+  ),
 
   /** Ще 3 хвилини - щоб людина встигла прочитати аналіз перед CTA на розбір. */
   bookingNudgeDelayMs: delayMs(
