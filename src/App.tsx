@@ -1,24 +1,26 @@
-import { useEffect } from "react";
-import { AppShell } from "./components/AppShell";
-import { useQuizFlow, type QuizFlow } from "./hooks/useQuizFlow";
-import { AboutScreen } from "./screens/AboutScreen";
-import { AnalysisScreen } from "./screens/AnalysisScreen";
-import { BookingScreen } from "./screens/BookingScreen";
-import { IntroScreen } from "./screens/IntroScreen";
-import { QuizScreen } from "./screens/QuizScreen";
-import { ResultScreen } from "./screens/ResultScreen";
-import { isDemoMode } from "./lib/env";
+import { useEffect } from 'react';
+import { AppShell } from './components/AppShell';
+import { useQuizFlow, type QuizFlow } from './hooks/useQuizFlow';
+import { AboutScreen } from './screens/AboutScreen';
+import { AnalysisScreen } from './screens/AnalysisScreen';
+import { BookingScreen } from './screens/BookingScreen';
+import { IntroScreen } from './screens/IntroScreen';
+import { QuizScreen } from './screens/QuizScreen';
+import { ResultScreen } from './screens/ResultScreen';
+import { isDemoMode, env } from './lib/env';
 
 export default function App() {
   const flow = useQuizFlow();
   const { state, actions, result } = flow;
 
+  console.log('env:', env);
+
   // Плавний скрол уверх при зміні екрану
   useEffect(() => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }, [state.stage]);
 
-  if (state.stage === "intro") {
+  if (state.stage === 'intro') {
     return (
       <>
         <IntroScreen
@@ -63,14 +65,14 @@ export default function App() {
         // ТИМЧАСОВО (тест): пройти ще раз можна лише отримавши повний аналіз
         onRetake={flow.canRetake ? actions.retake : undefined}
         width={
-          state.stage === "about" || state.stage === "quiz" ? "wide" : "wide"
+          state.stage === 'about' || state.stage === 'quiz' ? 'wide' : 'wide'
         }
       >
-        {state.stage === "about" && <AboutScreen onNext={actions.startQuiz} />}
+        {state.stage === 'about' && <AboutScreen onNext={actions.startQuiz} />}
 
-        {state.stage === "quiz" && <QuizScreen flow={flow} />}
+        {state.stage === 'quiz' && <QuizScreen flow={flow} />}
 
-        {state.stage === "result" && result && (
+        {state.stage === 'result' && result && (
           <ResultScreen
             result={result}
             onRequestAnalysis={actions.requestAnalysis}
@@ -78,11 +80,11 @@ export default function App() {
           />
         )}
 
-        {state.stage === "analysis" && result && (
+        {state.stage === 'analysis' && result && (
           <AnalysisScreen flow={flow} result={result} />
         )}
 
-        {state.stage === "booking" && result && (
+        {state.stage === 'booking' && result && (
           <BookingScreen
             onBack={() =>
               state.analysisStartedAt
@@ -106,18 +108,18 @@ export default function App() {
 /** Людська назва кроку, на якому користувач зупинився. */
 function resumeLabel({ state, totalQuestions }: QuizFlow): string {
   switch (state.resumeStage) {
-    case "about":
-      return "Знайомство з Оленою";
-    case "quiz":
+    case 'about':
+      return 'Знайомство з Оленою';
+    case 'quiz':
       return `Питання ${state.index + 1} із ${totalQuestions}`;
-    case "result":
-      return "Твій результат";
-    case "analysis":
-      return "Аналіз від Олени";
-    case "booking":
-      return "Запис на розбір";
+    case 'result':
+      return 'Твій результат';
+    case 'analysis':
+      return 'Аналіз від Олени';
+    case 'booking':
+      return 'Запис на розбір';
     default:
-      return "Діагностика";
+      return 'Діагностика';
   }
 }
 
@@ -126,7 +128,7 @@ function DemoBadge() {
   if (!isDemoMode) return null;
 
   return (
-    <div className="pointer-events-none fixed bottom-4 left-4 z-50 rounded-full border border-amber-200 bg-amber-50/95 px-3 py-1.5 text-[0.6875rem] font-semibold text-accent-amber shadow-soft">
+    <div className='pointer-events-none fixed bottom-4 left-4 z-50 rounded-full border border-amber-200 bg-amber-50/95 px-3 py-1.5 text-[0.6875rem] font-semibold text-accent-amber shadow-soft'>
       DEMO: скорочені таймери
     </div>
   );
