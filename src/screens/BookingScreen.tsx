@@ -245,13 +245,22 @@ export function BookingScreen({
 
       <MihiTeaser onOpen={onMihiClick} />
 
-      <div className='flex justify-center'>
-        <Button variant='ghost' size='sm' onClick={onBack}>
-          <ArrowLeft className='size-3.5' strokeWidth={2.75} />
-          {analysisReady
-            ? 'Повернутись до AI-аналізу'
-            : 'Повернутись до результату'}
-        </Button>
+      <div className='rounded-panel border shadow-card panel-wash border-line'>
+        <div className='grid items-center gap-6 p-6 sm:p-8 md:grid-cols-[1.1fr_0.9fr]'>
+          <div>
+            <h2 className='text-lg sm:text-xl'>АІ аналіз</h2>
+            <p className='mt-3 text-sm leading-relaxed text-ink-soft'>
+              Повернутись до персонального аналізу від АІ, щоб ще раз
+              переглянути поради та рекомендації.
+            </p>
+          </div>
+          <Button onClick={onBack}>
+            <ArrowLeft className='size-3.5' strokeWidth={2.75} />
+            {analysisReady
+              ? 'Повернутись до AI-аналізу'
+              : 'Повернутись до результату'}
+          </Button>
+        </div>
       </div>
     </div>
   );

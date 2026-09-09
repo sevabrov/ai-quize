@@ -15,6 +15,7 @@ import { env } from "./env";
 import { newSessionId } from "./api";
 import { readSessionId, writeSessionId } from "./storage";
 import { profiles } from "../data/profiles";
+import { questions } from "../data/questions";
 import type { QuizResult } from "./scoring";
 
 export interface SheetRow {
@@ -101,12 +102,37 @@ export function formatScores(result: QuizResult): string {
     .join(" · ");
 }
 
-/** Відповіді одним рядком у форматі сигналів scoring-engine: «2c · 3a · 4d». */
+/**
+ * Відповіді людською мовою, по одній на рядок:
+ *
+ *   2. Твоя ситуація зараз: 🐢 Працюю, але результат зупинився…
+ *   3. Задоволеність результатом: 4–5
+ *
+ * Раніше тут були сигнали scoring-engine («2c · 3a»), але в таблиці потрібен
+ * текст, який реально вибрала людина, - літери читає лише scoring.ts.
+ * Номер питання лишається: по ньому видно, чи всі 14 кроків пройдені.
+ *
+ * Перенос рядка (\n) - бо 14 повних формулювань в одну лінію не читаються.
+ * Google Sheets тримає \n усередині клітинки як є.
+ */
 export function formatAnswers(answers: Record<number, string>): string {
   return Object.entries(answers)
     .sort(([a], [b]) => Number(a) - Number(b))
-    .map(([questionId, optionId]) => `${questionId}${optionId}`)
-    .join(" · ");
+    .map(([questionId, optionId]) => {
+      const question = questions.find((q) => q.id === Number(questionId));
+      const option = question?.options?.find((o) => o.id === optionId);
+
+      const head = question
+        ? `${question.id}. ${question.step}`
+        : `Питання ${questionId}`;
+      /** Варіант зник із контенту - лишаємо хоч літеру, щоб дані не пропали */
+      const body = option
+        ? [option.emoji, option.label].filter(Boolean).join(" ")
+        : `варіант ${optionId}`;
+
+      return `${head}: ${body}`;
+    })
+    .join("\n");
 }
 
 /* ─────────────────────── дані бронювання ─────────────────────── */
@@ -134,7 +160,10 @@ export function readCalDetail(detail: unknown): BookingContacts {
     string,
     unknown
   >;
-  const references = (booking.references ?? []) as { type?: string; meetingUrl?: string }[];
+  const references = (booking.references ?? []) as {
+    type?: string;
+    meetingUrl?: string;
+  }[];
   const zoom = references.find((ref) => ref.type === "zoom_video");
 
   const text = (value: unknown): string =>

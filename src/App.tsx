@@ -7,13 +7,11 @@ import { BookingScreen } from './screens/BookingScreen';
 import { IntroScreen } from './screens/IntroScreen';
 import { QuizScreen } from './screens/QuizScreen';
 import { ResultScreen } from './screens/ResultScreen';
-import { isDemoMode, env } from './lib/env';
+import { isDemoMode } from './lib/env';
 
 export default function App() {
   const flow = useQuizFlow();
   const { state, actions, result } = flow;
-
-  console.log('env:', env);
 
   // Плавний скрол уверх при зміні екрану
   useEffect(() => {
@@ -76,7 +74,6 @@ export default function App() {
           <ResultScreen
             result={result}
             onRequestAnalysis={actions.requestAnalysis}
-            onBooking={actions.goToBooking}
           />
         )}
 

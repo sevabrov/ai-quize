@@ -1,5 +1,4 @@
 import {
-  ArrowRight,
   Lock,
   PartyPopper,
   Sparkles,
@@ -18,14 +17,9 @@ import { cn } from '../lib/cn';
 interface ResultScreenProps {
   result: QuizResult;
   onRequestAnalysis: () => void;
-  onBooking: () => void;
 }
 
-export function ResultScreen({
-  result,
-  onRequestAnalysis,
-  onBooking,
-}: ResultScreenProps) {
+export function ResultScreen({ result, onRequestAnalysis }: ResultScreenProps) {
   const { profile } = result;
 
   const tiles = [
@@ -136,16 +130,9 @@ export function ResultScreen({
         </p>
 
         <div className='mt-6 flex flex-col gap-3 sm:flex-row sm:justify-center'>
-          <Button variant='secondary' size='lg' onClick={onRequestAnalysis}>
+          <Button size='lg' onClick={onRequestAnalysis}>
             <Sparkles className='size-4' strokeWidth={2.5} />
             {resultContent.ctaAnalysis}
-          </Button>
-          <Button size='lg' onClick={onBooking}>
-            {resultContent.ctaBooking}
-            <ArrowRight
-              className='size-4 transition-transform duration-200 group-hover:translate-x-1'
-              strokeWidth={2.75}
-            />
           </Button>
         </div>
 

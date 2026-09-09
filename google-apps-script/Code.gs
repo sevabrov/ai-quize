@@ -111,6 +111,18 @@ function getSheet() {
       .getRange(1, 3, sheet.getMaxRows(), 1)
       .setWrapStrategy(SpreadsheetApp.WrapStrategy.CLIP);
     sheet.setColumnWidth(3, 420);
+
+    // «Відповіді» - 14 повних формулювань, кожне окремим рядком у клітинці.
+    // CLIP тримає висоту рядка в одну лінію: повний текст видно по кліку на
+    // клітинці. Якщо треба читати все прямо в таблиці - поставте цій колонці
+    // «Перенесення тексту» вручну.
+    const answersCol = COLUMNS.map(function (c) {
+      return c[0];
+    }).indexOf('answers') + 1;
+    sheet
+      .getRange(1, answersCol, sheet.getMaxRows(), 1)
+      .setWrapStrategy(SpreadsheetApp.WrapStrategy.CLIP);
+    sheet.setColumnWidth(answersCol, 420);
   }
   return sheet;
 }
