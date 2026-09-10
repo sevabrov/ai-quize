@@ -42,7 +42,7 @@ const COLUMNS = [
   ['sessionId', 'ID сесії'],
   ['about', 'Про себе'],
   ['profile', 'Профіль'],
-  ['scores', 'Бали'],
+  ['extras', 'Додаткові профілі'],
   ['answers', 'Відповіді'],
   ['booked', 'Консультація'],
   ['email', 'Пошта'],
@@ -116,13 +116,17 @@ function getSheet() {
     // CLIP тримає висоту рядка в одну лінію: повний текст видно по кліку на
     // клітинці. Якщо треба читати все прямо в таблиці - поставте цій колонці
     // «Перенесення тексту» вручну.
-    const answersCol = COLUMNS.map(function (c) {
+    // Те саме для «Додаткових профілів»: кілька описів, кожен окремим рядком.
+    const keys = COLUMNS.map(function (c) {
       return c[0];
-    }).indexOf('answers') + 1;
-    sheet
-      .getRange(1, answersCol, sheet.getMaxRows(), 1)
-      .setWrapStrategy(SpreadsheetApp.WrapStrategy.CLIP);
-    sheet.setColumnWidth(answersCol, 420);
+    });
+    ['answers', 'extras'].forEach(function (key) {
+      const col = keys.indexOf(key) + 1;
+      sheet
+        .getRange(1, col, sheet.getMaxRows(), 1)
+        .setWrapStrategy(SpreadsheetApp.WrapStrategy.CLIP);
+      sheet.setColumnWidth(col, 420);
+    });
   }
   return sheet;
 }

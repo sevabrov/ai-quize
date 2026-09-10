@@ -19,7 +19,7 @@ import { calculateResult, type QuizResult } from "../lib/scoring";
 import {
   formatAnswers,
   formatDateTime,
-  formatScores,
+  formatExtras,
   pushToSheet,
   readCalDetail,
 } from "../lib/sheets";
@@ -450,7 +450,7 @@ export function useQuizFlow() {
       completedAt: formatDateTime(state.completedAt),
       about: state.about,
       profile: `${computed.profile.emoji} ${computed.profile.name}`,
-      scores: formatScores(computed),
+      extras: formatExtras(computed),
       answers: formatAnswers(state.answers),
       // Після бронювання перезапис не має відкотити статус назад у «Ні»
       booked: state.bookedAt ? "Так" : "Ні",

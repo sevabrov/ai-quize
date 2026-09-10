@@ -14,16 +14,15 @@
 import { env } from "./env";
 import { newSessionId } from "./api";
 import { readSessionId, writeSessionId } from "./storage";
-import { profiles } from "../data/profiles";
 import { questions } from "../data/questions";
-import type { QuizResult } from "./scoring";
+import { secondaryProfiles, type QuizResult } from "./scoring";
 
 export interface SheetRow {
   /** Питання 1 повністю: ім'я, вік, місто, опис - одним блоком, без розбиття */
   about?: string;
   completedAt?: string;
   profile?: string;
-  scores?: string;
+  extras?: string;
   answers?: string;
   booked?: string;
   email?: string;
@@ -91,15 +90,19 @@ export function formatDateTime(iso: string | null): string {
   return date.toLocaleString("uk-UA", KYIV_FORMAT);
 }
 
-/** Топ-3 профілі з балами - щоб було видно, наскільки результат впевнений. */
-export function formatScores(result: QuizResult): string {
-  return result.scores
-    .slice(0, 3)
-    .map((entry) => {
-      const profile = profiles.find((p) => p.id === entry.profileId);
-      return `${profile?.name ?? entry.profileId} ${entry.score}`;
-    })
-    .join(" · ");
+/**
+ * Блок «Що ще варто взяти у свій сценарій» - рівно те, що людина бачить
+ * у повному аналізі (AnalysisScreen): додаткові профілі з їхнім «підійде».
+ *
+ * Перенос рядка (\n) - бо два описи в одну лінію не читаються.
+ * Google Sheets тримає \n усередині клітинки як є.
+ */
+export function formatExtras(result: QuizResult): string {
+  return secondaryProfiles(result)
+    .map((profile) =>
+      `${profile.emoji} ${profile.name}: ${profile.fits}`.trim(),
+    )
+    .join("\n");
 }
 
 /**
