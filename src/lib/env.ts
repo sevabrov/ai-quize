@@ -7,9 +7,27 @@ function delayMs(raw: unknown, fallback: number): number {
   return Number.isFinite(value) && value > 0 ? value : fallback;
 }
 
-const apiUrl = String(import.meta.env.VITE_API_URL ?? 'http://localhost:3001')
+/**
+ * json-server - інструмент локальної розробки.
+ *
+ * Vite читає .env і під час прод-збірки, тому VITE_API_URL=http://localhost:3001
+ * інакше потрапляє у бандл: у браузері відвідувача кожна відповідь дає
+ * провалений fetch і бейдж «Локально». Тому в прод-збірці localhost-адреса
+ * означає статичний режим. Реальний віддалений бекенд у проді працюватиме.
+ */
+const configuredApiUrl = String(
+  import.meta.env.VITE_API_URL ??
+    (import.meta.env.DEV ? 'http://localhost:3001' : ''),
+)
   .trim()
   .replace(/\/+$/, '');
+
+const isLocalhostUrl =
+  /^https?:\/\/(localhost|127\.0\.0\.1|\[::1\])(:|\/|$)/i.test(
+    configuredApiUrl,
+  );
+
+const apiUrl = import.meta.env.DEV || !isLocalhostUrl ? configuredApiUrl : '';
 
 export const env = {
   /**

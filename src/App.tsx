@@ -7,7 +7,7 @@ import { BookingScreen } from './screens/BookingScreen';
 import { IntroScreen } from './screens/IntroScreen';
 import { QuizScreen } from './screens/QuizScreen';
 import { ResultScreen } from './screens/ResultScreen';
-import { isDemoMode } from './lib/env';
+import { isApiEnabled, isDemoMode } from './lib/env';
 
 export default function App() {
   const flow = useQuizFlow();
@@ -58,10 +58,11 @@ export default function App() {
         onExit={actions.exit}
         // Після завершення діагностики «почати заново» більше не пропонуємо
         onRestart={flow.isLocked ? undefined : actions.restart}
-        syncState={flow.syncState}
+        // Індикатор синхронізації має сенс лише коли за фронтом є json-server
+        // (локальна розробка). У статичному режимі стан завжди 'idle' - бейдж
+        // не рендериться взагалі.
+        syncState={isApiEnabled ? flow.syncState : 'idle'}
         locked={flow.isLocked}
-        // ТИМЧАСОВО (тест): пройти ще раз можна лише отримавши повний аналіз
-        onRetake={flow.canRetake ? actions.retake : undefined}
         width={
           state.stage === 'about' || state.stage === 'quiz' ? 'wide' : 'wide'
         }

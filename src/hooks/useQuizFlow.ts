@@ -92,9 +92,7 @@ type Action =
   | { type: "mark-booked"; at: string }
   | { type: "exit" }
   | { type: "resume" }
-  | { type: "restart" }
-  /** ТИМЧАСОВО (тест): скид разом із замками - див. retake() */
-  | { type: "hard-reset" };
+  | { type: "restart" };
 
 const initialState: FlowState = {
   stage: "intro",
@@ -238,11 +236,6 @@ function reducer(state: FlowState, action: Action): FlowState {
       };
 
     case "restart":
-      return { ...initialState };
-
-    // ТИМЧАСОВО (тест): свідомо не потрапляє у blocked - це єдиний спосіб
-    // зняти замок «1 діагностика = 1 користувач»
-    case "hard-reset":
       return { ...initialState };
 
     default:
@@ -613,30 +606,6 @@ export function useQuizFlow() {
     window.scrollTo({ top: 0 });
   }, [state.completedAt]);
 
-  /**
-   * ТИМЧАСОВО, ДЛЯ ТЕСТУВАННЯ. Пройти діагностику ще раз.
-   *
-   * Знімає обидва замки - «1 діагностика = 1 користувач» і «1 бронювання =
-   * 1 користувач» - і повністю обнуляє прогрес. Доступно лише після того, як
-   * людина дочекалась повного аналізу (3 хвилини), див. canRetake.
-   *
-   * Чистимо ключі й перезавантажуємо сторінку: інакше в пам'яті лишаються
-   * кеш сесії з json-server (він одразу замкнув би квіз назад через
-   * remoteSession.completedAt) і ref-и, що блокують повторний запис.
-   *
-   * Новий session id згенерується при наступній відповіді - тож у Таблиці
-   * з'явиться окремий рядок, а не перезапис попереднього.
-   */
-  const retake = useCallback(() => {
-    remove(storageKeys.state);
-    remove(storageKeys.session);
-    remove(storageKeys.remote);
-    remove(storageKeys.completed);
-    remove(storageKeys.booked);
-    dispatch({ type: "hard-reset" });
-    window.location.reload();
-  }, []);
-
   /** Повернення до вже готового результату з інтро. */
   const viewResult = useCallback(() => {
     dispatch({ type: "view-result" });
@@ -679,11 +648,6 @@ export function useQuizFlow() {
      */
     canResume:
       !isLocked && state.stage === "intro" && state.resumeStage !== null,
-    /**
-     * ТИМЧАСОВО (тест): повторне проходження дозволене лише після того, як
-     * аналіз повністю видано - тобто 3-хвилинний таймер уже відпрацював.
-     */
-    canRetake: state.analysisDeliveredAt !== null,
     syncState: sync.syncState,
     actions: {
       begin,
@@ -703,7 +667,6 @@ export function useQuizFlow() {
       exit,
       resume,
       restart,
-      retake,
       viewResult,
     },
   };
