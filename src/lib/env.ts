@@ -29,6 +29,17 @@ const isLocalhostUrl =
 
 const apiUrl = import.meta.env.DEV || !isLocalhostUrl ? configuredApiUrl : '';
 
+/**
+ * Facebook (Meta) Pixel ID - веб-набір даних «QUIZ» в Events Manager.
+ *
+ * Не змінна оточення: ID однаково видно в бандлі кожному відвідувачу, тож
+ * тримати його ще й у .env, .env.example і секретах CI - зайва робота.
+ *
+ * Тип string, а не літерал: інакше `as const` нижче звузив би тип до самого
+ * рядка й перевірка на порожнечу в pixel.ts не компілювалася б.
+ */
+const pixelId: string = '2117890875602338';
+
 export const env = {
   /**
    * json-server (mock REST API).
@@ -48,6 +59,12 @@ export const env = {
     'https://script.google.com/macros/s/AKfycbyb7JUGf4Cl18cgYO3Zi0xITYlYMHc55Y9c0fDwaTV9nWVv-__Jv39z_x0TKj38bpPatw/exec',
   sheetsSecret:
     import.meta.env.VITE_SHEETS_SECRET ?? 'oq7Kd2mXvR4tZbN9sLpH3wYcJf6UgA1e',
+
+  /**
+   * Порожній рядок = піксель вимкнено, скрипт Meta не вантажиться взагалі.
+   * Налаштування: docs/facebook-pixel.md
+   */
+  pixelId,
 
   /** Cal.com: <username>/<event-type>, напр. olena/consultation */
   calLink: 'filatova-olena/зустріч',

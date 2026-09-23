@@ -15,6 +15,7 @@ import { useCallback, useEffect, useMemo, useReducer, useRef } from "react";
 import { questions, totalQuestions } from "../data/questions";
 import { profiles, type ProfileId } from "../data/profiles";
 import { env } from "../lib/env";
+import { track, trackCustom } from "../lib/pixel";
 import { calculateResult, type QuizResult } from "../lib/scoring";
 import {
   formatAnswers,
@@ -467,9 +468,15 @@ export function useQuizFlow() {
    * Дії
    * ------------------------------------------------------------------ */
 
-  const begin = useCallback(() => dispatch({ type: "begin" }), []);
+  const begin = useCallback(() => {
+    dispatch({ type: "begin" });
+    trackCustom("QuizStart");
+  }, []);
 
-  const startQuiz = useCallback(() => dispatch({ type: "to-quiz" }), []);
+  const startQuiz = useCallback(() => {
+    dispatch({ type: "to-quiz" });
+    trackCustom("QuizQuestionsStart");
+  }, []);
 
   const setAbout = useCallback(
     (text: string) => dispatch({ type: "set-about", text }),
@@ -479,6 +486,14 @@ export function useQuizFlow() {
   const answer = useCallback(
     (questionId: number, optionId: string, reaction: string) => {
       dispatch({ type: "answer", questionId, optionId, reaction });
+      // Головна подія для пошуку bottleneck: видно, на якому саме питанні
+      // спадає кількість людей
+      trackCustom("QuizAnswer", {
+        question: questionId,
+        step: state.index + 1,
+        total: totalQuestions,
+        option: optionId,
+      });
       sync.push({
         answers: { ...state.answers, [String(questionId)]: optionId } as Record<
           string,
@@ -487,7 +502,7 @@ export function useQuizFlow() {
         lastQuestionId: questionId,
       });
     },
-    [state.answers, sync],
+    [state.answers, state.index, sync],
   );
 
   const react = useCallback(
@@ -499,18 +514,34 @@ export function useQuizFlow() {
     (text: string, reaction: string) => {
       dispatch({ type: "set-about", text });
       dispatch({ type: "react", reaction });
+      trackCustom("QuizAboutSubmitted");
       sync.push({ about: text, lastQuestionId: 1 });
     },
     [sync],
   );
 
-  const next = useCallback(() => dispatch({ type: "next" }), []);
+  const next = useCallback(() => {
+    // Останнє питання = діагностику пройдено. Подія тут, а не в ефекті на
+    // completedAt: ефект спрацював би ще й після F5 і надув би конверсію.
+    if (!state.completedAt && state.index >= totalQuestions - 1) {
+      const profile = calculateResult(state.answers).profileId;
+      trackCustom("QuizComplete", { profile });
+      track("CompleteRegistration", {
+        content_name: "AI-діагностика",
+        profile,
+      });
+    }
+    dispatch({ type: "next" });
+  }, [state.index, state.answers, state.completedAt]);
+
   const back = useCallback(() => dispatch({ type: "back" }), []);
   const toResult = useCallback(() => dispatch({ type: "to-result" }), []);
 
   const requestAnalysis = useCallback(() => {
     dispatch({ type: "request-analysis" });
     const computed = calculateResult(state.answers);
+    trackCustom("AnalysisRequested", { profile: computed.profileId });
+    track("Lead", { content_name: "Аналіз", profile: computed.profileId });
     sync.push({
       analysisRequestedAt: new Date().toISOString(),
       profileId: computed.profileId,
@@ -526,12 +557,19 @@ export function useQuizFlow() {
 
   const deliverAnalysis = useCallback(() => {
     dispatch({ type: "deliver-analysis" });
+    // Дочекалась кінця 3-хвилинного очікування - ключова точка відвалу
+    trackCustom("AnalysisDelivered");
     sync.push({ analysisDeliveredAt: new Date().toISOString() });
   }, [sync]);
 
   const goToBooking = useCallback(() => {
     dispatch({ type: "to-booking" });
     const computed = calculateResult(state.answers);
+    trackCustom("BookingOpened", { profile: computed.profileId });
+    track("InitiateCheckout", {
+      content_name: "Розбір",
+      profile: computed.profileId,
+    });
     sync.push({
       bookingRequestedAt: new Date().toISOString(),
       profileId: computed.profileId,
@@ -546,6 +584,7 @@ export function useQuizFlow() {
   }, [state.answers, state.about, sync]);
 
   const registerMihiClick = useCallback(() => {
+    trackCustom("MihiClick");
     sync.push({ mihiClickedAt: new Date().toISOString() });
   }, [sync]);
 
@@ -561,6 +600,10 @@ export function useQuizFlow() {
       bookedLockRef.current = true;
       bookingDetailRef.current = detail;
       dispatch({ type: "mark-booked", at: bookedAt });
+
+      // Кінцева конверсія воронки. Замок вище гарантує рівно одну подію.
+      trackCustom("BookingConfirmed");
+      track("Schedule", { content_name: "Розбір з Оленою" });
 
       // Той самий ключ рядка - Apps Script дозаповнить наявний рядок,
       // не створюючи другий і не чіпаючи результати квізу
@@ -583,9 +626,13 @@ export function useQuizFlow() {
 
   /** «Вийти» - прогрес лишається у сховищі, повертаємось на інтро. */
   const exit = useCallback(() => {
+    // Явний вихід: видно, з якого екрана й питання люди йдуть
+    if (state.stage !== "intro") {
+      trackCustom("QuizExit", { stage: state.stage, step: state.index + 1 });
+    }
     dispatch({ type: "exit" });
     window.scrollTo({ top: 0 });
-  }, []);
+  }, [state.stage, state.index]);
 
   /** Повернення до збереженого кроку з інтро. */
   const resume = useCallback(() => {
